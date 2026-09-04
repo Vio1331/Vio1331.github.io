@@ -1,1 +1,22 @@
+---
+layout: default
+title: 文章
+description: 关于生活、城市、影像与创作的文字。
+permalink: /journal/
+section: journal
+---
+<header class="page-intro site-shell">
+  <div>
+    <p class="kicker">WORDS / JOURNAL</p>
+    <h1>文章</h1>
+  </div>
+  <p>不是为了把每件事都总结出道理，只是想把那些值得记住的细节，留得久一点。</p>
+</header>
 
+<section class="archive site-shell">
+  <div class="post-list">
+    {% for post in site.posts %}
+      {% include post-card.html post=post %}
+    {% endfor %}
+  </div>
+</section>
