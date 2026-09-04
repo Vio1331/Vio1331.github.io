@@ -1,0 +1,22 @@
+---
+layout: default
+---
+<article class="photo-story">
+  <header class="photo-intro site-shell">
+    <a class="eyebrow" href="{{ '/photography/' | relative_url }}">摄影 / PHOTO STORY</a>
+    <h1>{{ page.title }}</h1>
+    <div class="photo-intro-grid">
+      <p>{{ page.description }}</p>
+      <dl>
+        {% if page.location %}<div><dt>地点</dt><dd>{{ page.location }}</dd></div>{% endif %}
+        {% if page.date %}<div><dt>日期</dt><dd>{{ page.date | date: '%Y.%m' }}</dd></div>{% endif %}
+        {% if page.camera %}<div><dt>设备</dt><dd>{{ page.camera }}</dd></div>{% endif %}
+      </dl>
+    </div>
+  </header>
+  <div class="photo-sequence">{{ content }}</div>
+  <footer class="article-end site-shell">
+    <span>完</span>
+    <p>WORDS / IMAGES / EDITOR — VIO</p>
+  </footer>
+</article>

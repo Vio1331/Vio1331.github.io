@@ -1,9 +1,26 @@
 ---
 layout: default
 ---
-<h1>{{ page.title }}</h1>
-<p class="meta">{{ page.date | date_to_string }}</p>
-
-<div class="post">
-  {{ content }}
-</div>
+<article class="article site-shell">
+  <header class="article-header">
+    <a class="eyebrow" href="{{ '/journal/' | relative_url }}">文章 / {{ page.category | default: '随笔' }}</a>
+    <h1>{{ page.title }}</h1>
+    {% if page.subtitle %}<p class="article-deck">{{ page.subtitle }}</p>{% endif %}
+    <div class="article-byline">
+      <span>VIO</span>
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%Y 年 %-m 月 %-d 日' }}</time>
+      {% if page.reading_time %}<span>{{ page.reading_time }} 分钟阅读</span>{% endif %}
+    </div>
+  </header>
+  {% if page.cover %}
+    <figure class="article-cover">
+      <img src="{{ page.cover | relative_url }}" alt="{{ page.cover_alt | default: page.title }}">
+      {% if page.cover_caption %}<figcaption>{{ page.cover_caption }}</figcaption>{% endif %}
+    </figure>
+  {% endif %}
+  <div class="article-content">{{ content }}</div>
+  <footer class="article-end">
+    <span>完</span>
+    <p>WORDS / IMAGES / EDITOR — VIO</p>
+  </footer>
+</article>
