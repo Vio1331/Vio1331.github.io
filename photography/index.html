@@ -4,26 +4,40 @@ title: 摄影
 description: Vio 的摄影专题与城市观察。
 permalink: /photography/
 section: photography
+body_class: photography-index-page
 ---
-<header class="page-intro site-shell">
+<header class="photo-library-hero site-shell">
   <div>
     <p class="kicker">IMAGES / PHOTOGRAPHY</p>
-    <h1>摄影</h1>
+    <h1>摄影集</h1>
   </div>
   <p>照片不是现实的复印件。它更像一次选择：在一大堆正在发生的事里，决定多看哪一眼。</p>
 </header>
 
-<section class="photo-index-grid site-shell">
+<section class="photo-library" aria-label="摄影集列表">
   {% assign photo_items = site.photography | sort: 'date' | reverse %}
   {% for item in photo_items %}
-  <article class="photo-index-card photo-card">
-    <a class="photo-card-image" href="{{ item.url | relative_url }}">
-      <img src="{{ item.cover | relative_url }}" alt="{{ item.cover_alt }}" loading="lazy">
-    </a>
-    <div class="photo-card-meta">
-      <h3><a href="{{ item.url | relative_url }}">{{ item.title }}</a></h3>
-      <p>{{ item.location }} / {{ item.date | date: '%Y' }}</p>
+  {% assign book_tone = forloop.index0 | modulo: 3 %}
+  <article class="photo-library-item site-shell">
+    <div class="photo-library-copy">
+      <p class="photo-library-index">0{{ forloop.index }} <span></span></p>
+      <h2><a href="{{ item.url | relative_url }}">{{ item.title }}</a></h2>
+      <p class="photo-library-meta">{{ item.location }} / {{ item.date | date: '%Y' }}</p>
+      <p class="photo-library-description">{{ item.description }}</p>
+      <a class="photo-library-open" href="{{ item.url | relative_url }}">打开摄影集 →</a>
     </div>
+
+    <a class="photo-book-link" href="{{ item.url | relative_url }}" aria-label="打开摄影集：{{ item.title }}">
+      <span class="photo-book photo-book--tone-{{ book_tone }}">
+        <span class="photo-book-spine"></span>
+        <span class="photo-book-cover">
+          <span class="photo-book-title">{{ item.title }}</span>
+          <img src="{{ item.cover | relative_url }}" alt="{{ item.cover_alt }}" loading="lazy">
+          <span class="photo-book-imprint">VIO 光学 / {{ item.date | date: '%Y' }}</span>
+        </span>
+        <span class="photo-book-pages"></span>
+      </span>
+    </a>
   </article>
   {% endfor %}
 </section>
