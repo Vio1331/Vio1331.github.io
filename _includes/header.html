@@ -1,0 +1,17 @@
+<header class="site-header">
+  <div class="site-shell header-inner">
+    <a class="brand" href="{{ '/' | relative_url }}" aria-label="回到首页">
+      {% include brand-mark.html %}
+      <span class="brand-name">VIO <i>光学</i></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span class="sr-only">打开导航</span>
+      <span></span><span></span>
+    </button>
+    <nav class="site-nav" id="site-nav" aria-label="主导航">
+      <a href="{{ '/journal/' | relative_url }}" {% if page.section == 'journal' %}aria-current="page"{% endif %}>文章</a>
+      <a href="{{ '/photography/' | relative_url }}" {% if page.section == 'photography' %}aria-current="page"{% endif %}>摄影</a>
+      <a href="{{ '/about/' | relative_url }}" {% if page.section == 'about' %}aria-current="page"{% endif %}>关于</a>
+    </nav>
+  </div>
+</header>
