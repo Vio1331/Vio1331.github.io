@@ -1,3 +1,50 @@
-name: Vio
-markdown: kramdown
-permalink: /blog/:year/:month/:day/:title
+title: VIO 光学
+tagline: 看见，并记下来
+description: Vio 的个人写作与摄影档案，关于生活、城市、影像与那些值得慢慢看的瞬间。
+url: "https://yourname.github.io"
+baseurl: ""
+lang: zh-CN
+timezone: Asia/Shanghai
+
+author:
+  name: Vio
+  bio: 写字，拍照，偶尔把生活想明白一点。
+
+permalink: /journal/:title/
+paginate_path: /journal/page:num/
+
+collections:
+  photography:
+    output: true
+    permalink: /photography/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      section: journal
+  - scope:
+      path: ""
+      type: photography
+    values:
+      layout: photo-story
+      section: photography
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .openai
+
+sass:
+  style: compressed
+
+feed:
+  path: feed.xml

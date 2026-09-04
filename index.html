@@ -1,8 +1,73 @@
 ---
 layout: default
-title: Hank Quinlan, Horrible Cop
+title: VIO 光学｜写作与摄影
+description: Vio 的个人写作与摄影档案，关于生活、城市、影像与那些值得慢慢看的瞬间。
 ---
-<div class="blurb">
-	<h1>Hi there, I'm Hank Quinlan!</h1>
-	<p>I'm best known as the horrible cop from <em>A Touch of Evil</em> Don't trust me. <a href="/about">Read more about my life...</a></p>
-</div><!-- /.blurb -->
+{% assign featured = site.photography | where: "featured", true | first %}
+<section class="home-intro site-shell">
+  <div>
+    <p class="kicker">VIO'S JOURNAL & PHOTOGRAPHY</p>
+    <h1 class="home-title">看见生活，<br>然后把它<span>留下来</span>。</h1>
+  </div>
+  <aside class="home-aside">
+    <p><strong>这里是什么</strong>一些文章，一些照片，以及它们共同保存下来的时间。</p>
+    <p><strong>正在关注</strong>城市日常、手机摄影、视觉文化与具体的生活。</p>
+  </aside>
+</section>
+
+{% if featured %}
+<a class="featured" href="{{ featured.url | relative_url }}">
+  <div class="featured-media">
+    <img src="{{ featured.cover | relative_url }}" alt="{{ featured.cover_alt }}">
+  </div>
+  <div class="featured-copy">
+    <span class="featured-index">PHOTO STORY / 01</span>
+    <div>
+      <p>{{ featured.location }} · {{ featured.date | date: '%Y.%m' }}</p>
+      <h2>{{ featured.title }}</h2>
+      <span class="text-link">观看这一组照片</span>
+    </div>
+  </div>
+</a>
+{% endif %}
+
+<section class="content-section site-shell">
+  <header class="section-heading">
+    <div>
+      <span class="section-label">WORDS / 最近写下</span>
+      <h2>文章</h2>
+    </div>
+    <a href="{{ '/journal/' | relative_url }}">查看全部</a>
+  </header>
+  <div class="post-list">
+    {% for post in site.posts limit: 3 %}
+      {% include post-card.html post=post %}
+    {% endfor %}
+  </div>
+</section>
+
+<section class="photo-strip">
+  <div class="content-section site-shell">
+    <header class="section-heading">
+      <div>
+        <span class="section-label">IMAGES / 缓慢观看</span>
+        <h2>摄影</h2>
+      </div>
+      <a href="{{ '/photography/' | relative_url }}">查看全部</a>
+    </header>
+    <div class="photo-grid">
+      {% assign photo_items = site.photography | sort: 'date' | reverse %}
+      {% for item in photo_items limit: 3 %}
+      <article class="photo-card">
+        <a class="photo-card-image" href="{{ item.url | relative_url }}">
+          <img src="{{ item.cover | relative_url }}" alt="{{ item.cover_alt }}" loading="lazy">
+        </a>
+        <div class="photo-card-meta">
+          <h3><a href="{{ item.url | relative_url }}">{{ item.title }}</a></h3>
+          <p>{{ item.location }} / {{ item.date | date: '%Y' }}</p>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
