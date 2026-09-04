@@ -1,11 +1,13 @@
-<article class="post-row">
-  <div class="post-meta">
-    <time datetime="{{ include.post.date | date_to_xmlschema }}">{{ include.post.date | date: '%Y.%m.%d' }}</time>
-    {% if include.post.category %}<span>{{ include.post.category }}</span>{% endif %}
-  </div>
-  <div class="post-main">
-    <h2><a href="{{ include.post.url | relative_url }}">{{ include.post.title }}</a></h2>
-    {% if include.post.excerpt_text %}<p>{{ include.post.excerpt_text }}</p>{% endif %}
-  </div>
-  <span class="post-arrow" aria-hidden="true">↗</span>
+<article class="post-card">
+  <a class="post-card-link" href="{{ include.post.url | relative_url }}">
+    <h2>{{ include.post.title }}</h2>
+    <div class="post-card-foot">
+      <span class="post-card-rule" aria-hidden="true"></span>
+      <p class="post-card-meta">
+        {% if include.post.category %}<span>{{ include.post.category }}</span>{% endif %}
+        <time datetime="{{ include.post.date | date_to_xmlschema }}">{{ include.post.date | date: '%Y.%m' }}</time>
+      </p>
+      {% if include.post.excerpt_text %}<p class="post-card-excerpt">{{ include.post.excerpt_text }}</p>{% endif %}
+    </div>
+  </a>
 </article>

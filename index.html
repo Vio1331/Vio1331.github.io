@@ -39,7 +39,7 @@ description: Vio 的个人写作与摄影档案，关于生活、城市、影像
     </div>
     <a href="{{ '/journal/' | relative_url }}">查看全部</a>
   </header>
-  <div class="post-list">
+  <div class="post-card-grid post-card-grid--home">
     {% for post in site.posts limit: 3 %}
       {% include post-card.html post=post %}
     {% endfor %}
@@ -57,7 +57,9 @@ description: Vio 的个人写作与摄影档案，关于生活、城市、影像
     </header>
     <div class="photo-grid">
       {% assign photo_items = site.photography | sort: 'date' | reverse %}
-      {% for item in photo_items limit: 3 %}
+      {% assign shown_photos = 0 %}
+      {% for item in photo_items %}
+      {% unless item.url == featured.url %}
       <article class="photo-card">
         <a class="photo-card-image" href="{{ item.url | relative_url }}">
           <img src="{{ item.cover | relative_url }}" alt="{{ item.cover_alt }}" loading="lazy">
@@ -67,6 +69,9 @@ description: Vio 的个人写作与摄影档案，关于生活、城市、影像
           <p>{{ item.location }} / {{ item.date | date: '%Y' }}</p>
         </div>
       </article>
+      {% assign shown_photos = shown_photos | plus: 1 %}
+      {% if shown_photos >= 4 %}{% break %}{% endif %}
+      {% endunless %}
       {% endfor %}
     </div>
   </div>
