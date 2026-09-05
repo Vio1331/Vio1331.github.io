@@ -516,10 +516,11 @@ button { font: inherit; }
 }
 
 .article-content blockquote {
+  position: relative;
   display: block;
   box-sizing: border-box;
   margin: var(--r) 0;
-  padding: 3.2rem 1.6rem 1.6rem;
+  padding: 3.2rem 3.2rem 1.6rem;
   border: 1px solid var(--line-color);
   border-left: 1px solid var(--line-color);
   border-radius: 12px;
@@ -528,9 +529,11 @@ button { font: inherit; }
 }
 .article-content blockquote::before {
   content: "“";
-  position: relative;
+  position: absolute;
+  top: 1.6rem;
+  left: 1.6rem;
   display: block;
-  margin: -1.6rem 0 -0.8rem;
+  margin: 0;
   padding: 0;
   color: var(--primary-color);
   font-family: sans-serif;
@@ -541,7 +544,7 @@ button { font: inherit; }
   display: block;
   color: var(--secondary-color);
   background: none;
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 300;
   letter-spacing: 0;
   line-height: 1.6rem;
@@ -551,7 +554,7 @@ button { font: inherit; }
   margin: var(--r) 0 -1.2rem;
   padding-right: 0;
   color: var(--line-color);
-  font-size: 0.6rem;
+  font-size: 0.8rem;
   font-style: normal;
   font-weight: 700;
   line-height: var(--r);
