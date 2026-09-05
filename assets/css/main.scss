@@ -548,6 +548,7 @@ button { font: inherit; }
   font-weight: 300;
   letter-spacing: 0;
   line-height: var(--r);
+  margin: 0 var(--r) 0;
 }
 .article-content blockquote cite {
   display: block;
