@@ -1,6 +1,6 @@
 # VIO 光学 · Jekyll 个人站
 
-一个为文章与摄影设计的 GitHub Pages / Jekyll 站点。视觉系统延续 VIO 的纸白、墨色和克制珊瑚橙，支持文章、摄影专题、移动端导航、RSS 与基础 SEO。
+VIO 光学的 GitHub Pages / Jekyll 站点，包含文章、摄影集、移动端导航、RSS 与基础 SEO。
 
 ## 第一次使用
 
@@ -29,7 +29,7 @@ Front Matter 之后直接写 Markdown 正文即可。
 
 ## 发布摄影专题
 
-在 `_photography` 中新建一个 Markdown 文件，参考现有三个示例。图片放进 `assets/images`，建议使用 WebP，长边 1600–2400px。
+在 `_photography` 中新建一个 Markdown 文件，参考现有三个中性占位示例。当前占位示例统一使用 `/assets/images/window-light.webp`；正式发布时替换标题、说明与图片。图片放进 `assets/images`，建议使用 WebP，长边 1600–2400px。
 
 ## 本地预览
 
@@ -38,4 +38,8 @@ bundle install
 bundle exec jekyll serve
 ```
 
-打开 `http://127.0.0.1:4000`。示例文章和示例图片在正式发布前可直接删除或替换。
+打开 `http://127.0.0.1:4000`。`_posts` 中的文章属于真实内容，不应作为示例删除；`_photography` 中标有“摄影集示例”的条目属于占位内容。
+
+## 使用 AI 修改前
+
+先阅读根目录的 `AGENTS.md` 和 `docs/PROJECT_BASELINE.md`。任何修改都必须基于远端 `main` 的最新版本，只改用户明确指定的范围。

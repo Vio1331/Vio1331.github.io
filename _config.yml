@@ -1,6 +1,6 @@
 title: VIO 光学
-tagline: 看见，并记下来
-description: Vio 的个人写作与摄影档案，关于生活、城市、影像与那些值得慢慢看的瞬间。
+tagline: 个人文章与摄影网站
+description: Vio 的个人文章与摄影网站。
 url: "https://vio1331.github.io"
 baseurl: ""
 lang: zh-CN
@@ -8,7 +8,7 @@ timezone: Asia/Shanghai
 
 author:
   name: Vio
-  bio: 写字，拍照，偶尔把生活想明白一点。
+  bio: 个人网站作者。
 
 permalink: /journal/:title/
 paginate_path: /journal/page:num/
