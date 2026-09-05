@@ -1,4 +1,8 @@
-<article class="post-card">
+{% assign card_tone = 'light' %}
+{% if include.post.category == '专题文章' %}
+  {% assign card_tone = 'dark' %}
+{% endif %}
+<article class="post-card post-card--{{ card_tone }}">
   <a class="post-card-link" href="{{ include.post.url | relative_url }}">
     <h2>{{ include.post.title }}</h2>
     <div class="post-card-foot">
