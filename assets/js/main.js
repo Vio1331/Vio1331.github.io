@@ -44,10 +44,11 @@ if (wordsOutline && !reducedMotion.matches && 'IntersectionObserver' in window &
   // The outline comes from Noto Sans SC 700; keep the static fallback if it cannot load.
   document.fonts.load('700 100px "Noto Sans SC"', '文').then((faces) => {
     if (finished) return;
-    if (!faces.length || reducedMotion.matches) {
+    if (!faces.length || reducedMotion.matches || getComputedStyle(wordsOutline).position !== 'absolute') {
       finishOutline();
       return;
     }
+    wordsOutline.style.display = 'block';
     homeWords.classList.add('is-outline-ready');
     observer = new IntersectionObserver((entries) => {
       if (!entries.some((entry) => entry.isIntersecting)) return;
