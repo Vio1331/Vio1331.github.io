@@ -561,6 +561,11 @@ button { font: inherit; }
   line-height: var(--r);
   text-align: right;
 }
+.article-content blockquote strong {
+  color: var(--text-color);
+  font-size: inherit;
+  font-weight: 700;
+}
 
 .article-content ul,
 .article-content ol {
