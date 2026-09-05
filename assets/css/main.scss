@@ -515,18 +515,6 @@ button { font: inherit; }
   text-decoration-thickness: 0.125rem;
 }
 
-.article-content blockquote {
-  position: relative;
-  display: block;
-  box-sizing: border-box;
-  margin: var(--r) 0;
-  padding: calc(var(--r) * 2) calc(var(--r) * 2) calc(var(--r) * 1);
-  border: 1px solid var(--line-color);
-  border-left: 1px solid var(--line-color);
-  border-radius: 12px;
-  background: var(--block-color);
-  font-style: normal;
-}
 .article-content blockquote::before {
   content: "“";
   position: absolute;
@@ -552,7 +540,7 @@ button { font: inherit; }
 }
 .article-content blockquote cite {
   display: block;
-  margin: var(--r) 0 -1.6rem;
+  margin: var(--r) 0 -2rem;
   padding-right: 0;
   color: var(--line-color);
   font-size: 0.8rem;
