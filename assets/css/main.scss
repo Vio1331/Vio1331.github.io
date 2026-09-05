@@ -520,7 +520,7 @@ button { font: inherit; }
   display: block;
   box-sizing: border-box;
   margin: var(--r) 0;
-  padding: 3.2rem 3.2rem 1.6rem;
+  padding: calc(var(--r) * 2) calc(var(--r) * 2) calc(var(--r) * 1);
   border: 1px solid var(--line-color);
   border-left: 1px solid var(--line-color);
   border-radius: 12px;
@@ -530,15 +530,15 @@ button { font: inherit; }
 .article-content blockquote::before {
   content: "“";
   position: absolute;
-  top: 1.6rem;
-  left: 1.6rem;
+  top: var(--r);
+  left: var(--r);
   display: block;
   margin: 0;
   padding: 0;
   color: var(--primary-color);
   font-family: sans-serif;
-  font-size: 3.2rem;
-  line-height: 3.2rem;
+  font-size: 4rem;
+  line-height: 4rem;
 }
 .article-content blockquote > p {
   display: block;
@@ -547,11 +547,11 @@ button { font: inherit; }
   font-size: 1rem;
   font-weight: 300;
   letter-spacing: 0;
-  line-height: 1.6rem;
+  line-height: var(--r);
 }
 .article-content blockquote cite {
   display: block;
-  margin: var(--r) 0 -1.2rem;
+  margin: var(--r) 0 -1.6rem;
   padding-right: 0;
   color: var(--line-color);
   font-size: 0.8rem;
