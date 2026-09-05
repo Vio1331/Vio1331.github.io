@@ -17,6 +17,7 @@ VIO 光学的 GitHub Pages / Jekyll 站点，包含文章、摄影集、移动�
 title: 文章标题
 subtitle: 一句话副标题
 date: 2026-09-04 20:00:00 +0800
+location: 苏州
 category: 生活随笔
 excerpt_text: 文章列表中的摘要。
 reading_time: 5
