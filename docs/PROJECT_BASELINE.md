@@ -22,7 +22,7 @@
 | 全站字体方向 | 已确认 | 无衬线字体，实际设置见 `assets/css/main.scss` |
 | 全站基础配色 | 已确认 | 纸白、卡片白、墨色、正文灰、辅助灰、珊瑚橙 |
 | 文章列表 | 已确认 | `journal/index.html` 与现有文章卡片样式 |
-| 文章详情正文 | 已确认 | 提交 `09290923b0d900adf9d8304fe987f54852a58da3` 的 `.article-content` |
+| 文章详情正文 | 已确认 | 提交 `bc81a0f65ebb72372535cc9838851adc6420a2ec` 的 `.article-content` |
 | 文章详情页边距 | 已确认 | 正文保持居中窄栏，网站原有页边距保留 |
 | 摄影详情页结构 | 已确认 | `_layouts/photo-story.html` |
 | 首页用户文案 | 受保护 | `index.html` 当前版本 |
