@@ -986,7 +986,7 @@ button { font: inherit; }
 @keyframes home-words-trace {
   10% { stroke-dashoffset: 1; opacity: 0; }
   20% { opacity: 1; }
-  80%, 88% { stroke-dashoffset: 0; opacity: 1; }
+  80% { stroke-dashoffset: 0; opacity: 1; }
   100% { stroke-dashoffset: 0; opacity: 0; }
 }
 @keyframes home-words-fill {
