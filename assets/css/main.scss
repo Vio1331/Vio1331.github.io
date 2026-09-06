@@ -978,7 +978,7 @@ button { font: inherit; }
 .home-words.is-outline-ready::after { opacity: 0; }
 .home-words.is-outline-playing .home-words-outline { opacity: 1; }
 .home-words.is-outline-playing .home-words-outline path {
-  animation: home-words-trace 5.5s ease-in-out both;
+  animation: home-words-trace 10s ease-in-out both;
 }
 .home-words.is-outline-playing::after {
   animation: home-words-fill 5.5s ease-in-out both;
