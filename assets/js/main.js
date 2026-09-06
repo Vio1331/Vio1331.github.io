@@ -54,7 +54,7 @@ if (wordsOutline && !reducedMotion.matches && 'IntersectionObserver' in window &
       if (!entries.some((entry) => entry.isIntersecting)) return;
       observer.disconnect();
       homeWords.classList.add('is-outline-playing');
-      finishTimer = setTimeout(finishOutline, 10400);
+      finishTimer = setTimeout(finishOutline, 3400);
     }, { rootMargin: '0px 0px -12% 0px', threshold: 0.15 });
     observer.observe(wordsOutline);
   }).catch(finishOutline);
