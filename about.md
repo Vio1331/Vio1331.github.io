@@ -7,7 +7,7 @@ section: about
 ---
 <section class="about-grid site-shell">
   <div class="about-mark" aria-hidden="true">
-    {% include brand-mark.html %}
+    <img class="brand-mark" src="{{ '/assets/images/about-avatar.svg' | relative_url }}" alt="" width="1000" height="1000">
   </div>
   <div class="about-copy">
     <p class="kicker">ABOUT / VIO</p>
