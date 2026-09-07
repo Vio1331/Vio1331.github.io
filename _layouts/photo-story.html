@@ -1,6 +1,9 @@
 ---
 layout: default
 ---
+{% if page.album_style == 'magazine' or page.blocks %}
+  {% include photo-modules/album.html %}
+{% else %}
 <article class="photo-story">
   <header class="photo-intro site-shell">
     <a class="eyebrow" href="{{ '/photography/' | relative_url }}">摄影 / PHOTO STORY</a>
@@ -20,3 +23,4 @@ layout: default
     <p>WORDS / IMAGES / EDITOR — VIO</p>
   </footer>
 </article>
+{% endif %}

@@ -1,0 +1,239 @@
+# 摄影集怎么写、怎么上传
+
+摄影集现在可以用 **Markdown 文件 + 模块** 编辑。你选照片、顺序和模块，网站负责排版。
+
+先打开 [_examples/photography-template.md](../_examples/photography-template.md)，点击 GitHub 的 **Raw** 查看原文件，再保存或复制到本地。不要把代码块外面的说明一起复制进去。
+
+也可以直接参考已经发布的 [_photography/example-01.md](../_photography/example-01.md)。示例 02、03 仍使用旧方式，方便对照；旧摄影集不需要迁移才能继续显示。
+
+## 一次发布只需要两类文件
+
+1. 照片：放在 `assets/images/你的摄影集文件夹/`。
+2. 摄影集：在 `_photography/` 中新建 `你的摄影集名字.md`。
+
+例如：照片为 `assets/images/my-album/01.jpg`，文件里就写 `/assets/images/my-album/01.jpg`。路径以 `/` 开头，大小写和扩展名必须一致；不要写电脑上的 `/Users/...` 路径。文件夹和文件名建议用英文字母、数字和短横线，减少路径错误。
+
+`_photography/my-album.md` 发布后的地址是 `/photography/my-album/`。不用像文章一样把日期放到文件名前面。标题在文件的 `title` 里写，可以用中文。
+
+## 文件开头
+
+```yaml
+---
+title: 摄影集示例 01
+description: 这是一段摄影集的示例文字。
+date: 2026-09-07
+location: 示例地点
+camera: 示例设备
+cover: /assets/images/my-album/cover.jpg
+cover_alt: 这是一段图片说明示例文字。
+album_style: magazine
+density: airy
+
+opening:
+  src: /assets/images/my-album/01.jpg
+  alt: 这是一段图片说明示例文字。
+
+blocks:
+  - type: image
+    src: /assets/images/my-album/02.jpg
+---
+```
+
+- `cover` 是列表书册使用的封面，`opening` 是详情页标题旁的开场图。两者可以用同一张，也可以不同；开场图可删除。
+- `location`、`camera`、图片的 `caption`、文字模块的 `heading` 都可以不写。
+- `album_style: magazine` 选择这次确认的 B 方案。
+- `density: airy` 是疏朗；`density: full` 是铺展。
+- 下面的模块全部放进同一个 `blocks:`，按顺序出现。不要给每个模块另写一个 `blocks:`。
+
+**横图、竖图和方图会按图片的真实尺寸自动识别，不需要你填写 M01-A、M01-B 等编号。** 编号用于看方案和讨论，发布文件写下面的模块类型即可。网站不会把真实横图裁成竖图或方图。
+
+## 模块速查
+
+| 预览编号 | 写法 | 图片数量 / 特点 |
+| --- | --- | --- |
+| M01 | `type: image` | 单张；横竖方自动适配 |
+| M02 | `type: diptych` | 两张；混合比例等高，方图对间距更大 |
+| M03 | `type: triptych` | 三张；横竖方均可，手机逐张展示 |
+| M04 | `type: asymmetric` | 两张大小图，照片垂直居中 |
+| M05 | `type: image_text` + `variant: short` | 图片配短文，侧边文字居中 |
+| M06 | `type: image_text` + `variant: long` | 图片配长文，顶部对齐 |
+| M07 | `type: text` | 无图；居中、左文右空、左空右文或两段并列 |
+
+同一类里横图换成竖图，只改图片路径。M04-F 用 `main: right`，M06-D 用 `image_side: right`。不同模块可以自由穿插，也可以重复使用。
+
+## 可复制的模块写法
+
+以下每一段从 `- type` 开始复制，放到 `blocks:` 下面，保持两格缩进。
+
+### M01：单张照片
+
+```yaml
+  - type: image
+    src: /assets/images/my-album/01.jpg
+    alt: 这是一段图片说明示例文字。
+    caption: 这是一段图片说明示例文字。
+```
+
+单张竖图会收窄并控制展示高度。`caption` 是看得见的图注，`alt` 是图片说明，供读屏和图片加载失败时使用。
+
+### M02：双联
+
+```yaml
+  - type: diptych
+    images:
+      - /assets/images/my-album/02.jpg
+      - /assets/images/my-album/03.jpg
+    caption: 这是一段图片说明示例文字。
+```
+
+两张方图自动使用 M02-C 的较大间距。横竖混合会等高排列。手机默认保留竖图、方图与混合双联；两张横图改为上下排列。
+
+如果某一组两张横图在手机上也必须并排，可在该模块加 `mobile: pair`；想让任意双联在手机上上下排列，则加 `mobile: stack`。
+
+### M03：三图组
+
+```yaml
+  - type: triptych
+    images:
+      - /assets/images/my-album/04.jpg
+      - /assets/images/my-album/05.jpg
+      - /assets/images/my-album/06.jpg
+    caption: 这是一段图片说明示例文字。
+```
+
+优先用于三张竖图，也支持三横、三方或混合比例。手机上按文件顺序逐张展开。
+
+### M04：大小图
+
+```yaml
+  - type: asymmetric
+    main: left
+    images:
+      - src: /assets/images/my-album/07.jpg
+        caption: 这是一段图片说明示例文字。
+      - src: /assets/images/my-album/08.jpg
+        caption: 这是一段图片说明示例文字。
+```
+
+`main: left` 是左图为主，改成 `right` 则右图为主。左右位置仍按照 `images` 的顺序。两张照片的垂直中心对齐，图注换行不会带偏照片位置。
+
+### M05：图片＋短文
+
+```yaml
+  - type: image_text
+    variant: short
+    src: /assets/images/my-album/09.jpg
+    heading: 示例标题
+    text: |
+      这是一段摄影集正文的示例文字。
+```
+
+`heading` 可以删除。想把图片放到右侧，加一行 `image_side: right`。
+
+### M06：图片＋长文
+
+```yaml
+  - type: image_text
+    variant: long
+    src: /assets/images/my-album/10.jpg
+    heading: 示例标题
+    text: |
+      这是一段摄影集正文的示例文字。
+
+      这是第二段示例文字，可以使用 **加粗**、*斜体*。
+
+      > 这是一段引用示例文字。
+```
+
+正文通过 Markdown 渲染，沿用文章页的文字样式。长文会自然延长这一组，不会被截断或自动缩小字号。手机上两栏改为纵向；图片在右的模块先读左侧文字，再看图片。
+
+### M07：纯文字与留白
+
+```yaml
+  - type: text
+    align: left
+    heading: 示例标题
+    text: |
+      这是一段摄影集正文的示例文字。
+
+      这是一段摄影集正文的示例文字。
+```
+
+| `align` | 效果 |
+| --- | --- |
+| `center` | 居中窄栏；默认值 |
+| `left` | 左半栏文字，右半栏留白 |
+| `right` | 左半栏留白，右半栏文字 |
+
+这里的 `align` 决定文字栏放在哪里，段落本身仍左对齐。手机会收起空白半栏。
+
+两段文字并列时这样写，不需要 `align`：
+
+```yaml
+  - type: text
+    columns:
+      - heading: 示例标题
+        text: |
+          这是一段左栏示例文字。
+      - heading: 示例标题
+        text: |
+          这是一段右栏示例文字。
+```
+
+## 同一篇里混用两档留白
+
+文件开头的 `density` 决定整篇的默认值；在单个模块里再写一次即可覆盖：
+
+```yaml
+density: airy
+blocks:
+  - type: image
+    density: full
+    src: /assets/images/my-album/01.jpg
+
+  - type: text
+    align: right
+    text: |
+      这是一段摄影集正文的示例文字。
+```
+
+这里单张照片采用铺展，其余模块继续疏朗。单个模块在当前页面容器内增加占比；整篇都希望更宽时，把文件开头也改成 `full`。
+
+## 照片说明与比例提示
+
+`images` 里直接写路径最短；需要单独的图注、图片说明时，用 `src` 对象：
+
+```yaml
+    images:
+      - src: /assets/images/my-album/01.jpg
+        alt: 这是一段图片说明示例文字。
+        caption: 这是一段图片说明示例文字。
+        ratio: "3:2"
+      - src: /assets/images/my-album/02.jpg
+        ratio: "2:3"
+```
+
+`ratio` 完全可选，用于照片加载前预留合适的布局；可以写 `"3:2"`、`"2:3"`、`"1:1"`。照片加载后以真实尺寸为准，填错比例也不会强制裁切。浏览器关闭 JavaScript 时照片和文字仍可阅读，自动等高和横竖适配会退回基础布局。
+
+## 在本地编辑，再上传到 GitHub
+
+1. 用常用的文本编辑器打开范本，另存为自己的 `.md` 文件。保留开头和结尾两行 `---`。
+2. 修改标题、日期、地点、封面路径；选用需要的模块，删掉不需要的模块。把真实照片路径替换进去。
+3. 在 GitHub 仓库打开 `assets/images`，选择 **Add file → Upload files**，上传这本摄影集的照片文件夹并提交到 `main`。
+4. 打开仓库的 `_photography` 文件夹，同样用 **Upload files** 上传 `.md` 并提交到 `main`。如果修改现有摄影集，直接编辑对应文件即可。
+5. 等仓库 **Actions** 里的 Pages 构建变绿，再打开网站的摄影列表。新的摄影集会自动出现；未设置 `featured: true` 不会成为首页指定的摄影集。
+
+已经在本地用 Git 管理仓库的话，也可以把照片和 `.md` 一起提交、推送到 `main`。
+
+装过本项目的 Ruby/Jekyll 环境时，在仓库根目录运行 `bundle exec jekyll serve`，再打开 `http://127.0.0.1:4000` 本地预览。直接双击 `.md` 或 `.html` 不会运行网站的模块模板。
+
+## 最容易写错的地方
+
+- 用空格缩进，不要用 Tab。`blocks` 下面的 `- type` 缩进两格；`text: |` 下面的文字继续缩进。
+- `text: |` 的竖线要保留，多段文字中间空一行。
+- 标题里如果包含英文冒号加空格，给整行值加引号，例如 `title: "示例: 摄影集"`。
+- 双联、大小图写两张，三图组写三张，两栏文字写两栏。
+- 不要在模块正文中混入 `{{ ... }}` 或 `{% ... %}` 这类模板指令；普通 Markdown 就够用。
+- 后续再次上传照片或修改文件时，先同步自己最新的仓库，避免覆盖上次修改。
+
+照片模块全部放在 `---` 之间。结尾 `---` 后面如果继续写普通 Markdown，会作为摄影集末尾的居中正文显示；留空也可以。

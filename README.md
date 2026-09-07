@@ -30,7 +30,13 @@ Front Matter 之后直接写 Markdown 正文即可。
 
 ## 发布摄影专题
 
-在 `_photography` 中新建一个 Markdown 文件，参考现有三个中性占位示例。当前占位示例统一使用 `/assets/images/window-light.webp`；正式发布时替换标题、说明与图片。图片放进 `assets/images`，建议使用 WebP，长边 1600–2400px。
+在 `_photography` 中新建一个 Markdown 文件。现在可以用 `blocks` 组合大图、双联、三图、大小图、图文与纯文字模块；横竖比例自动识别，支持疏朗与铺展两档留白。
+
+- [摄影集写法与上传指南](docs/PHOTOGRAPHY_GUIDE.md)
+- [可复制的 Markdown 范本](_examples/photography-template.md)
+- [已接入的示例 01](_photography/example-01.md)
+
+示例 02、03 和其他未写 `blocks` 的摄影集继续使用原有版式。占位图片仍统一使用 `/assets/images/window-light.webp`；正式发布时替换标题、说明与图片。图片放进 `assets/images`，建议使用 WebP，长边 1600–2400px。
 
 ## 本地预览
 

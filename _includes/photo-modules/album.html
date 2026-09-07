@@ -1,0 +1,38 @@
+{% assign album_photo_count = 0 %}
+{% if page.opening %}{% assign album_photo_count = album_photo_count | plus: 1 %}{% endif %}
+{% for count_block in page.blocks %}
+  {% if count_block.src %}{% assign album_photo_count = album_photo_count | plus: 1 %}{% endif %}
+  {% if count_block.images %}{% assign album_photo_count = album_photo_count | plus: count_block.images.size %}{% endif %}
+{% endfor %}
+<article class="photo-album" data-density="{% if page.density == 'full' %}full{% else %}airy{% endif %}">
+  <div class="album-sheet">
+    <div class="album-opening{% unless page.opening %} album-opening-text{% endunless %}">
+      <header>
+        <a class="album-kicker" href="{{ '/photography/' | relative_url }}">摄影 / PHOTOGRAPHY</a>
+        <h1>{{ page.title | escape }}</h1>
+        {% if page.description %}<p class="album-description">{{ page.description | escape }}</p>{% endif %}
+        <div class="album-meta">
+          {% if page.location %}<span>{{ page.location | escape }}</span>{% endif %}
+          {% if page.date %}<time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ page.date | date: '%Y.%m' }}</time>{% endif %}
+          {% if album_photo_count > 0 %}<span>{{ album_photo_count }} 张照片</span>{% endif %}
+          {% if page.camera %}<span>{{ page.camera | escape }}</span>{% endif %}
+        </div>
+      </header>
+      {% if page.opening %}{% include photo-modules/photo.html image=page.opening number=1 loading='eager' %}{% endif %}
+    </div>
+    {% assign album_next_number = 1 %}
+    {% if page.opening %}{% assign album_next_number = 2 %}{% endif %}
+    {% for story_block in page.blocks %}
+      {% include photo-modules/block.html block=story_block number=album_next_number %}
+      {% if story_block.src %}{% assign album_next_number = album_next_number | plus: 1 %}{% endif %}
+      {% if story_block.images %}{% assign album_next_number = album_next_number | plus: story_block.images.size %}{% endif %}
+    {% endfor %}
+    {% assign album_trailing_text = content | strip %}
+    {% if album_trailing_text != empty %}
+    <section class="album-block">
+      <div class="album-module album-text-only album-text-center"><div class="album-copy article-content">{{ content }}</div></div>
+    </section>
+    {% endif %}
+    <footer class="album-end"><span aria-hidden="true"></span><p>完</p></footer>
+  </div>
+</article>

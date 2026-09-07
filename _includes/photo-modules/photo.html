@@ -1,0 +1,11 @@
+{%- assign photo_src = include.image.src | default: include.image -%}
+{%- assign photo_caption = include.image.caption | default: include.caption -%}
+{%- assign photo_alt = include.image.alt | default: photo_caption | default: '摄影照片' -%}
+{%- if photo_src and photo_src != empty -%}
+<figure class="album-photo">
+  <img src="{% if photo_src contains '://' %}{{ photo_src | escape }}{% else %}{{ photo_src | relative_url | escape }}{% endif %}" alt="{{ photo_alt | strip_html | escape }}"{% if include.image.width and include.image.height %} width="{{ include.image.width | escape }}" height="{{ include.image.height | escape }}"{% endif %}{% if include.image.ratio %} data-ratio="{{ include.image.ratio | escape }}"{% endif %} loading="{{ include.loading | default: 'lazy' }}" decoding="async">
+  {% if photo_caption and photo_caption != empty %}
+  <figcaption>{% if include.number %}<span class="album-number">{% if include.number < 10 %}0{% endif %}{{ include.number }}</span>{% endif %}<span>{{ photo_caption | escape }}</span></figcaption>
+  {% endif %}
+</figure>
+{%- endif -%}
