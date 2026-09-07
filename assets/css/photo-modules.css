@@ -8,7 +8,6 @@
   --album-space: 160px;
   --album-tracks: 1fr 1fr;
   --album-portrait: min(420px, 52svh);
-  --album-square: 580px;
   --album-square-gap: clamp(36px, 5cqw, 64px);
   color: var(--body);
 }
@@ -19,7 +18,6 @@
   --album-column-gap: 48px;
   --album-space: 96px;
   --album-portrait: min(500px, 59svh);
-  --album-square: 740px;
   --album-square-gap: clamp(28px, 4cqw, 48px);
 }
 .photo-album .album-block[data-density="airy"] {
@@ -28,11 +26,11 @@
   --album-column-gap: 80px;
   --album-space: 160px;
   --album-portrait: min(420px, 52svh);
-  --album-square: 580px;
   --album-square-gap: clamp(36px, 5cqw, 64px);
 }
 .photo-album .album-sheet { width: min(calc(100% - 96px), 1200px); margin-inline: auto; padding-block: 88px; }
 .photo-album[data-density="full"] .album-sheet { width: min(calc(100% - 64px), 1320px); padding-block: 48px 64px; }
+/* Square singles and diptychs use the same outer edges as other photo modules. */
 .photo-album .album-module { width: var(--album-measure); margin-inline: auto; }
 .photo-album .album-block { margin-top: var(--album-space); }
 .photo-album .album-photo,
@@ -46,10 +44,8 @@
 .photo-album .album-number { flex: none; font-variant-numeric: tabular-nums; letter-spacing: .05em; }
 .photo-album figcaption > span:last-child { text-align: right; }
 .photo-album [data-shape="v"] > .album-single { width: min(100%, var(--album-portrait)); }
-.photo-album [data-shape="s"] > .album-single { width: min(var(--album-measure), var(--album-square)); }
 .photo-album .album-images { display: grid; grid-template-columns: var(--album-tracks); gap: var(--album-group-gap); align-items: start; }
 .photo-album [data-type="triptych"] { --album-tracks: 1fr 1fr 1fr; }
-.photo-album .album-square-pair > .album-module { width: calc(var(--album-measure) * .9); }
 .photo-album .album-square-pair .album-images { gap: var(--album-square-gap); }
 .photo-album .album-asymmetric { display: grid; grid-template-columns: var(--album-tracks); gap: var(--album-column-gap); align-items: center; }
 /* Balance the space around each image, independently of caption wrapping. */
@@ -118,19 +114,14 @@
   .photo-album .album-opening,
   .photo-album[data-density="full"] .album-opening { width: 100%; }
   .photo-album [data-shape="v"] > .album-single { width: 80%; max-width: 400px; }
-  .photo-album [data-shape="s"] > .album-single { width: 90%; }
   .photo-album[data-density="full"] [data-shape="v"] > .album-single,
   .photo-album [data-density="full"][data-shape="v"] > .album-single { width: 92%; }
-  .photo-album[data-density="full"] [data-shape="s"] > .album-single,
-  .photo-album [data-density="full"][data-shape="s"] > .album-single { width: 100%; }
   .photo-album [data-density="airy"][data-shape="v"] > .album-single { width: 80%; }
-  .photo-album [data-density="airy"][data-shape="s"] > .album-single { width: 90%; }
   .photo-album .album-images { gap: 12px; }
   .photo-album [data-type="triptych"] .album-images,
   .photo-album .album-landscape-pair:not([data-mobile="pair"]) .album-images,
   .photo-album [data-mobile="stack"] .album-images { grid-template-columns: 1fr; gap: 24px; }
   .photo-album [data-type="triptych"] .album-photo[data-shape="v"] { width: 88%; margin-inline: auto; }
-  .photo-album .album-square-pair > .album-module { width: 100%; }
   .photo-album .album-square-pair .album-images { gap: 24px; }
   .photo-album .album-asymmetric { grid-template-columns: 1fr; gap: 28px; }
   .photo-album .album-asymmetric > .album-photo { display: block; }
