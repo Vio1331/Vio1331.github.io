@@ -77,7 +77,8 @@ body_class: home-page
         <span class="photo-book-spine"></span>
         <span class="photo-book-cover">
           <span class="photo-book-title">{{ featured.title }}</span>
-          <img src="{{ featured.cover | relative_url }}" alt="" loading="lazy">
+          {% capture featured_cover_url %}{% include image-url.html src=featured.cover base=featured.image_base %}{% endcapture %}
+          <img src="{{ featured_cover_url | escape }}" alt="" loading="lazy">
           <span class="photo-book-imprint">VIO 光学</span>
         </span>
         <span class="photo-book-pages"></span>

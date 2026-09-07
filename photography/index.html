@@ -32,7 +32,8 @@ body_class: photography-index-page
         <span class="photo-book-spine"></span>
         <span class="photo-book-cover">
           <span class="photo-book-title">{{ item.title }}</span>
-          <img src="{{ item.cover | relative_url }}" alt="{{ item.cover_alt }}" loading="lazy">
+          {% capture book_cover_url %}{% include image-url.html src=item.cover base=item.image_base %}{% endcapture %}
+          <img src="{{ book_cover_url | escape }}" alt="{{ item.cover_alt }}" loading="lazy">
           <span class="photo-book-imprint">VIO 光学 / {{ item.date | date: '%Y' }}</span>
         </span>
         <span class="photo-book-pages"></span>

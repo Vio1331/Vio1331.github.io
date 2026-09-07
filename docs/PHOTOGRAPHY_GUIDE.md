@@ -11,7 +11,7 @@
 1. 照片：放在 `assets/images/你的摄影集文件夹/`。
 2. 摄影集：在 `_photography/` 中新建 `你的摄影集名字.md`。
 
-例如：照片为 `assets/images/my-album/01.jpg`，文件里就写 `/assets/images/my-album/01.jpg`。路径以 `/` 开头，大小写和扩展名必须一致；不要写电脑上的 `/Users/...` 路径。文件夹和文件名建议用英文字母、数字和短横线，减少路径错误。
+例如：照片为 `assets/images/my-album/01.jpg`，在文件开头统一写 `image_base: /assets/images/my-album/`，下面的 `src` 就只需写 `01.jpg`。文件名的大小写和扩展名必须一致；不要写电脑上的 `/Users/...` 路径。文件夹和文件名建议用英文字母、数字和短横线，减少路径错误。
 
 `_photography/my-album.md` 发布后的地址是 `/photography/my-album/`。不用像文章一样把日期放到文件名前面。标题在文件的 `title` 里写，可以用中文。
 
@@ -24,21 +24,23 @@ description: 这是一段摄影集的示例文字。
 date: 2026-09-07
 location: 示例地点
 camera: 示例设备
-cover: /assets/images/my-album/cover.jpg
+image_base: /assets/images/my-album/
+cover: cover.jpg
 cover_alt: 这是一段图片说明示例文字。
 album_style: magazine
 density: airy
 
 opening:
-  src: /assets/images/my-album/01.jpg
+  src: 01.jpg
   alt: 这是一段图片说明示例文字。
 
 blocks:
   - type: image
-    src: /assets/images/my-album/02.jpg
+    src: 02.jpg
 ---
 ```
 
+- `image_base` 是这篇摄影集的统一图片目录，末尾的 `/` 可写可不写。
 - `cover` 是列表书册使用的封面，`opening` 是详情页标题旁的开场图。两者可以用同一张，也可以不同；开场图可删除。
 - `location`、`camera`、图片的 `caption`、文字模块的 `heading` 都可以不写。
 - `album_style: magazine` 选择这次确认的 B 方案。
@@ -46,6 +48,26 @@ blocks:
 - 下面的模块全部放进同一个 `blocks:`，按顺序出现。不要给每个模块另写一个 `blocks:`。
 
 **横图、竖图和方图会按图片的真实尺寸自动识别，不需要你填写 M01-A、M01-B 等编号。** 编号用于看方案和讨论，发布文件写下面的模块类型即可。网站不会把真实横图裁成竖图或方图。
+
+## 图片目录只写一次
+
+设置 `image_base` 后，`cover`、`opening.src`、所有模块的 `src`，以及 `images` 中直接填写的文件名，都会自动接上这个目录。子文件夹也可以写成 `details/01.jpg`。
+
+```yaml
+image_base: /assets/images/my-album/
+cover: cover.jpg
+opening:
+  src: 01.jpg
+blocks:
+  - type: diptych
+    images:
+      - 02.jpg
+      - 03.jpg
+```
+
+需要混用别处的照片时，以 `/` 开头的站内完整路径（如 `/assets/images/window-light.webp`）或 `https://` 开头的外部图片地址会直接使用，不会再加上 `image_base`。不填写 `image_base` 时，原来的完整路径写法继续有效，旧摄影集不用修改。
+
+这个简写用于摄影集封面和照片模块。`text` 里或文件末尾手写的普通 Markdown 图片链接仍按原来的路径填写。
 
 ## 模块速查
 
@@ -63,13 +85,13 @@ blocks:
 
 ## 可复制的模块写法
 
-以下每一段从 `- type` 开始复制，放到 `blocks:` 下面，保持两格缩进。
+以下每一段从 `- type` 开始复制，放到 `blocks:` 下面，保持两格缩进。示例都沿用文件开头的 `image_base`，因此只填写文件名。
 
 ### M01：单张照片
 
 ```yaml
   - type: image
-    src: /assets/images/my-album/01.jpg
+    src: 01.jpg
     alt: 这是一段图片说明示例文字。
     caption: 这是一段图片说明示例文字。
 ```
@@ -81,8 +103,8 @@ blocks:
 ```yaml
   - type: diptych
     images:
-      - /assets/images/my-album/02.jpg
-      - /assets/images/my-album/03.jpg
+      - 02.jpg
+      - 03.jpg
     caption: 这是一段图片说明示例文字。
 ```
 
@@ -95,9 +117,9 @@ blocks:
 ```yaml
   - type: triptych
     images:
-      - /assets/images/my-album/04.jpg
-      - /assets/images/my-album/05.jpg
-      - /assets/images/my-album/06.jpg
+      - 04.jpg
+      - 05.jpg
+      - 06.jpg
     caption: 这是一段图片说明示例文字。
 ```
 
@@ -109,9 +131,9 @@ blocks:
   - type: asymmetric
     main: left
     images:
-      - src: /assets/images/my-album/07.jpg
+      - src: 07.jpg
         caption: 这是一段图片说明示例文字。
-      - src: /assets/images/my-album/08.jpg
+      - src: 08.jpg
         caption: 这是一段图片说明示例文字。
 ```
 
@@ -122,7 +144,7 @@ blocks:
 ```yaml
   - type: image_text
     variant: short
-    src: /assets/images/my-album/09.jpg
+    src: 09.jpg
     heading: 示例标题
     text: |
       这是一段摄影集正文的示例文字。
@@ -135,7 +157,7 @@ blocks:
 ```yaml
   - type: image_text
     variant: long
-    src: /assets/images/my-album/10.jpg
+    src: 10.jpg
     heading: 示例标题
     text: |
       这是一段摄影集正文的示例文字。
@@ -189,7 +211,7 @@ density: airy
 blocks:
   - type: image
     density: full
-    src: /assets/images/my-album/01.jpg
+    src: 01.jpg
 
   - type: text
     align: right
@@ -201,15 +223,15 @@ blocks:
 
 ## 照片说明与比例提示
 
-`images` 里直接写路径最短；需要单独的图注、图片说明时，用 `src` 对象：
+`images` 里直接写文件名最短；需要单独的图注、图片说明时，用 `src` 对象：
 
 ```yaml
     images:
-      - src: /assets/images/my-album/01.jpg
+      - src: 01.jpg
         alt: 这是一段图片说明示例文字。
         caption: 这是一段图片说明示例文字。
         ratio: "3:2"
-      - src: /assets/images/my-album/02.jpg
+      - src: 02.jpg
         ratio: "2:3"
 ```
 
@@ -218,7 +240,7 @@ blocks:
 ## 在本地编辑，再上传到 GitHub
 
 1. 用常用的文本编辑器打开范本，另存为自己的 `.md` 文件。保留开头和结尾两行 `---`。
-2. 修改标题、日期、地点、封面路径；选用需要的模块，删掉不需要的模块。把真实照片路径替换进去。
+2. 修改标题、日期、地点，填写 `image_base` 照片目录和 `cover` 封面文件名；选用需要的模块，删掉不需要的模块，把示例文件名替换成自己的照片文件名。
 3. 在 GitHub 仓库打开 `assets/images`，选择 **Add file → Upload files**，上传这本摄影集的照片文件夹并提交到 `main`。
 4. 打开仓库的 `_photography` 文件夹，同样用 **Upload files** 上传 `.md` 并提交到 `main`。如果修改现有摄影集，直接编辑对应文件即可。
 5. 等仓库 **Actions** 里的 Pages 构建变绿，再打开网站的摄影列表。新的摄影集会自动出现；未设置 `featured: true` 不会成为首页指定的摄影集。

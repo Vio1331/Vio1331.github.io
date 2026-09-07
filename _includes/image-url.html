@@ -1,0 +1,20 @@
+{%- assign image_url_src = include.src | default: '' -%}
+{%- assign image_url_base = include.base | default: '' -%}
+{%- if image_url_src != empty -%}
+  {%- assign image_url_first = image_url_src | slice: 0, 1 -%}
+  {%- unless image_url_first == '/' or image_url_src contains ':' -%}
+    {%- if image_url_base != empty -%}
+      {%- assign image_url_base_last = image_url_base | slice: -1, 1 -%}
+      {%- unless image_url_base_last == '/' -%}
+        {%- assign image_url_base = image_url_base | append: '/' -%}
+      {%- endunless -%}
+      {%- assign image_url_src = image_url_base | append: image_url_src -%}
+    {%- endif -%}
+  {%- endunless -%}
+  {%- assign image_url_prefix = image_url_src | slice: 0, 2 -%}
+  {%- if image_url_src contains ':' or image_url_prefix == '//' -%}
+    {{- image_url_src -}}
+  {%- else -%}
+    {{- image_url_src | relative_url -}}
+  {%- endif -%}
+{%- endif -%}
