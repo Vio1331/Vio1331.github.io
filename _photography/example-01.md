@@ -6,7 +6,6 @@ location: 示例地点
 camera: 示例设备
 cover: /assets/images/window-light.webp
 cover_alt: 眼镜放在桌面上的示例图片
-album_style: magazine
 density: airy
 opening:
   src: /assets/images/window-light.webp

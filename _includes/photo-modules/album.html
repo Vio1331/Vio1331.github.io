@@ -6,10 +6,12 @@
 {% endfor %}
 <article class="photo-album" data-density="{% if page.density == 'full' %}full{% else %}airy{% endif %}">
   <div class="album-sheet">
-    <div class="album-opening{% unless page.opening %} album-opening-text{% endunless %}">
-      <header>
+    <header class="album-opening">
+      <div class="album-title">
         <a class="album-kicker" href="{{ '/photography/' | relative_url }}">摄影 / PHOTOGRAPHY</a>
         <h1>{{ page.title | escape }}</h1>
+      </div>
+      <div class="album-opening-note">
         {% if page.description %}<p class="album-description">{{ page.description | escape }}</p>{% endif %}
         <div class="album-meta">
           {% if page.location %}<span>{{ page.location | escape }}</span>{% endif %}
@@ -17,9 +19,15 @@
           {% if album_photo_count > 0 %}<span>{{ album_photo_count }} 张照片</span>{% endif %}
           {% if page.camera %}<span>{{ page.camera | escape }}</span>{% endif %}
         </div>
-      </header>
-      {% if page.opening %}{% include photo-modules/photo.html image=page.opening number=1 loading='eager' %}{% endif %}
-    </div>
+      </div>
+    </header>
+    {% if page.opening %}
+    <section class="album-block" data-type="image">
+      <div class="album-module album-single">
+        {% include photo-modules/photo.html image=page.opening number=1 loading='eager' %}
+      </div>
+    </section>
+    {% endif %}
     {% assign album_next_number = 1 %}
     {% if page.opening %}{% assign album_next_number = 2 %}{% endif %}
     {% for story_block in page.blocks %}

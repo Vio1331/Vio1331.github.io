@@ -90,14 +90,16 @@
 .photo-album .album-copy table { width: 100%; table-layout: fixed; border-collapse: collapse; }
 .photo-album .album-copy th,
 .photo-album .album-copy td { overflow-wrap: anywhere; word-break: normal; }
-.photo-album .album-opening { width: 90%; margin-inline: auto; display: grid; grid-template-columns: minmax(0, .72fr) minmax(0, 1.28fr); gap: var(--album-column-gap); align-items: center; }
-.photo-album[data-density="full"] .album-opening { width: 100%; }
-.photo-album .album-opening-text { display: block; }
-.photo-album .album-opening > .album-photo[data-shape="v"] { max-width: 420px; justify-self: center; }
-.photo-album .album-opening h1 { font-size: clamp(30px, 4cqw, 50px); max-width: 6em; font-weight: 400; line-height: 1.35; margin: 20px 0 25px; letter-spacing: -.04em; color: var(--ink); }
-.photo-album .album-description { max-width: 22em; margin: 0; color: var(--body); font-size: 1rem; font-weight: 300; line-height: 2rem; }
+/* Opening follows the original C heading: title left, information right, rule below. */
+.photo-album .album-opening { width: var(--album-measure); margin-inline: auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px 60px; align-items: end; padding-bottom: 36px; border-bottom: 1px solid var(--rule); }
+.photo-album .album-title,
+.photo-album .album-opening-note { min-width: 0; overflow-wrap: anywhere; }
+.photo-album .album-opening-note { width: 100%; max-width: 26em; justify-self: end; }
+.photo-album .album-opening h1 { font-size: clamp(30px, 4cqw, 50px); font-weight: 400; line-height: 1.35; margin: 20px 0 0; letter-spacing: -.04em; color: var(--ink); }
+.photo-album .album-description { margin: 0; color: var(--body); font-size: 1rem; font-weight: 300; line-height: 2rem; }
 .photo-album .album-kicker { font-size: 13px; letter-spacing: .1em; color: #ad5138; }
-.photo-album .album-meta { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 13px; line-height: 1.8; color: var(--muted); margin-top: 30px; }
+.photo-album .album-meta { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 13px; line-height: 1.8; color: var(--muted); margin-top: 24px; }
+.photo-album .album-sheet > .album-block:first-of-type { margin-top: 60px; }
 .photo-album .album-end { padding-top: var(--album-space); text-align: center; }
 .photo-album .album-end > span { display: block; width: 30px; height: 1px; background: #ad5138; margin-inline: auto; }
 .photo-album .album-end p { margin: 20px 0 0; font-size: 13px; color: var(--muted); }
@@ -111,8 +113,7 @@
   .photo-album .album-module,
   .photo-album .album-block .album-image-text,
   .photo-album .album-block .album-text-only,
-  .photo-album .album-opening,
-  .photo-album[data-density="full"] .album-opening { width: 100%; }
+  .photo-album .album-opening { width: 100%; }
   .photo-album [data-shape="v"] > .album-single { width: 80%; max-width: 400px; }
   .photo-album[data-density="full"] [data-shape="v"] > .album-single,
   .photo-album [data-density="full"][data-shape="v"] > .album-single { width: 92%; }
@@ -137,7 +138,9 @@
   .photo-album .album-text-only > .album-copy + .album-copy { margin-top: 40px; }
   .photo-album .album-photo > figcaption,
   .photo-album .album-group > figcaption { gap: 10px; margin-top: 10px; }
-  .photo-album .album-opening { grid-template-columns: 1fr; gap: 34px; }
+  .photo-album .album-opening { grid-template-columns: 1fr; gap: 24px; padding-bottom: 28px; }
+  .photo-album .album-opening-note { justify-self: start; }
+  .photo-album .album-sheet > .album-block:first-of-type { margin-top: 36px; }
   .photo-album .album-opening h1 { font-size: 34px; max-width: none; }
   .photo-album .album-end { padding-top: 70px; }
 }

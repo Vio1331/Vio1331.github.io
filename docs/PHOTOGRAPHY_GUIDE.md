@@ -4,7 +4,7 @@
 
 先打开 [_examples/photography-template.md](../_examples/photography-template.md)，点击 GitHub 的 **Raw** 查看原文件，再保存或复制到本地。不要把代码块外面的说明一起复制进去。
 
-也可以直接参考已经发布的 [_photography/example-01.md](../_photography/example-01.md)。示例 02、03 仍使用旧方式，方便对照；旧摄影集不需要迁移才能继续显示。
+也可以直接参考已经发布的 [_photography/example-01.md](../_photography/example-01.md)。示例 01、02、03 都使用同一套 magazine 模块版式，不需要另填样式字段。
 
 ## 一次发布只需要两类文件
 
@@ -27,7 +27,6 @@ camera: 示例设备
 image_base: /assets/images/my-album/
 cover: cover.jpg
 cover_alt: 这是一段图片说明示例文字。
-album_style: magazine
 density: airy
 
 opening:
@@ -41,13 +40,18 @@ blocks:
 ```
 
 - `image_base` 是这篇摄影集的统一图片目录，末尾的 `/` 可写可不写。
-- `cover` 是列表书册使用的封面，`opening` 是详情页标题旁的开场图。两者可以用同一张，也可以不同；开场图可删除。
+- `cover` 是列表书册使用的封面，`opening` 是详情页分隔线下方的第一张照片，按单图模块的横竖方规则展示。两者可以用同一张，也可以不同；开场图可删除。
 - `location`、`camera`、图片的 `caption`、文字模块的 `heading` 都可以不写。
-- `album_style: magazine` 选择这次确认的 B 方案。
 - `density: airy` 是疏朗；`density: full` 是铺展。
 - 下面的模块全部放进同一个 `blocks:`，按顺序出现。不要给每个模块另写一个 `blocks:`。
 
 **横图、竖图和方图会按图片的真实尺寸自动识别，不需要你填写 M01-A、M01-B 等编号。** 编号用于看方案和讨论，发布文件写下面的模块类型即可。网站不会把真实横图裁成竖图或方图。
+
+## 页头与开场照片
+
+所有摄影集统一使用 magazine 排版：桌面上标题在左，简介、地点、日期、照片数与设备在右，下方以细线分隔；手机上按标题、信息、细线的顺序展开。
+
+`opening` 只控制可选的第一张照片，不再放在标题右侧。删除它不会影响页头；也可以不写 `opening`，直接从 `blocks` 中的单图、双联或任意模块开始。已有的开场照片会自动移到分隔线下方，照片与编号均保留。
 
 ## 图片目录只写一次
 
@@ -65,7 +69,7 @@ blocks:
       - 03.jpg
 ```
 
-需要混用别处的照片时，以 `/` 开头的站内完整路径（如 `/assets/images/window-light.webp`）或 `https://` 开头的外部图片地址会直接使用，不会再加上 `image_base`。不填写 `image_base` 时，原来的完整路径写法继续有效，旧摄影集不用修改。
+需要混用别处的照片时，以 `/` 开头的站内完整路径（如 `/assets/images/window-light.webp`）或 `https://` 开头的外部图片地址会直接使用，不会再加上 `image_base`。不填写 `image_base` 时，原来的完整路径写法继续有效，图片路径不用修改。
 
 这个简写用于摄影集封面和照片模块。`text` 里或文件末尾手写的普通 Markdown 图片链接仍按原来的路径填写。
 

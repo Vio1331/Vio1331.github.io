@@ -36,7 +36,7 @@ Front Matter 之后直接写 Markdown 正文即可。
 - [可复制的 Markdown 范本](_examples/photography-template.md)
 - [已接入的示例 01](_photography/example-01.md)
 
-示例 02、03 和其他未写 `blocks` 的摄影集继续使用原有版式。占位图片仍统一使用 `/assets/images/window-light.webp`；正式发布时替换标题、说明与图片。图片放进 `assets/images`，建议使用 WebP，长边 1600–2400px。
+摄影集统一使用 magazine 模块版式，无需选择样式。页头为左侧标题、右侧简介与信息、下方横线；可选的 `opening` 图片在横线下方展示。占位图片仍统一使用 `/assets/images/window-light.webp`；正式发布时替换标题、说明与图片。图片放进 `assets/images`，建议使用 WebP，长边 1600–2400px。
 
 ## 本地预览
 

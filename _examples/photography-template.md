@@ -8,10 +8,9 @@ camera: 示例设备
 image_base: /assets/images/
 cover: window-light.webp
 cover_alt: 眼镜放在桌面上的示例图片
-album_style: magazine
 density: airy
 
-# 开场照片在标题旁边；不需要时删除 opening 的整组内容。
+# 开场照片在页头分隔线下方，按单图模块展示；不需要时删除 opening 的整组内容。
 opening:
   src: window-light.webp
   alt: 眼镜放在桌面上的示例图片
