@@ -24,4 +24,5 @@
 
 .brand-name {
    font-family: var(--font-en);
+   letter-spacing: 2em;
 }
