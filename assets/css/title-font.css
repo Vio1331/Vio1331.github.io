@@ -21,11 +21,11 @@
 }
 
 .kicker,
+.album-title > .album-kicker,
 .footer-credit {
    font-family: var(--font-en);
 }
 
-.album-title album-kicker,
 .home-hero-wordmark,
 .brand-name {
    font-family: var(--font-brand);
