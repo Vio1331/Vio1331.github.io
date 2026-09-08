@@ -21,6 +21,7 @@
 }
 
 .kicker,
+.album-kicker,
 .footer-credit {
    font-family: var(--font-en);
 }
