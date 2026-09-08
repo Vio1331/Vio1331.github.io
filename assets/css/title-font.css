@@ -2,7 +2,8 @@
    Keep this scope aligned with the approved font preview; body and brand type stay unchanged. */
 :root {
   --font-title: "LXGW WenKai TC", var(--font-sans);
-  --font-en: "Freeman", var(--font-sans);
+  --font-brand: "Freeman", var(--font-sans);
+  --font-en: "Andika", var(--font-sans);
 }
 
 .home-hero h1,
