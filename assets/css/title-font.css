@@ -26,6 +26,7 @@
    font-family: var(--font-en);
 }
 
+.photo-cover-top,
 .home-hero-wordmark,
 .brand-name {
    font-family: var(--font-brand);
