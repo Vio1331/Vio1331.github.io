@@ -98,11 +98,11 @@
 .photo-album .album-opening-note { width: 100%; max-width: 26em; justify-self: end; }
 .photo-album .album-opening h1 { font-size: clamp(30px, 4cqw, 50px); font-weight: 400; line-height: 1.35; margin: 20px 0 0; letter-spacing: -.04em; color: var(--ink); }
 .photo-album .album-description { margin: 0; color: var(--body); font-size: 1rem; font-weight: 300; line-height: 2rem; }
-.photo-album .album-kicker { font-size: 13px; letter-spacing: .1em; color: #ad5138; }
+.photo-album .album-kicker { font-size: 13px; letter-spacing: .1em; color: #c96749; }
 .photo-album .album-meta { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 13px; line-height: 1.8; color: var(--muted); margin-top: 24px; }
 .photo-album .album-sheet > .album-block:first-of-type { margin-top: 60px; }
 .photo-album .album-end { padding-top: var(--album-space); text-align: center; }
-.photo-album .album-end > span { display: block; width: 30px; height: 1px; background: #ad5138; margin-inline: auto; }
+.photo-album .album-end > span { display: block; width: 30px; height: 1px; background: #c96749; margin-inline: auto; }
 .photo-album .album-end p { margin: 20px 0 0; font-size: 13px; color: var(--muted); }
 @container photo-album (max-width: 720px) {
   .photo-album .album-sheet,
