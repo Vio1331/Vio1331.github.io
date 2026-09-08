@@ -3,3 +3,5 @@ _site/
 .sass-cache/
 vendor/
 .DS_Store
+node_modules/
+_album_build/

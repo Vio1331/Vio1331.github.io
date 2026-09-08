@@ -1,0 +1,15 @@
+{
+  "name": "optics-album-markup",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "check": "node cli.mjs check",
+    "prepare": "node cli.mjs prepare"
+  },
+  "dependencies": {
+    "markdown-it": "15.0.1",
+    "yaml": "2.9.0"
+  },
+  "engines": { "node": ">=22" }
+}

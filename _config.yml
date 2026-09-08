@@ -42,6 +42,9 @@ exclude:
   - Gemfile.lock
   - vendor
   - .openai
+  - tools
+  - node_modules
+  - _album_build
 
 sass:
   style: compressed

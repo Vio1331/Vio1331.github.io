@@ -4,7 +4,7 @@
 {%- if photo_src and photo_src != empty -%}
 {%- capture photo_url -%}{%- include image-url.html src=photo_src base=page.image_base -%}{%- endcapture -%}
 <figure class="album-photo">
-  <img src="{{ photo_url | escape }}" alt="{{ photo_alt | strip_html | escape }}"{% if include.image.width and include.image.height %} width="{{ include.image.width | escape }}" height="{{ include.image.height | escape }}"{% endif %}{% if include.image.ratio %} data-ratio="{{ include.image.ratio | escape }}"{% endif %} loading="{{ include.loading | default: 'lazy' }}" decoding="async">
+  <img src="{{ photo_url | escape }}" alt="{{ photo_alt | strip_html | escape }}"{% if include.image.title %} title="{{ include.image.title | escape }}"{% endif %}{% if include.image.width and include.image.height %} width="{{ include.image.width | escape }}" height="{{ include.image.height | escape }}"{% endif %}{% if include.image.ratio %} data-ratio="{{ include.image.ratio | escape }}"{% endif %} loading="{{ include.loading | default: 'lazy' }}" decoding="async">
   {% if photo_caption and photo_caption != empty %}
   <figcaption>{% if include.number %}<span class="album-number">{% if include.number < 10 %}0{% endif %}{{ include.number }}</span>{% endif %}<span>{{ photo_caption | escape }}</span></figcaption>
   {% endif %}
