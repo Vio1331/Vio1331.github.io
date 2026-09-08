@@ -19,7 +19,8 @@
 }
 
 .home-hero-heading,
-.listing-intro kicker p {
+.listing-intro kicker,
+.footer-credit p {
    font-family: var(--font-en);
 }
 
