@@ -23,7 +23,7 @@
    font-family: var(--font-en);
 }
 
-.kicker home-hero-wordmark,
+.home-hero > kicker home-hero-wordmark,
 .brand-name {
    font-family: var(--font-en);
    letter-spacing: 0.8em;
