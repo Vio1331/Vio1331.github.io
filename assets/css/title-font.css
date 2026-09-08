@@ -18,13 +18,13 @@
   font-synthesis: none;
 }
 
-.home-hero-heading,
-.listing-intro kicker,
-.footer-credit p {
+.kicker,
+.footer-credit {
    font-family: var(--font-en);
 }
 
+.home-hero-heading,
 .brand-name {
    font-family: var(--font-en);
-   letter-spacing: 1em;
+   letter-spacing: 0.8em;
 }
