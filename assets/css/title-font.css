@@ -26,6 +26,6 @@
 
 .home-hero-wordmark,
 .brand-name {
-   font-family: var(--font-en);
+   font-family: var(--font-brand);
    letter-spacing: 0.8em;
 }
