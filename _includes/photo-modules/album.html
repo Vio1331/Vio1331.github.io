@@ -24,16 +24,12 @@
     {% if page.opening %}
     <section class="album-block" data-type="image">
       <div class="album-module album-single">
-        {% include photo-modules/photo.html image=page.opening number=1 loading='eager' %}
+        {% include photo-modules/photo.html image=page.opening loading='eager' %}
       </div>
     </section>
     {% endif %}
-    {% assign album_next_number = 1 %}
-    {% if page.opening %}{% assign album_next_number = 2 %}{% endif %}
     {% for story_block in page.blocks %}
-      {% include photo-modules/block.html block=story_block number=album_next_number %}
-      {% if story_block.src %}{% assign album_next_number = album_next_number | plus: 1 %}{% endif %}
-      {% if story_block.images %}{% assign album_next_number = album_next_number | plus: story_block.images.size %}{% endif %}
+      {% include photo-modules/block.html block=story_block %}
     {% endfor %}
     {% assign album_trailing_text = content | strip %}
     {% if album_trailing_text != empty %}
