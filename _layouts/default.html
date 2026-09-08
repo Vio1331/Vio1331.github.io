@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@700&amp;family=Freeman:wght@400&amp;family=Andika:wght@400&amp;family=Noto+Sans+SC:wght@{% if page.collection == 'photography' or page.layout == 'photo-story' %}300;{% endif %}400;500;600;700&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}?v={{ site.time | date: '%s' }}">
-    {% if page.body_class == 'photography-index-page' %}
+    {% if page.body_class == 'photography-index-page' or page.body_class == 'home-page' %}
     <link rel="stylesheet" href="{{ '/assets/css/photo-covers.css' | relative_url }}?v={{ site.time | date: '%s' }}">
     {% endif %}
     {% if page.collection == 'photography' or page.layout == 'photo-story' %}

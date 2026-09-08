@@ -31,15 +31,21 @@ if (wordsOutline && !reducedMotion.matches && 'IntersectionObserver' in window &
     clearTimeout(finishTimer);
     observer?.disconnect();
     homeWords.classList.remove('is-outline-ready', 'is-outline-playing');
+    wordsOutline.removeEventListener('animationend', onOutlineEnd);
     wordsOutline.remove();
     reducedMotion.removeEventListener('change', onMotionChange);
   };
   const onMotionChange = () => {
     if (reducedMotion.matches) finishOutline();
   };
+  const onOutlineEnd = (event) => {
+    // A child's drawing animation ends first; only clean up after the SVG has faded.
+    if (event.target === wordsOutline && event.animationName === 'home-words-outline-fade') finishOutline();
+  };
+  const milliseconds = (value) => parseFloat(value) * (value.trim().endsWith('ms') ? 1 : 1000);
 
   reducedMotion.addEventListener('change', onMotionChange);
-  wordsOutline.addEventListener('animationend', finishOutline, { once: true });
+  wordsOutline.addEventListener('animationend', onOutlineEnd);
 
   // The outline comes from Noto Sans SC 700; keep the static fallback if it cannot load.
   document.fonts.load('700 100px "Noto Sans SC"', '文').then((faces) => {
@@ -54,7 +60,9 @@ if (wordsOutline && !reducedMotion.matches && 'IntersectionObserver' in window &
       if (!entries.some((entry) => entry.isIntersecting)) return;
       observer.disconnect();
       homeWords.classList.add('is-outline-playing');
-      finishTimer = setTimeout(finishOutline, 3400);
+      const animation = getComputedStyle(wordsOutline);
+      const duration = milliseconds(animation.animationDelay) + milliseconds(animation.animationDuration);
+      finishTimer = setTimeout(finishOutline, duration + 250);
     }, { rootMargin: '0px 0px -12% 0px', threshold: 0.15 });
     observer.observe(wordsOutline);
   }).catch(finishOutline);

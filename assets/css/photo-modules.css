@@ -55,14 +55,23 @@
 .photo-album .album-asymmetric > .album-photo > img { grid-row: 2; }
 .photo-album .album-asymmetric > .album-photo > figcaption { grid-row: 3; align-self: start; display: block; }
 .photo-album .album-asymmetric figcaption > span:last-child { text-align: left; }
-.photo-album .album-image-text { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: center; gap: var(--album-column-gap); width: 90%; }
-.photo-album [data-shape="v"] > .album-image-text { grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr); }
+.photo-album .album-image-text {
+  --album-image-track: 1.2fr;
+  --album-text-track: 1fr;
+  display: grid;
+  grid-template-columns: minmax(0, var(--album-image-track)) minmax(0, var(--album-text-track));
+  align-items: center;
+  gap: var(--album-column-gap);
+  width: 90%;
+}
+/* Square and portrait layouts use equal columns; moving the text mirrors the same tracks. */
+.photo-album [data-shape="v"] > .album-image-text,
+.photo-album [data-shape="s"] > .album-image-text { --album-image-track: 1fr; }
 .photo-album [data-shape="v"] > .album-image-text > .album-photo { width: min(100%, 420px); justify-self: center; }
 .photo-album[data-density="full"] [data-shape="v"] > .album-image-text > .album-photo,
 .photo-album [data-density="full"][data-shape="v"] > .album-image-text > .album-photo { width: min(100%, 480px); }
 .photo-album [data-density="airy"][data-shape="v"] > .album-image-text > .album-photo { width: min(100%, 420px); }
-.photo-album [data-shape="s"] > .album-image-text { grid-template-columns: 1fr 1fr; }
-.photo-album .album-image-text.album-image-right { grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); }
+.photo-album .album-image-text.album-image-right { grid-template-columns: minmax(0, var(--album-text-track)) minmax(0, var(--album-image-track)); }
 .photo-album .album-long-copy { align-items: start; }
 .photo-album .album-text-only { display: grid; grid-template-columns: 1fr 1fr; gap: var(--album-column-gap); width: 90%; }
 .photo-album .album-text-center { display: block; width: min(100%, 580px); }
@@ -75,7 +84,7 @@
 .photo-album .album-block[data-density="airy"] .album-text-only { width: 90%; }
 .photo-album .album-block .album-text-center { width: min(100%, 580px); }
 .photo-album .album-copy { min-width: 0; width: 100%; max-width: 34em; margin: 0; overflow-wrap: anywhere; }
-.photo-album .album-short-copy .album-copy { max-width: 21em; }
+.photo-album .album-image-text > .album-copy { justify-self: center; }
 .photo-album .album-copy > h2:first-child { margin-top: 0; }
 .photo-album .album-copy > h3:first-child { margin-top: 0; }
 /* Text-column adaptations; these never change the article page. */
@@ -98,11 +107,11 @@
 .photo-album .album-opening-note { width: 100%; max-width: 26em; justify-self: end; }
 .photo-album .album-opening h1 { font-size: clamp(30px, 4cqw, 50px); font-weight: 400; line-height: 1.35; margin: 20px 0 0; letter-spacing: -.04em; color: var(--ink); }
 .photo-album .album-description { margin: 0; color: var(--body); font-size: 1rem; font-weight: 300; line-height: 2rem; }
-.photo-album .album-kicker { font-size: 13px; letter-spacing: .1em; color: #c96749; }
+.photo-album .album-kicker { font-size: 13px; letter-spacing: .1em; color: var(--coral); }
 .photo-album .album-meta { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 13px; line-height: 1.8; color: var(--muted); margin-top: 24px; }
 .photo-album .album-sheet > .album-block:first-of-type { margin-top: 60px; }
 .photo-album .album-end { padding-top: var(--album-space); text-align: center; }
-.photo-album .album-end > span { display: block; width: 30px; height: 1px; background: #c96749; margin-inline: auto; }
+.photo-album .album-end > span { display: block; width: 30px; height: 1px; background: var(--coral); margin-inline: auto; }
 .photo-album .album-end p { margin: 20px 0 0; font-size: 13px; color: var(--muted); }
 @container photo-album (max-width: 720px) {
   .photo-album .album-sheet,

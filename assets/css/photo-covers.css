@@ -1,4 +1,4 @@
-/* Approved 01 publication cover. Only loaded by the photography listing. */
+/* Approved 01 publication cover, shared by the photography listing and homepage. */
 .photo-cover-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -10,14 +10,14 @@
   container-type: inline-size;
   --cover-surface: var(--card);
   --cover-text: var(--ink);
-  --cover-muted: #8a8078;
-  --cover-rule: rgba(37, 33, 31, .16);
+  --cover-muted: var(--muted);
+  --cover-rule: var(--rule);
 }
 .photo-cover-card[data-theme="dark"] {
   --cover-surface: var(--ink);
   --cover-text: var(--paper);
-  --cover-muted: #bcb2a9;
-  --cover-rule: rgba(247, 243, 238, .22);
+  --cover-muted: color-mix(in srgb, var(--paper) 62%, transparent);
+  --cover-rule: color-mix(in srgb, var(--paper) 22%, transparent);
 }
 .photo-cover {
   display: grid;

@@ -249,7 +249,7 @@ blocks:
 2. 修改标题、日期、地点，填写 `image_base` 照片目录和 `cover` 封面文件名；选用需要的模块，删掉不需要的模块，把示例文件名替换成自己的照片文件名。
 3. 在 GitHub 仓库打开 `assets/images`，选择 **Add file → Upload files**，上传这本摄影集的照片文件夹并提交到 `main`。
 4. 打开仓库的 `_photography` 文件夹，同样用 **Upload files** 上传 `.md` 并提交到 `main`。如果修改现有摄影集，直接编辑对应文件即可。
-5. 等仓库 **Actions** 里的 Pages 构建变绿，再打开网站的摄影列表。新的摄影集会自动出现；未设置 `featured: true` 不会成为首页指定的摄影集。
+5. 等仓库 **Actions** 里的 Pages 构建变绿，再打开网站的摄影列表。新的摄影集会自动出现；首页自动展示日期最新的三个摄影集，不再需要设置 `featured: true`。
 
 已经在本地用 Git 管理仓库的话，也可以把照片和 `.md` 一起提交、推送到 `main`。
 
