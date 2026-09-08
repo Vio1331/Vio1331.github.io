@@ -10,6 +10,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@{% if page.collection == 'photography' or page.layout == 'photo-story' %}300;{% endif %}400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}?v={{ site.time | date: '%s' }}">
+    {% if page.body_class == 'photography-index-page' %}
+    <link rel="stylesheet" href="{{ '/assets/css/photo-covers.css' | relative_url }}?v={{ site.time | date: '%s' }}">
+    {% endif %}
     {% if page.collection == 'photography' or page.layout == 'photo-story' %}
     <link rel="stylesheet" href="{{ '/assets/css/photo-modules.css' | relative_url }}?v={{ site.time | date: '%s' }}">
     {% endif %}

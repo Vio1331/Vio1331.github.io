@@ -27,6 +27,7 @@ camera: 示例设备
 image_base: /assets/images/my-album/
 cover: cover.jpg
 cover_alt: 这是一段图片说明示例文字。
+cover_theme: light
 density: airy
 
 opening:
@@ -41,6 +42,7 @@ blocks:
 
 - `image_base` 是这篇摄影集的统一图片目录，末尾的 `/` 可写可不写。
 - `cover` 是列表书册使用的封面，`opening` 是详情页分隔线下方的第一张照片，按单图模块的横竖方规则展示。两者可以用同一张，也可以不同；开场图可删除。
+- `cover_theme: light` 是浅色封面（默认），`cover_theme: dark` 是深色封面；只控制影像列表，每篇单独指定。`location` 显示在封面右下角，不在封面下方重复显示；不填地点时留空。
 - `location`、`camera`、图片的 `caption`、文字模块的 `heading` 都可以不写。
 - `density: airy` 是疏朗；`density: full` 是铺展。
 - 下面的模块全部放进同一个 `blocks:`，按顺序出现。不要给每个模块另写一个 `blocks:`。

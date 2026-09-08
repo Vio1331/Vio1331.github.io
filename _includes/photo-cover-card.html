@@ -1,0 +1,18 @@
+{%- assign cover_album = include.album -%}
+{%- assign cover_theme = 'light' -%}
+{%- if cover_album.cover_theme == 'dark' -%}{%- assign cover_theme = 'dark' -%}{%- endif -%}
+{%- assign cover_location = cover_album.location | default: '' | strip -%}
+{%- capture cover_image_url -%}{% include image-url.html src=cover_album.cover base=cover_album.image_base %}{%- endcapture -%}
+<article class="photo-cover-card" data-theme="{{ cover_theme }}">
+  <a class="photo-cover" href="{{ cover_album.url | relative_url }}" aria-label="打开摄影集：{{ cover_album.title | escape }}">
+    <div class="photo-cover-top"><span>PHOTOGRAPHY</span><span>{% if include.number < 10 %}0{% endif %}{{ include.number }}</span></div>
+    <h2>{{ cover_album.title | escape }}</h2>
+    <div class="photo-cover-image">
+      {% if cover_image_url != empty %}<img src="{{ cover_image_url | escape }}" alt="{{ cover_album.cover_alt | default: cover_album.title | escape }}" loading="lazy" decoding="async">{% endif %}
+    </div>
+    <div class="photo-cover-bottom">
+      {% if cover_album.date %}<time datetime="{{ cover_album.date | date: '%Y-%m-%d' }}">{{ cover_album.date | date: '%Y.%m' }}</time>{% endif %}
+      {% if cover_location != empty %}<span class="photo-cover-location">{{ cover_location | escape }}</span>{% endif %}
+    </div>
+  </a>
+</article>

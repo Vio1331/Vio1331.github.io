@@ -1,0 +1,77 @@
+/* Approved 01 publication cover. Only loaded by the photography listing. */
+.photo-cover-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 3rem 2rem;
+  padding-block: 3rem 6rem;
+}
+.photo-cover-card {
+  min-width: 0;
+  container-type: inline-size;
+  --cover-surface: var(--card);
+  --cover-text: var(--ink);
+  --cover-muted: #8a8078;
+  --cover-rule: rgba(37, 33, 31, .16);
+}
+.photo-cover-card[data-theme="dark"] {
+  --cover-surface: var(--ink);
+  --cover-text: var(--paper);
+  --cover-muted: #bcb2a9;
+  --cover-rule: rgba(247, 243, 238, .22);
+}
+.photo-cover {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  gap: 6cqw;
+  aspect-ratio: 3 / 4;
+  min-width: 0;
+  padding: 8cqw;
+  border: 1px solid var(--cover-rule);
+  background: var(--cover-surface);
+  color: var(--cover-text);
+}
+.photo-cover:focus-visible { outline: 2px solid var(--coral); outline-offset: 5px; }
+.photo-cover-top,
+.photo-cover-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  min-width: 0;
+  color: var(--cover-muted);
+  font-size: clamp(.75rem, 3cqw, .875rem);
+  line-height: 1.5;
+  letter-spacing: .08em;
+}
+.photo-cover-top > span:first-child { color: var(--coral); }
+.photo-cover h2 {
+  margin: 0;
+  font-size: clamp(1.4rem, 6.6cqw, 2.3rem);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -.02em;
+  overflow-wrap: anywhere;
+}
+.photo-cover-image {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  min-height: 0;
+}
+.photo-cover-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: contain;
+}
+.photo-cover-bottom time { flex: none; }
+.photo-cover-location { min-width: 0; margin-left: auto; text-align: right; overflow-wrap: anywhere; }
+@media (max-width: 1000px) {
+  .photo-cover-grid { column-gap: 1.5rem; }
+}
+@media (max-width: 800px) {
+  .photo-cover-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5rem 1.5rem; }
+}
+@media (max-width: 600px) {
+  .photo-cover-grid { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; padding-block: 2rem 4rem; }
+}

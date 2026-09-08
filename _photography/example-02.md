@@ -5,6 +5,7 @@ date: 2026-08-16
 location: 示例地点
 camera: 示例设备
 cover: /assets/images/window-light.webp
+cover_theme: dark
 cover_alt: 眼镜放在桌面上的示例图片
 density: airy
 blocks:
