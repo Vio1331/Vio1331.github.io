@@ -25,7 +25,7 @@
 | 文章详情正文 | 已确认 | 提交 `bc81a0f65ebb72372535cc9838851adc6420a2ec` 的 `.article-content` |
 | 文章详情页边距 | 已确认 | 正文保持居中窄栏，网站原有页边距保留 |
 | 摄影详情页结构 | 已确认 | `_layouts/photo-story.html`：仅 magazine 模块版式 |
-| 摄影列表封面 | 已确认 | `01 留白刊物＋三列`；`_includes/photo-cover-card.html`、`assets/css/photo-covers.css` |
+| 摄影列表封面 | 按用户新要求调整，待看效果 | 居中 OPTICS 刊头＋横幅照片＋三列；`_includes/photo-cover-card.html`、`assets/css/photo-covers.css` |
 | 首页用户文案 | 受保护 | `index.html` 当前版本 |
 | 关于页用户文案 | 受保护 | `about.md` 当前版本 |
 | 页脚用户文案 | 受保护 | `_includes/footer.html` 当前版本 |
@@ -89,7 +89,9 @@
 - 不同模块的纵向间距：桌面疏朗 224px、铺展 144px；手机疏朗 112px、铺展 80px。只调整模块间距，双联/三联/大小图内部间隔、照片宽度和比例、页头到首图间距、文末留白均保持原值。
 - 桌面通过 `--album-block-space` 控制，手机在 `@container photo-album (max-width: 720px)` 中覆盖。单模块留白覆盖继续有效。
 
-### 摄影列表封面（2026-09-08 确认）
+### 摄影列表封面（2026-09-08 原确认版本）
+
+以下为旧版记录；本次封面设计以其后的「居中刊头更新」为准。旧版可从提交 `7cb2099ec8536f3a948c62c0647fb33f252b0781` 原样取回。
 
 - 用户确认「01 留白刊物＋三列」。准确母版为独立提案项目 `optics-photo-layouts` 的提交 `7a81c6c70f20b9e4ca54a4cea3b5816c6f95895e`，仅采用其 publication 方向，不混入其他封面方案。
 - 正式实现位于 `_includes/photo-cover-card.html` 和 `assets/css/photo-covers.css`；`photography/index.html` 继续按日期倒序展示。保留现有「影像」抬头及简介。
@@ -98,6 +100,15 @@
 - `cover_theme: light` 为浅色（默认）；`cover_theme: dark` 为深色。其他值按浅色处理，颜色不依赖排列位置。示例 02 为深色，真实摄影集不代填配色。
 - 桌面三列，800px 以下两列，600px 以下一列。沿用母版的间距、字号与色值；窄屏继续使用网站现有页边距。
 - 字段仍兼容 Markdown 模块和旧 YAML，不改变内页语法。首页、内页、文章 CSS、字体、用户内容和图片原文件保持原样。
+
+### 摄影封面居中刊头更新（2026-09-08，待看效果）
+
+- 用户提供 Cereal 杂志封面参考，要求顺序为：居中 OPTICS → 中文标题 → 细分割线 → 日期、地点 → 底部照片。取消原来的角落编号，整个信息区居中。
+- 首页与摄影列表继续共用 `_includes/photo-cover-card.html` 和 `assets/css/photo-covers.css`，三列及原有响应式断点、深浅主题字段不变。
+- OPTICS 通过 `assets/css/title-font.css` 与 `.home-hero-wordmark`、`.brand-name` 共用 Freeman 字体和 `0.8em` 字距；中文标题沿用 LXGW WenKai TC 700。保留用户最新的 `.album-title > .album-kicker` 选择器及摄影页/内页小字修改。
+- 外框保持 3:4 的刊物比例；文字较长时自然撑高，不截断标题。底部图片固定 3:2，`object-fit: cover`、居中裁切，横竖方均适用。裁切只发生在封面显示区域，照片文件与摄影详情照片不改动。
+- 日期继续显示为 `YYYY.MM`，地点读取 `location`；二者位于分割线下并居中，空值不显示。无需新增 front matter 字段。
+- 界面颜色继续读取主色板，深浅配色不另写色号。这次是封面局部重排，详情模块、首页其他部分和用户内容保持原样。
 
 ### 列表抬头当前实现（2026-09-08）
 

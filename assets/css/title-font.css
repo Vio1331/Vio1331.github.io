@@ -27,7 +27,8 @@
 }
 
 .home-hero-wordmark,
-.brand-name {
+.brand-name,
+.photo-cover-wordmark {
    font-family: var(--font-brand);
    letter-spacing: 0.8em;
 }
