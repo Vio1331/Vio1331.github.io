@@ -18,3 +18,6 @@
   font-synthesis: none;
 }
 
+.home-hero-heading p {
+   font-family: var(--font-en)
+}
