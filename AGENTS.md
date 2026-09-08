@@ -34,7 +34,7 @@
 ## 设计约束
 
 - 所有品牌标志统一来自 `_includes/brand-mark.html` 和 `assets/images/favicon.svg`。
-- 字体继续使用网站现有无衬线字体设置。
+- 已确认的标题使用 Google Fonts `LXGW WenKai TC`，字重 `700`；具体范围以 `assets/css/title-font.css` 和 `docs/PROJECT_BASELINE.md` 为准。正文、导航和品牌继续使用现有无衬线字体，不得把标题字体扩大为全站字体。
 - 基础配色为纸白 `#f7f3ee`、卡片白 `#fbf8f4`、墨色 `#25211f`、正文灰 `#4a4540`、辅助灰 `#8a8078`、珊瑚橙 `#c96749`。
 - 文章详情正文样式以提交 `bc81a0f65ebb72372535cc9838851adc6420a2ec` 中的 `.article-content` 为已确认基线。
 - 摄影列表封面已确认采用「01 留白刊物＋三列」，母版与字段规则见 `docs/PROJECT_BASELINE.md`。首页保留的旧书册是独立范围，不得在其他任务中顺手重做。

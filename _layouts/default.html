@@ -8,7 +8,7 @@
     <link rel="icon" href="{{ '/assets/images/favicon.svg' | relative_url }}" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@{% if page.collection == 'photography' or page.layout == 'photo-story' %}300;{% endif %}400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@700&amp;family=Noto+Sans+SC:wght@{% if page.collection == 'photography' or page.layout == 'photo-story' %}300;{% endif %}400;500;600;700&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}?v={{ site.time | date: '%s' }}">
     {% if page.body_class == 'photography-index-page' %}
     <link rel="stylesheet" href="{{ '/assets/css/photo-covers.css' | relative_url }}?v={{ site.time | date: '%s' }}">
@@ -16,6 +16,7 @@
     {% if page.collection == 'photography' or page.layout == 'photo-story' %}
     <link rel="stylesheet" href="{{ '/assets/css/photo-modules.css' | relative_url }}?v={{ site.time | date: '%s' }}">
     {% endif %}
+    <link rel="stylesheet" href="{{ '/assets/css/title-font.css' | relative_url }}?v={{ site.time | date: '%s' }}">
     <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ '/feed.xml' | relative_url }}">
   </head>
   <body class="{{ page.body_class }}">

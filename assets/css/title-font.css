@@ -1,0 +1,16 @@
+/* Approved title font: LXGW WenKai TC Bold (700).
+   Keep this scope aligned with the approved font preview; body and brand type stay unchanged. */
+:root {
+  --font-title: "LXGW WenKai TC", var(--font-sans);
+}
+
+.article-header h1,
+.article-content h2,
+.article-content h3,
+.listing-intro h1,
+.post-card h2,
+.photo-cover h2 {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-synthesis: none;
+}

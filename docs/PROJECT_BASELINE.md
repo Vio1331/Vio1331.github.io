@@ -19,7 +19,7 @@
 | 范围 | 状态 | 权威来源 |
 |---|---|---|
 | 品牌 Logo | 已确认 | `_includes/brand-mark.html`、`assets/images/favicon.svg` |
-| 全站字体方向 | 已确认 | 无衬线字体，实际设置见 `assets/css/main.scss` |
+| 字体 | 已确认 | 指定标题使用 `LXGW WenKai TC` 700，见 `assets/css/title-font.css`；正文等其他文字沿用 `assets/css/main.scss` 的无衬线字体 |
 | 全站基础配色 | 已确认 | 纸白、卡片白、墨色、正文灰、辅助灰、珊瑚橙 |
 | 文章列表 | 已确认 | `journal/index.html` 与现有文章卡片样式 |
 | 文章详情正文 | 已确认 | 提交 `bc81a0f65ebb72372535cc9838851adc6420a2ec` 的 `.article-content` |
@@ -31,6 +31,15 @@
 | 页脚用户文案 | 受保护 | `_includes/footer.html` 当前版本 |
 
 “冻结”表示：除非用户明确点名该部分，否则任何任务都不得修改。
+
+### 标题字体（2026-09-08 确认）
+
+- 用户看过字体试排后确认使用 `LXGW WenKai TC` 粗体 `700`。准确试排母版为独立提案项目 `optics-photo-layouts` 的提交 `c5210d5e1b60c40f4a01d7958ebea497785eeb14`，选择其中的 700 字重。
+- 正式规则集中在 `assets/css/title-font.css`，由 `_layouts/default.html` 在已有样式之后加载；Google Fonts 只请求文楷的 700 字重，原有 Noto Sans SC 字重继续保留。
+- 作用范围与试排一致：`.article-header h1`、`.article-content h2`、`.article-content h3`、`.listing-intro h1`、`.post-card h2`、`.photo-cover h2`。共享这些组件的地方应用相同标题规则，不扩大到其他标题或整页文字。
+- 只变更字体、字重并关闭合成粗体；字号、行高、字距、边距、配色和卡片布局保留当前值。
+- 正文、引用、导航、橙色小字、日期与地点、OPTICS 品牌字样和首页装饰「文」保持现有字体。摄影集 opening 主标题、关于页标题、首页其他展示字未包含在本次试排中，不顺手修改。
+- 这是文章正文既有基线的局部更新；不得为换字体恢复或覆盖用户后来对 `main.scss` 做的调整。
 
 ### 摄影集模块（2026-09-07 确认）
 
