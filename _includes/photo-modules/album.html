@@ -14,7 +14,7 @@
       <div class="album-opening-note">
         {% if page.description %}<p class="album-description">{{ page.description | escape }}</p>{% endif %}
         <div class="album-meta">
-          {% if page.date %}<time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ page.date | date: '%Y.%m.%d' }}</time>{% endif %}
+          {% if page.date %}<time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ page.date | date: '%Y.%m' }}</time>{% endif %}
           {% if page.location %}<span>{{ page.location | escape }}</span>{% endif %}
           {% if page.camera %}<span>{{ page.camera | escape }}</span>{% endif %}
           {% if album_photo_count > 0 %}<span>{{ album_photo_count }} 张</span>{% endif %}
