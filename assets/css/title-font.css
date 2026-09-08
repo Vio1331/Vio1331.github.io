@@ -4,6 +4,7 @@
   --font-title: "LXGW WenKai TC", var(--font-sans);
 }
 
+.home-hero h1,
 .home-lead-card h1,
 .article-header h1,
 .article-content h2,
