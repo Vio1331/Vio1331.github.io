@@ -2,6 +2,7 @@
    Keep this scope aligned with the approved font preview; body and brand type stay unchanged. */
 :root {
   --font-title: "LXGW WenKai TC", var(--font-sans);
+  --font-en: "Freeman", var(--font-sans);
 }
 
 .home-hero h1,
@@ -16,3 +17,4 @@
   font-weight: 700;
   font-synthesis: none;
 }
+
