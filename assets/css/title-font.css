@@ -12,6 +12,7 @@
 .article-content h2,
 .article-content h3,
 .listing-intro h1,
+.album-title h1,
 .post-card h2,
 .photo-cover h2 {
   font-family: var(--font-title);
