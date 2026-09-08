@@ -19,5 +19,9 @@
 }
 
 .home-hero-heading p {
-   font-family: var(--font-en)
+   font-family: var(--font-en);
+}
+
+.brand-name {
+   font-family: var(--font-en);
 }
