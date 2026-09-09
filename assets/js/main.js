@@ -68,8 +68,8 @@ if (journalOutline && !reducedMotion.matches && 'IntersectionObserver' in window
   reducedMotion.addEventListener('change', onMotionChange);
   journalOutline.addEventListener('animationend', onOutlineEnd);
 
-  // The outline comes from Noto Sans SC 700; keep the static fallback if it cannot load.
-  document.fonts.load('700 100px "Noto Sans SC"', '文').then((faces) => {
+  // The outline matches Dela Gothic One 400; retain static text if the subset cannot load.
+  document.fonts.load('400 100px "Dela Gothic One"', '文').then((faces) => {
     if (finished) return;
     if (!faces.length || reducedMotion.matches || getComputedStyle(journalOutline).position !== 'absolute') {
       finishOutline();
