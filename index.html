@@ -25,13 +25,13 @@ body_class: home-page
 
 {% if lead_journal %}
 <section class="home-journal">
-  <!-- Noto Sans SC 700 (Google Fonts v40): original 文 glyph, overlapping contours merged.
-       1000 UPM; baseline 836 preserves the existing 0.8em text line box. -->
+  <!-- Dela Gothic One 400 (Google Fonts v19), exact 文 glyph contours.
+       1000 UPM; baseline 836 matches the 0.8em text line box. -->
   <svg class="home-journal-outline" viewBox="0 0 1000 800" aria-hidden="true" focusable="false" style="display: none;">
-    <!-- Normalize both contours separately so neither finishes drawing early. -->
+    <!-- Each contour uses the full drawing duration. -->
     <g transform="translate(0 836) scale(1 -1)">
-      <path pathLength="1" d="M44 681V564H201.57Q262.566 406.184 351 282Q381.276 239.485 415.753 201.224Q377.186 171.384 334 146Q203 69 25 25Q37 11 51.5 -10Q66 -31 79 -52Q92 -73 98 -88Q282 -34 421 55Q464.843 83.072 504.606 115.471Q540.336 85.497 579.5 59Q714 -32 898 -81Q907 -65 921 -44Q935 -23 950.5 -2.5Q966 18 979 31Q804 71 671.5 153.5Q633.24 177.322 598.441 204.104Q629.905 238.515 658 276.5Q748.422 398.754 806.493 564H960V681H523.605L609 708Q600 739 580.5 782Q561 825 540 860L412 822Q431 785 448.5 740.5Q461.713 706.902 468.94 681Z" />
-      <path pathLength="1" d="M325.97 564H671.737Q625.283 436.711 553.5 341Q531.704 311.939 507.33 285.364Q475.737 318.033 448 354Q374.138 449.777 325.97 564Z" />
+      <path pathLength="1" d="M923 -7Q665 23 500 117Q333 23 77 -7Q68 59 51.0 119.5Q34 180 2 234Q102 234 177.5 241.0Q253 248 316 268Q229 368 171 495H37V705H368V766H632V705H963V495H829Q769 365 684 269Q747 248 821.5 241.0Q896 234 998 234Q966 180 949.0 119.5Q932 59 923 -7Z" />
+      <path pathLength="1" d="M435 495Q459 436 500 390Q540 436 565 495Z" />
     </g>
   </svg>
   <div class="home-journal-inner site-shell">
@@ -102,6 +102,3 @@ body_class: home-page
 </section>
 {% endif %}
 
-<section class="home-closing site-shell">
-  <p>随意看看吧～</p>
-</section>

@@ -104,11 +104,11 @@
 .photography .photography-opening { width: var(--photography-measure); margin-inline: auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px 60px; align-items: end; padding-bottom: 36px; border-bottom: 1px solid var(--rule); }
 .photography .photography-title,
 .photography .photography-opening-note { min-width: 0; overflow-wrap: anywhere; }
-.photography .photography-opening-note { width: 100%; max-width: 26em; justify-self: end; }
+.photography .photography-opening-note { width: 100%; max-width: 26em; justify-self: end; text-align: right; }
 .photography .photography-opening h1 { font-size: clamp(30px, 4cqw, 50px); font-weight: 400; line-height: 1.35; margin: 20px 0 0; letter-spacing: -.04em; color: var(--ink); }
 .photography .photography-description { margin: 0; color: var(--body); font-size: 1rem; font-weight: 300; line-height: 2rem; }
 .photography .photography-kicker { font-size: 13px; letter-spacing: .1em; color: var(--coral); }
-.photography .photography-meta { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 13px; line-height: 1.8; color: var(--muted); margin-top: 24px; }
+.photography .photography-meta { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px 20px; font-size: 13px; line-height: 1.8; color: var(--muted); margin-top: 24px; }
 .photography .photography-sheet > .photography-block:first-of-type { margin-top: 60px; }
 .photography .photography-end { padding-top: var(--photography-space); text-align: center; }
 .photography .photography-end > span { display: block; width: 30px; height: 1px; background: var(--coral); margin-inline: auto; }
@@ -149,7 +149,7 @@
   .photography .photography-image > figcaption,
   .photography .photography-group > figcaption { gap: 10px; margin-top: 10px; }
   .photography .photography-opening { grid-template-columns: 1fr; gap: 24px; padding-bottom: 28px; }
-  .photography .photography-opening-note { justify-self: start; }
+  .photography .photography-opening-note { justify-self: end; }
   .photography .photography-sheet > .photography-block:first-of-type { margin-top: 36px; }
   .photography .photography-opening h1 { font-size: 34px; max-width: none; }
   .photography .photography-end { padding-top: 70px; }
