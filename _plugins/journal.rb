@@ -13,12 +13,16 @@ module Optics
         document.data['published'] == false || (!site.future && document.date > site.time)
       end
       collection.docs.each do |document|
-        unless document.data['date']
+        # Jekyll fills data['slug'] from the filename, so read the authored keys
+        # separately instead of treating its generated slug as an explicit override.
+        header = File.read(document.path).match(Jekyll::Document::YAML_FRONT_MATTER_REGEXP)
+        authored = header ? (SafeYAML.load(header[1]) || {}) : {}
+        unless authored['date']
           raise Jekyll::Errors::FatalException, "#{document.relative_path}: 请填写 date: YYYY-MM-DD。"
         end
         stem = File.basename(document.path, File.extname(document.path))
           .sub(/\A(?:\d{8}|\d{4}-\d{2}-\d{2})[-_]/, '')
-        slug = document.data['slug'] || Jekyll::Utils.slugify(stem, :mode => 'default', :cased => true)
+        slug = Jekyll::Utils.slugify(authored['slug'] || stem, :mode => 'default', :cased => true)
         document.data['permalink'] ||= "/journal/#{slug}/"
         # The original Jekyll feed used the unescaped filename title without a trailing slash.
         document.data['journal_feed_id'] ||= "/journal/#{stem}"
