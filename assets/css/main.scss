@@ -521,7 +521,7 @@ button { font: inherit; }
   display: block;
   box-sizing: border-box;
   margin: var(--r) 0;
-  padding: calc(var(--r) * 2) calc(var(--r) * 1) calc(var(--r) * 2);
+  padding: calc(var(--r) * 2) calc(var(--r) * 1) calc(var(--r) * 1);
   border: 1px solid var(--line-color);
   border-left: 1px solid var(--line-color);
   border-radius: 12px;
