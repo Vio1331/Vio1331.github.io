@@ -27,7 +27,7 @@ npm test --prefix tools/content-build
 bundle exec ruby tools/content-build/test/journal_test.rb
 node tools/content-build/cli.mjs prepare --include-examples
 cd _content_build
-bundle exec jekyll serve --destination ../_site
+BUNDLE_GEMFILE=../Gemfile bundle exec jekyll serve --destination ../_site
 ```
 
 打开 `http://127.0.0.1:4000`。修改源文件后回到仓库根目录重新运行 `prepare`，不编辑 `_content_build` 临时副本。直接在项目根目录运行 Jekyll 不会转换摄影集中文标记，请保留 `prepare` 这一步。

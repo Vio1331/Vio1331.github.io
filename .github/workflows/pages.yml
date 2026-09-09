@@ -57,6 +57,7 @@ jobs:
         working-directory: _content_build
         env:
           JEKYLL_ENV: production
+          BUNDLE_GEMFILE: ${{ github.workspace }}/Gemfile
         run: bundle exec jekyll build --destination ../_site
       - name: Verify generated content and image references
         run: bundle exec ruby tools/content-build/verify_site.rb _site
