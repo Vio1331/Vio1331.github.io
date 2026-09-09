@@ -36,7 +36,7 @@
 - 所有品牌标志统一来自 `_includes/brand-mark.html` 和 `assets/images/favicon.svg`。
 - 已确认的标题使用 Google Fonts `LXGW WenKai TC`，字重 `700`；具体范围以 `assets/css/title-font.css` 和 `docs/PROJECT_BASELINE.md` 为准。正文、导航和品牌继续使用现有无衬线字体，不得把标题字体扩大为全站字体。
 - 基础配色为纸白 `#f7f3ee`、卡片白 `#fbf8f4`、墨色 `#25211f`、正文灰 `#4a4540`、辅助灰 `#8a8078`、珊瑚橙 `#c96749`。
-- 文章详情正文样式以提交 `bc81a0f65ebb72372535cc9838851adc6420a2ec` 中的 `.article-content` 为已确认基线。
+- 文章详情正文样式以提交 `bc81a0f65ebb72372535cc9838851adc6420a2ec` 中的 `.article-content` 为历史基线（现名 `.journal-content`，整理时保留当前样式值）。
 - 摄影列表继续使用居中 OPTICS 刊头、中文标题、细线、日期地点、底部 3:2 裁切照片的封面，保留三列和深浅配色。首页使用独立的完整摄影封面，与文章主卡片等宽等高，顶部裁切照片与底部标题、简介、年月日期和入口属于同一张卡片；不显示地点。历史母版与当前字段规则见 `docs/PROJECT_BASELINE.md`。不重新生成书册图片。
 - 界面颜色以 `assets/css/main.scss` 的 `:root` 为唯一来源。标题、正文、辅助文字、强调色及背景按语义引用变量；透明色使用这些变量派生，不在摄影等独立样式中另写色号。照片与原始 Logo 不调色。
 
@@ -47,3 +47,11 @@
 3. 修改后检查 GitHub Pages 构建状态。
 4. 涉及视觉时至少检查桌面端和移动端；无法检查时必须如实说明。
 5. 交付时列出：修改了什么、明确没有修改什么、提交号、已知遗留问题。
+
+## 代码命名与写作入口（2026-09-09 整理）
+
+- 文章统一使用 `_journal`、`site.journal`、`journal.html`、`journal-card` 和 `.journal-*`；摄影统一使用 `photography`。完整路径映射见 `docs/CODE_MAP.md`。
+- 两类内容均支持 `YYYYMMDD_标题.md`，显示日期读取 `date`。不要再要求用户改成 Jekyll 内置文章的文件名形式。
+- 图片放在 `assets/images/journal/` 与 `assets/images/photography/`，原始二进制内容不得改变；头像、图标、共用占位图保留共享位置。
+- 构建先执行 `tools/content-build/cli.mjs prepare`，再运行支持 `_plugins` 的 Jekyll；不要恢复旧的安全模式构建步骤，否则文章图片和链接解析不会执行。
+- 此次范围是代码与路径整理，不是重新设计。最新用户手动修改的样式值继续有效。

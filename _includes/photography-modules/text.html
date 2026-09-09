@@ -1,0 +1,4 @@
+<div class="photography-copy journal-content">
+  {% if include.heading and include.heading != empty %}<h2>{{ include.heading | escape }}</h2>{% endif %}
+  {{ include.text | markdownify }}
+</div>

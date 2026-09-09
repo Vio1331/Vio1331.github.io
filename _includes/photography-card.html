@@ -1,0 +1,20 @@
+{%- assign cover_photography = include.photography -%}
+{%- assign cover_theme = 'light' -%}
+{%- if cover_photography.cover_theme == 'dark' -%}{%- assign cover_theme = 'dark' -%}{%- endif -%}
+{%- assign cover_location = cover_photography.location | default: '' | strip -%}
+{%- capture cover_image_url -%}{% include image-url.html src=cover_photography.cover base=cover_photography.image_base %}{%- endcapture -%}
+<article class="photography-card" data-theme="{{ cover_theme }}">
+  <a class="photography-cover" href="{{ cover_photography.url | relative_url }}" aria-label="打开摄影集：{{ cover_photography.title | escape }}">
+    <div class="photography-cover-heading">
+      <p class="photography-cover-wordmark">OPTICS</p>
+      <h2>{{ cover_photography.title | escape }}</h2>
+      <div class="photography-cover-meta">
+        {% if cover_photography.date %}<time datetime="{{ cover_photography.date | date: '%Y-%m-%d' }}">{{ cover_photography.date | date: '%Y.%m' }}</time>{% endif %}
+        {% if cover_location != empty %}<span class="photography-cover-location">{{ cover_location | escape }}</span>{% endif %}
+      </div>
+    </div>
+    <div class="photography-cover-image">
+      {% if cover_image_url != empty %}<img src="{{ cover_image_url | escape }}" alt="{{ cover_photography.cover_alt | default: cover_photography.title | escape }}" loading="lazy" decoding="async">{% endif %}
+    </div>
+  </a>
+</article>

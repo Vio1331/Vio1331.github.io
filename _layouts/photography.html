@@ -1,0 +1,45 @@
+---
+layout: default
+---
+{% assign photography_image_count = 0 %}
+{% if page.opening %}{% assign photography_image_count = photography_image_count | plus: 1 %}{% endif %}
+{% for count_block in page.blocks %}
+  {% if count_block.src %}{% assign photography_image_count = photography_image_count | plus: 1 %}{% endif %}
+  {% if count_block.images %}{% assign photography_image_count = photography_image_count | plus: count_block.images.size %}{% endif %}
+{% endfor %}
+<article class="photography" data-density="{% if page.density == 'full' %}full{% else %}airy{% endif %}">
+  <div class="photography-sheet">
+    <header class="photography-opening">
+      <div class="photography-title">
+        <a class="photography-kicker" href="{{ '/photography/' | relative_url }}">PHOTOGRAPHY</a>
+        <h1>{{ page.title | escape }}</h1>
+      </div>
+      <div class="photography-opening-note">
+        {% if page.description %}<p class="photography-description">{{ page.description | escape }}</p>{% endif %}
+        <div class="photography-meta">
+          {% if page.date %}<time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ page.date | date: '%Y.%m' }}</time>{% endif %}
+          {% if page.location %}<span>{{ page.location | escape }}</span>{% endif %}
+          {% if page.camera %}<span>{{ page.camera | escape }}</span>{% endif %}
+          {% if photography_image_count > 0 %}<span>{{ photography_image_count }} 张</span>{% endif %}
+        </div>
+      </div>
+    </header>
+    {% if page.opening %}
+    <section class="photography-block" data-type="image">
+      <div class="photography-module photography-single">
+        {% include photography-modules/image.html image=page.opening loading='eager' %}
+      </div>
+    </section>
+    {% endif %}
+    {% for story_block in page.blocks %}
+      {% include photography-modules/block.html block=story_block %}
+    {% endfor %}
+    {% assign photography_trailing_text = content | strip %}
+    {% if photography_trailing_text != empty %}
+    <section class="photography-block">
+      <div class="photography-module photography-text-only photography-text-center"><div class="photography-copy journal-content">{{ content }}</div></div>
+    </section>
+    {% endif %}
+    <footer class="photography-end"><span aria-hidden="true"></span><p>完</p></footer>
+  </div>
+</article>

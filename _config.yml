@@ -5,15 +5,16 @@ url: "https://vio1331.github.io"
 baseurl: ""
 lang: zh-CN
 timezone: Asia/Shanghai
+strict_front_matter: true
 
 author:
   name: Vio
   bio: 个人网站作者。
 
-permalink: /journal/:title/
-paginate_path: /journal/page:num/
-
 collections:
+  journal:
+    output: true
+    permalink: /journal/:name/
   photography:
     output: true
     permalink: /photography/:name/
@@ -21,33 +22,41 @@ collections:
 defaults:
   - scope:
       path: ""
-      type: posts
+      type: journal
     values:
-      layout: post
+      layout: journal
       section: journal
   - scope:
       path: ""
       type: photography
     values:
-      layout: photo-story
+      layout: photography
       section: photography
 
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  hard_wrap: false
+  gfm_quirks: paragraph_end
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    default_lang: plaintext
+
 plugins:
-  - jekyll-feed
   - jekyll-seo-tag
 
 exclude:
   - README.md
+  - AGENTS.md
+  - docs
   - Gemfile
   - Gemfile.lock
   - vendor
   - .openai
   - tools
   - node_modules
-  - _album_build
+  - _content_build
 
 sass:
   style: compressed
-
-feed:
-  path: feed.xml

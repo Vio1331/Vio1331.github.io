@@ -16,9 +16,9 @@ body_class: photography-index-page
   </div>
 </header>
 
-<section class="photo-cover-grid site-shell" aria-label="摄影集列表">
+<section class="photography-cover-grid site-shell" aria-label="摄影集列表">
   {% assign photo_items = site.photography | sort: 'date' | reverse %}
   {% for item in photo_items %}
-    {% include photo-cover-card.html album=item number=forloop.index %}
+    {% include photography-card.html photography=item number=forloop.index %}
   {% endfor %}
 </section>
