@@ -6,6 +6,7 @@ body_class: home-page
 ---
 {% assign lead_post = site.posts | first %}
 {% assign home_albums = site.photography | sort: 'date' | reverse %}
+{% assign lead_album = home_albums | first %}
 
 <section class="home-hero">
   <div class="home-hero-inner site-shell">
@@ -67,13 +68,35 @@ body_class: home-page
   <div class="home-photography-inner site-shell">
     <header class="home-chapter-heading">
       <p class="section-label">02 / 影像</p>
-      <a href="{{ '/photography/' | relative_url }}">查看全部摄影集 →</a>
+      <a href="{{ '/photography/' | relative_url }}" aria-label="查看全部摄影集">查看全部</a>
     </header>
-    <div class="photo-cover-grid" aria-label="最新摄影集">
-      {% for album in home_albums limit: 3 %}
-        {% include photo-cover-card.html album=album number=forloop.index %}
+
+    {% capture home_album_image %}{% include image-url.html src=lead_album.cover base=lead_album.image_base %}{% endcapture %}
+    {% assign home_album_image = home_album_image | strip %}
+    <a class="home-album-card" href="{{ lead_album.url | relative_url }}" aria-labelledby="home-album-title">
+      <div class="home-album-image">
+        {% if home_album_image != empty %}<img src="{{ home_album_image | escape }}" alt="{{ lead_album.cover_alt | default: lead_album.title | escape }}" loading="lazy" decoding="async">{% endif %}
+      </div>
+      <div class="home-album-caption">
+        <h2 id="home-album-title">{{ lead_album.title | escape }}</h2>
+        <p class="home-lead-meta home-album-meta">
+          <time datetime="{{ lead_album.date | date: '%Y-%m' }}">{{ lead_album.date | date: '%Y.%m' }}</time>
+        </p>
+        <p class="home-album-description">{{ lead_album.description | escape }}</p>
+        <span class="home-lead-link">打开摄影集 →</span>
+      </div>
+    </a>
+
+    {% if home_albums.size > 1 %}
+    <nav class="home-more-articles home-more-albums" aria-label="更多摄影集">
+      {% for album in home_albums offset: 1 limit: 2 %}
+      <a href="{{ album.url | relative_url }}">
+        <span>{{ album.title | escape }}</span>
+        <time datetime="{{ album.date | date_to_xmlschema }}">{{ album.date | date: '%Y.%m.%d' }}</time>
+      </a>
       {% endfor %}
-    </div>
+    </nav>
+    {% endif %}
   </div>
 </section>
 {% endif %}

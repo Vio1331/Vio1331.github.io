@@ -16,6 +16,27 @@ document.querySelectorAll('.site-nav a').forEach((link) => {
   });
 });
 
+// Use the article card as the size reference, including after fonts load or text wraps.
+const homeLeadCard = document.querySelector('.home-lead-card');
+const homePhotography = document.querySelector('.home-photography');
+
+if (homeLeadCard && homePhotography) {
+  const matchHomeCoverSize = () => {
+    const { width, height } = homeLeadCard.getBoundingClientRect();
+    if (width <= 0 || height <= 0) return;
+    homePhotography.style.setProperty('--home-lead-width', `${width}px`);
+    homePhotography.style.setProperty('--home-lead-height', `${height}px`);
+  };
+  matchHomeCoverSize();
+  if ('ResizeObserver' in window) {
+    const coverSizeObserver = new ResizeObserver(matchHomeCoverSize);
+    coverSizeObserver.observe(homeLeadCard, { box: 'border-box' });
+  } else {
+    window.addEventListener('resize', matchHomeCoverSize);
+  }
+  document.fonts?.ready.then(matchHomeCoverSize);
+}
+
 // Trace the home decoration once, then return to the original text rendering.
 const homeWords = document.querySelector('.home-words');
 const wordsOutline = homeWords?.querySelector('.home-words-outline');
