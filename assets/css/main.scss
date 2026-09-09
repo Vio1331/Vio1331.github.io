@@ -924,10 +924,14 @@ button { font: inherit; }
   opacity: 0.9;
 }
 
-.home-journal {
-  /* Independent timings: extend the drawing without adding a pause before fading. */
+.home-journal,
+.home-photography {
+  /* Shared size and timing; each decoration starts when it enters view. */
+  --home-decoration-size: clamp(20rem, 45vw, 42.5rem);
   --words-draw-duration: 5s;
   --words-fade-duration: 0.9s;
+}
+.home-journal {
   position: relative;
   min-height: 96svh;
   display: grid;
@@ -943,24 +947,27 @@ button { font: inherit; }
   color: color-mix(in srgb, var(--ink) 5.5%, transparent);
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(16rem, 36vw, 34rem);
+  font-size: var(--home-decoration-size);
   line-height: 0.8;
   transform: translateY(-50%);
   pointer-events: none;
 }
-.home-journal-outline {
+.home-journal-outline { right: -0.11em; }
+.home-photography-outline { left: -0.11em; }
+.home-journal-outline,
+.home-photography-outline {
   position: absolute;
-  right: -0.11em;
   top: 50%;
   width: 1em;
   height: 0.8em;
   overflow: visible;
-  font-size: clamp(16rem, 36vw, 34rem);
+  font-size: var(--home-decoration-size);
   transform: translateY(-50%);
   opacity: 0;
   pointer-events: none;
 }
-.home-journal-outline path {
+.home-journal-outline path,
+.home-photography-outline path {
   fill: none;
   stroke: color-mix(in srgb, var(--ink) 22%, transparent);
   stroke-width: 1;
@@ -968,15 +975,19 @@ button { font: inherit; }
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
 }
-.home-journal.is-outline-ready::after { opacity: 0; }
-.home-journal.is-outline-playing .home-journal-outline {
+.home-journal.is-outline-ready::after,
+.home-photography.is-outline-ready::after { opacity: 0; }
+.home-journal.is-outline-playing .home-journal-outline,
+.home-photography.is-outline-playing .home-photography-outline {
   opacity: 1;
   animation: home-journal-outline-fade var(--words-fade-duration) ease-in-out var(--words-draw-duration) forwards;
 }
-.home-journal.is-outline-playing .home-journal-outline path {
+.home-journal.is-outline-playing .home-journal-outline path,
+.home-photography.is-outline-playing .home-photography-outline path {
   animation: home-journal-trace var(--words-draw-duration) linear both;
 }
-.home-journal.is-outline-playing::after {
+.home-journal.is-outline-playing::after,
+.home-photography.is-outline-playing::after {
   animation: home-journal-fill var(--words-fade-duration) ease-in-out var(--words-draw-duration) both;
 }
 @keyframes home-journal-trace {
@@ -993,9 +1004,13 @@ button { font: inherit; }
 }
 @media (prefers-reduced-motion: reduce) {
   .home-journal.is-outline-ready::after,
-  .home-journal.is-outline-playing::after { opacity: 1; animation: none; }
-  .home-journal.is-outline-playing .home-journal-outline { opacity: 0; animation: none; }
-  .home-journal-outline path { animation: none; }
+  .home-journal.is-outline-playing::after,
+  .home-photography.is-outline-ready::after,
+  .home-photography.is-outline-playing::after { opacity: 1; animation: none; }
+  .home-journal.is-outline-playing .home-journal-outline,
+  .home-photography.is-outline-playing .home-photography-outline { opacity: 0; animation: none; }
+  .home-journal-outline path,
+  .home-photography-outline path { animation: none; }
 }
 .home-journal-inner { position: relative; z-index: 1; padding-block: clamp(6rem, 12vh, 10rem); }
 .home-chapter-heading {
@@ -1061,7 +1076,7 @@ button { font: inherit; }
   color: color-mix(in srgb, var(--ink) 5.5%, transparent);
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(16rem, 36vw, 34rem);
+  font-size: var(--home-decoration-size);
   line-height: 0.8;
   transform: translateY(-50%);
   pointer-events: none;
@@ -1125,16 +1140,19 @@ button { font: inherit; }
   .home-hero-curve { right: -2rem; top: 50%; opacity: 0.55; }
   .home-hero-notes { width: min(100%, 21rem); justify-self: end; }
 
+  .home-journal,
+  .home-photography { --home-decoration-size: 18.75rem; }
   .home-journal { min-height: auto; }
-  .home-journal::after { right: -0.15em; top: 10rem; font-size: 15rem; transform: none; }
-  .home-journal-outline { right: -0.15em; top: 10rem; font-size: 15rem; transform: none; }
+  .home-journal::after { right: -0.15em; top: 10rem; font-size: var(--home-decoration-size); transform: none; }
+  .home-journal-outline { right: -0.15em; top: 10rem; font-size: var(--home-decoration-size); transform: none; }
   .home-journal-inner { padding-block: 5rem 6rem; }
   .home-journal-card { min-height: 27rem; padding: 2rem; border-radius: 1.25rem; }
   .home-journal-card h2 { margin-top: 3rem; font-size: clamp(2.25rem, 10vw, 3.35rem); }
   .home-more-journal a { align-items: baseline; }
 
   .home-photography { min-height: auto; }
-  .home-photography::after { left: -0.15em; top: 10rem; font-size: 15rem; transform: none; }
+  .home-photography::after,
+  .home-photography-outline { left: -0.15em; top: 10rem; font-size: var(--home-decoration-size); transform: none; }
   .home-photography-inner { padding-block: 5rem 6rem; }
   .home-photography-card { height: var(--home-journal-height, 27rem); border-radius: 1.25rem; }
   .home-photography-caption { gap: 1rem 1.1rem; padding: 1.5rem; border-radius: 0 0 1.25rem 1.25rem; }
