@@ -5,6 +5,7 @@ url: "https://vio1331.github.io"
 baseurl: ""
 lang: zh-CN
 timezone: Asia/Shanghai
+strict_front_matter: true
 
 author:
   name: Vio

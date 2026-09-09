@@ -17,15 +17,18 @@ class JournalTest < Minitest::Test
       FileUtils.cp_r("#{ROOT}/_includes", directory)
       FileUtils.cp("#{ROOT}/feed.xml", directory)
       config = Jekyll.configuration({
-        'source' => directory, 'destination' => "#{directory}/_site", 'quiet' => false, 'strict_front_matter' => true,
+        'source' => directory, 'destination' => "#{directory}/_site", 'quiet' => true, 'strict_front_matter' => true,
         'url' => 'https://example.com', 'baseurl' => baseurl, 'lang' => 'zh-CN',
         'title' => '示例网站', 'author' => {'name' => 'Vio'},
         'collections' => {'journal' => {'output' => true, 'permalink' => '/journal/:name/'}},
         'defaults' => [{'scope' => {'type' => 'journal'}, 'values' => {'layout' => 'journal'}}]
       })
-      site = Jekyll::Site.new(config)
-      site.process
-      yield site, directory
+      # Jekyll 3 prefers layouts in cwd; build inside the isolated source directory.
+      Dir.chdir(directory) do
+        site = Jekyll::Site.new(config)
+        site.process
+        yield site, directory
+      end
     end
   end
 
@@ -67,7 +70,7 @@ class JournalTest < Minitest::Test
     MD
     with_site({'20260102_示例' => source("image_base: /assets/images/journal/示例/\ncover: cover.jpg\n", body)}, '/sub') do |site, directory|
       html = Nokogiri::HTML(File.read("#{directory}/_site/journal/示例/index.html"))
-      assert html.at_css('.journal-content'), "Journal layout missing: #{html.to_html}; data=#{site.collections['journal'].docs.first.data.inspect}; content=#{site.collections['journal'].docs.first.content.inspect}; output=#{site.collections['journal'].docs.first.output.inspect}; layouts=#{site.layouts.transform_values { |l| {path: l.path, content: l.content.to_s[0,150]} }.inspect}"
+      assert html.at_css('.journal-content'), 'Journal template did not render'
       images = html.css('.journal-content img').map { |n| n['src'] }
       assert_equal 4, images.length, "Rendered journal content: #{html.at_css('.journal-content').to_html}"
       assert_equal ['/sub/assets/images/journal/示例/照片 01.jpg', '/sub/assets/images/journal/示例/second.jpg', '/sub/assets/shared.png', 'https://example.net/out.png'], images.map { |s| URI::DEFAULT_PARSER.unescape(s) }

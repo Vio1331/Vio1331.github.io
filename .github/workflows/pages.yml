@@ -54,9 +54,10 @@ jobs:
           fi
       - uses: actions/configure-pages@v5
       - name: Build Jekyll with the site plugins
+        working-directory: _content_build
         env:
           JEKYLL_ENV: production
-        run: bundle exec jekyll build --source _content_build --destination _site
+        run: bundle exec jekyll build --destination ../_site
       - name: Verify generated content and image references
         run: bundle exec ruby tools/content-build/verify_site.rb _site
       - uses: actions/upload-pages-artifact@v4
