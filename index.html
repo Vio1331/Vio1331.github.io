@@ -4,9 +4,10 @@ title: 记忆是一本私人文学
 description: Vio 的个人文章与摄影网站。
 body_class: home-page
 ---
-{% assign lead_post = site.posts | first %}
-{% assign home_albums = site.photography | sort: 'date' | reverse %}
-{% assign lead_album = home_albums | first %}
+{% assign home_journal_items = site.journal | sort: 'date' | reverse %}
+{% assign lead_journal = home_journal_items | first %}
+{% assign home_photography_items = site.photography | sort: 'date' | reverse %}
+{% assign lead_photography = home_photography_items | first %}
 
 <section class="home-hero">
   <div class="home-hero-inner site-shell">
@@ -22,40 +23,40 @@ body_class: home-page
   </div>
 </section>
 
-{% if lead_post %}
-<section class="home-words">
+{% if lead_journal %}
+<section class="home-journal">
   <!-- Noto Sans SC 700 (Google Fonts v40): original 文 glyph, overlapping contours merged.
        1000 UPM; baseline 836 preserves the existing 0.8em text line box. -->
-  <svg class="home-words-outline" viewBox="0 0 1000 800" aria-hidden="true" focusable="false" style="display: none;">
+  <svg class="home-journal-outline" viewBox="0 0 1000 800" aria-hidden="true" focusable="false" style="display: none;">
     <!-- Normalize both contours separately so neither finishes drawing early. -->
     <g transform="translate(0 836) scale(1 -1)">
       <path pathLength="1" d="M44 681V564H201.57Q262.566 406.184 351 282Q381.276 239.485 415.753 201.224Q377.186 171.384 334 146Q203 69 25 25Q37 11 51.5 -10Q66 -31 79 -52Q92 -73 98 -88Q282 -34 421 55Q464.843 83.072 504.606 115.471Q540.336 85.497 579.5 59Q714 -32 898 -81Q907 -65 921 -44Q935 -23 950.5 -2.5Q966 18 979 31Q804 71 671.5 153.5Q633.24 177.322 598.441 204.104Q629.905 238.515 658 276.5Q748.422 398.754 806.493 564H960V681H523.605L609 708Q600 739 580.5 782Q561 825 540 860L412 822Q431 785 448.5 740.5Q461.713 706.902 468.94 681Z" />
       <path pathLength="1" d="M325.97 564H671.737Q625.283 436.711 553.5 341Q531.704 311.939 507.33 285.364Q475.737 318.033 448 354Q374.138 449.777 325.97 564Z" />
     </g>
   </svg>
-  <div class="home-words-inner site-shell">
+  <div class="home-journal-inner site-shell">
     <header class="home-chapter-heading">
       <p class="section-label">01 / 文字</p>
       <a href="{{ '/journal/' | relative_url }}">查看全部</a>
     </header>
 
-    <a class="home-lead-card" href="{{ lead_post.url | relative_url }}">
-      <p class="home-lead-meta">
-        <span>{{ lead_post.category }}</span>
-        <time datetime="{{ lead_post.date | date_to_xmlschema }}">{{ lead_post.date | date: '%Y.%m.%d' }}</time>
+    <a class="home-journal-card" href="{{ lead_journal.url | relative_url }}">
+      <p class="home-journal-meta">
+        <span>{{ lead_journal.category }}</span>
+        <time datetime="{{ lead_journal.date | date_to_xmlschema }}">{{ lead_journal.date | date: '%Y.%m.%d' }}</time>
       </p>
       <div>
-        <h2>{{ lead_post.title }}</h2>
-        <p>{{ lead_post.excerpt_text }}</p>
+        <h2>{{ lead_journal.title }}</h2>
+        <p>{{ lead_journal.excerpt_text }}</p>
       </div>
-      <span class="home-lead-link">阅读全文 →</span>
+      <span class="home-journal-link">阅读全文 →</span>
     </a>
 
-    <nav class="home-more-articles" aria-label="更多文章">
-      {% for post in site.posts offset: 1 limit: 2 %}
-      <a href="{{ post.url | relative_url }}">
-        <span>{{ post.title }}</span>
-        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%Y.%m.%d' }}</time>
+    <nav class="home-more-journal" aria-label="更多文章">
+      {% for entry in home_journal_items offset: 1 limit: 2 %}
+      <a href="{{ entry.url | relative_url }}">
+        <span>{{ entry.title }}</span>
+        <time datetime="{{ entry.date | date_to_xmlschema }}">{{ entry.date | date: '%Y.%m.%d' }}</time>
       </a>
       {% endfor %}
     </nav>
@@ -63,7 +64,7 @@ body_class: home-page
 </section>
 {% endif %}
 
-{% if home_albums.size > 0 %}
+{% if home_photography_items.size > 0 %}
 <section class="home-photography">
   <div class="home-photography-inner site-shell">
     <header class="home-chapter-heading">
@@ -71,28 +72,28 @@ body_class: home-page
       <a href="{{ '/photography/' | relative_url }}" aria-label="查看全部摄影集">查看全部</a>
     </header>
 
-    {% capture home_album_image %}{% include image-url.html src=lead_album.cover base=lead_album.image_base %}{% endcapture %}
-    {% assign home_album_image = home_album_image | strip %}
-    <a class="home-album-card" href="{{ lead_album.url | relative_url }}" aria-labelledby="home-album-title">
-      <div class="home-album-image">
-        {% if home_album_image != empty %}<img src="{{ home_album_image | escape }}" alt="{{ lead_album.cover_alt | default: lead_album.title | escape }}" loading="lazy" decoding="async">{% endif %}
+    {% capture home_photography_image %}{% include image-url.html src=lead_photography.cover base=lead_photography.image_base %}{% endcapture %}
+    {% assign home_photography_image = home_photography_image | strip %}
+    <a class="home-photography-card" href="{{ lead_photography.url | relative_url }}" aria-labelledby="home-photography-title">
+      <div class="home-photography-image">
+        {% if home_photography_image != empty %}<img src="{{ home_photography_image | escape }}" alt="{{ lead_photography.cover_alt | default: lead_photography.title | escape }}" loading="lazy" decoding="async">{% endif %}
       </div>
-      <div class="home-album-caption">
-        <h2 id="home-album-title">{{ lead_album.title | escape }}</h2>
-        <p class="home-lead-meta home-album-meta">
-          <time datetime="{{ lead_album.date | date: '%Y-%m' }}">{{ lead_album.date | date: '%Y.%m' }}</time>
+      <div class="home-photography-caption">
+        <h2 id="home-photography-title">{{ lead_photography.title | escape }}</h2>
+        <p class="home-journal-meta home-photography-meta">
+          <time datetime="{{ lead_photography.date | date: '%Y-%m' }}">{{ lead_photography.date | date: '%Y.%m' }}</time>
         </p>
-        <p class="home-album-description">{{ lead_album.description | escape }}</p>
-        <span class="home-lead-link">打开摄影集 →</span>
+        <p class="home-photography-description">{{ lead_photography.description | escape }}</p>
+        <span class="home-journal-link">打开摄影集 →</span>
       </div>
     </a>
 
-    {% if home_albums.size > 1 %}
-    <nav class="home-more-articles home-more-albums" aria-label="更多摄影集">
-      {% for album in home_albums offset: 1 limit: 2 %}
-      <a href="{{ album.url | relative_url }}">
-        <span>{{ album.title | escape }}</span>
-        <time datetime="{{ album.date | date_to_xmlschema }}">{{ album.date | date: '%Y.%m.%d' }}</time>
+    {% if home_photography_items.size > 1 %}
+    <nav class="home-more-journal home-more-photography" aria-label="更多摄影集">
+      {% for photography in home_photography_items offset: 1 limit: 2 %}
+      <a href="{{ photography.url | relative_url }}">
+        <span>{{ photography.title | escape }}</span>
+        <time datetime="{{ photography.date | date_to_xmlschema }}">{{ photography.date | date: '%Y.%m.%d' }}</time>
       </a>
       {% endfor %}
     </nav>

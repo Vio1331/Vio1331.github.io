@@ -4,4 +4,4 @@ _site/
 vendor/
 .DS_Store
 node_modules/
-_album_build/
+_content_build/

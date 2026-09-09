@@ -1,0 +1,17 @@
+{% assign card_tone = 'light' %}
+{% if include.journal.category == '专题文章' %}
+  {% assign card_tone = 'dark' %}
+{% endif %}
+<article class="journal-card journal-card--{{ card_tone }}">
+  <a class="journal-card-link" href="{{ include.journal.url | relative_url }}">
+    <h2>{{ include.journal.title }}</h2>
+    <div class="journal-card-foot">
+      <span class="journal-card-rule" aria-hidden="true"></span>
+      <p class="journal-card-meta">
+        {% if include.journal.category %}<span>{{ include.journal.category }}</span>{% endif %}
+        <time datetime="{{ include.journal.date | date_to_xmlschema }}">{{ include.journal.date | date: '%Y.%m' }}</time>
+      </p>
+      {% if include.journal.excerpt_text %}<p class="journal-card-excerpt">{{ include.journal.excerpt_text }}</p>{% endif %}
+    </div>
+  </a>
+</article>

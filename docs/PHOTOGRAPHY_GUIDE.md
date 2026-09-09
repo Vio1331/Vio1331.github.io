@@ -33,7 +33,7 @@ density: airy
 :::
 ```
 
-开头 `---` 之间仍是整篇信息；照片和正文写在第二个 `---` 后面。**新写法不再填写 `blocks:`，也不需要 `album_style`。** 标题、日期、地点、简介、设备、封面等现有字段保持原有含义。
+开头 `---` 之间仍是整篇信息；照片和正文写在第二个 `---` 后面。**新写法不再填写 `blocks:`，也不需要 `photography_style`。** 标题、日期、地点、简介、设备、封面等现有字段保持原有含义。
 
 `image_base` 统一指定照片目录，下面只写文件名。以 `/` 开头的站内路径、`https://` 或 `http://` 完整地址照常使用，不加目录前缀。文件名大小写、扩展名必须与上传的照片一致。带空格的文件名可写为 `![](<照片 01.jpg>)`。
 
@@ -208,15 +208,28 @@ A/B/C 等编号只用于对应视觉参考，实际写作不需要填写编号�
 
 有 `blocks:` 的旧摄影集继续使用原模板，源文件不会被自动重写。新摄影集没有 blocks，照片和文字写在正文；同一文件不要同时使用两种模块写法。旧 YAML 的写作说明保存在单独指南中。
 
-转换只发生在临时构建目录 `_album_build/`：新 Markdown → 现有 blocks 数据 → 现有 Jekyll 模板。转换结果不回写 main，也不要求你维护第二份 YAML。文章、首页等文件原样进入同一次 Jekyll 构建。
+转换只发生在临时构建目录 `_content_build/`：新 Markdown → 现有 blocks 数据 → 现有 Jekyll 模板。转换结果不回写 main，也不要求你维护第二份 YAML。文章、首页等文件原样进入同一次 Jekyll 构建。
 
 开发者本地预览：
 
 ```bash
-npm ci --prefix tools/album-markup
-npm test --prefix tools/album-markup
-node tools/album-markup/cli.mjs prepare --include-examples
-bundle exec jekyll serve --source _album_build
+npm ci --prefix tools/content-build
+npm test --prefix tools/content-build
+node tools/content-build/cli.mjs prepare --include-examples
+bundle exec jekyll serve --source _content_build
 ```
 
-修改源文件后重新运行 prepare；不要编辑构建目录里的生成文件。只检查语法时运行 `node tools/album-markup/cli.mjs check --include-examples`。
+修改源文件后重新运行 prepare；不要编辑构建目录里的生成文件。只检查语法时运行 `node tools/content-build/cli.mjs check --include-examples`。
+
+## 目录命名约定（2026-09-09）
+
+摄影集继续放在 `_photography/`，可以沿用 `20260909_示例标题.md`，不需要改为带连字符的日期文件名。页面日期与排序读取 `date: 2026-09-09`。文章现在也使用相同命名习惯。
+
+本次已将现有摄影集原图整体移到 `assets/images/photography/` 下，并更新各文件的 `image_base`。今后建议：
+
+```yaml
+image_base: /assets/images/photography/20260909_示例标题/
+cover: 01.jpg
+```
+
+照片正文仍只写 `![](02.jpg)`，模块、图注、横竖方规则和 `cover_theme` 都不变。头像、图标和共享眼镜示例图仍放在原来的公共目录。完整代码分工见 [代码地图](CODE_MAP.md)。

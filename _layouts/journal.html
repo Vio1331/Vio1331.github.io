@@ -1,0 +1,25 @@
+---
+layout: default
+---
+<article class="journal site-shell">
+  <header class="journal-header">
+    <a class="eyebrow" href="{{ '/journal/' | relative_url }}">文字 / {{ page.category | default: '随笔' }}</a>
+    <h1>{{ page.title }}</h1>
+    <div class="journal-byline">
+      <span>VIO</span>
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%Y 年 %-m 月 %-d 日' }}</time>
+      {% if page.location %}<span class="journal-location">{{ page.location }}</span>{% endif %}
+      {% if page.reading_time %}<span>{{ page.reading_time }} 分钟阅读</span>{% endif %}
+    </div>
+  </header>
+  {% if page.cover %}
+    <figure class="journal-cover">
+      <img src="{{ page.cover | content_image_url: page.image_base | escape }}" alt="{{ page.title | escape }}">
+    </figure>
+  {% endif %}
+  <div class="journal-content">{{ content | content_image_paths: page.image_base }}</div>
+  <footer class="journal-end">
+    <span>完</span>
+    <p>WORDS / IMAGES / EDITOR — VIO</p>
+  </footer>
+</article>

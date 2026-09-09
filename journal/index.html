@@ -16,9 +16,10 @@ section: journal
 </header>
 
 <section class="archive site-shell">
-  <div class="post-card-grid post-card-grid--archive">
-    {% for post in site.posts %}
-      {% include post-card.html post=post %}
+  <div class="journal-card-grid journal-card-grid--archive">
+    {% assign journal_items = site.journal | sort: 'date' | reverse %}
+    {% for entry in journal_items %}
+      {% include journal-card.html journal=entry %}
     {% endfor %}
   </div>
 </section>

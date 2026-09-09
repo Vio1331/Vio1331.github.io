@@ -22,10 +22,10 @@
 | 字体 | 已确认 | 指定标题使用 `LXGW WenKai TC` 700，见 `assets/css/title-font.css`；正文等其他文字沿用 `assets/css/main.scss` 的无衬线字体 |
 | 全站基础配色 | 已确认 | 纸白、卡片白、墨色、正文灰、辅助灰、珊瑚橙 |
 | 文章列表 | 已确认 | `journal/index.html` 与现有文章卡片样式 |
-| 文章详情正文 | 已确认 | 提交 `bc81a0f65ebb72372535cc9838851adc6420a2ec` 的 `.article-content` |
+| 文章详情正文 | 已确认 | 提交 `bc81a0f65ebb72372535cc9838851adc6420a2ec` 的 `.journal-content` |
 | 文章详情页边距 | 已确认 | 正文保持居中窄栏，网站原有页边距保留 |
-| 摄影详情页结构 | 已确认 | `_layouts/photo-story.html`：仅 magazine 模块版式 |
-| 摄影列表封面 | 按用户新要求调整，待看效果 | 居中 OPTICS 刊头＋横幅照片＋三列；`_includes/photo-cover-card.html`、`assets/css/photo-covers.css` |
+| 摄影详情页结构 | 已确认 | `_layouts/photography.html`：仅 magazine 模块版式 |
+| 摄影列表封面 | 按用户新要求调整，待看效果 | 居中 OPTICS 刊头＋横幅照片＋三列；`_includes/photography-card.html`、`assets/css/photography-cards.css` |
 | 首页用户文案 | 受保护 | `index.html` 当前版本 |
 | 首页文章与摄影板块 | 已确认 | 本文「首页板块当前设计」；`index.html`、`assets/css/main.scss`、`assets/js/main.js` |
 | 关于页用户文案 | 受保护 | `about.md` 当前版本 |
@@ -37,7 +37,7 @@
 
 - 用户看过字体试排后确认使用 `LXGW WenKai TC` 粗体 `700`。准确试排母版为独立提案项目 `optics-photo-layouts` 的提交 `c5210d5e1b60c40f4a01d7958ebea497785eeb14`，选择其中的 700 字重。
 - 正式规则集中在 `assets/css/title-font.css`，由 `_layouts/default.html` 在已有样式之后加载；Google Fonts 只请求文楷的 700 字重，原有 Noto Sans SC 字重继续保留。
-- 作用范围与试排一致：`.article-header h1`、`.article-content h2`、`.article-content h3`、`.listing-intro h1`、`.post-card h2`、`.photo-cover h2`。共享这些组件的地方应用相同标题规则，不扩大到其他标题或整页文字。
+- 作用范围与试排一致：`.journal-header h1`、`.journal-content h2`、`.journal-content h3`、`.listing-intro h1`、`.journal-card h2`、`.photography-cover h2`。共享这些组件的地方应用相同标题规则，不扩大到其他标题或整页文字。
 - 只变更字体、字重并关闭合成粗体；字号、行高、字距、边距、配色和卡片布局保留当前值。
 - 正文、引用、导航、橙色小字、日期与地点、OPTICS 品牌字样和首页装饰「文」保持现有字体。摄影集 opening 主标题、关于页标题、首页其他展示字未包含在本次试排中，不顺手修改。
 - 这是文章正文既有基线的局部更新；不得为换字体恢复或覆盖用户后来对 `main.scss` 做的调整。
@@ -58,7 +58,7 @@
 
 ### 首页「文」字描边（2026-09-08 调整）
 
-- 在 `assets/css/main.scss` 搜索 `.home-words`：`--words-draw-duration: 5s` 单独控制描边，`--words-fade-duration: 0.9s` 单独控制描边淡出与底字显现。
+- 在 `assets/css/main.scss` 搜索 `.home-journal`：`--words-draw-duration: 5s` 单独控制描边，`--words-fade-duration: 0.9s` 单独控制描边淡出与底字显现。
 - 描边匀速完成后直接开始淡出，没有额外停留。想让描边更慢，只增大第一个值；不需要修改 JavaScript 中的固定秒数。
 - 原字形的外轮廓和内轮廓分别归一化为完整路径长度，均使用完整描边时长，避免短轮廓提前画完后等待。
 - JavaScript 等 SVG 的淡出结束后清理，不响应内部 path 的描边结束事件；兜底计时从 CSS 的实际时长读取。
@@ -70,7 +70,7 @@
 - 采用 B 方向。M01 单图、M02 双联、M03 三图、M04 大小图、M05 短图文、M06 长图文、M07 纯文字；横竖方按真实照片比例适配。
 - 疏朗和铺展都属于已确认版本，可以整篇设置或由单个模块覆盖。不得把新增摄影集当作重新设计全套样式的理由。
 - 按用户后续调整，方形单图与 M02-C 方形双联使用同一档留白下的标准模块宽度，左右边缘与横图、三图组对齐，取消额外限宽或内缩；方形双联保留较大的中间间距。桌面与手机遵循同一对齐原则。M04 继续以照片本身的垂直中心对齐，不受图注换行影响。
-- 摄影集文字复用 `.article-content`，模块的图片几何规则独立。真实照片默认不裁切、不拉伸，禁止带入提案用的占位裁切规则。
+- 摄影集文字复用 `.journal-content`，模块的图片几何规则独立。真实照片默认不裁切、不拉伸，禁止带入提案用的占位裁切规则。
 - 用户通过 Markdown + 中文模块标记编辑；构建时转换为现有 `blocks` 并继续使用同一套模板。旧 YAML 摄影集原样兼容，不回写自动生成的数据。写法见 `docs/PHOTOGRAPHY_GUIDE.md`，范本见 `_examples/photography-template.md`，旧写法见 `docs/PHOTOGRAPHY_YAML_GUIDE.md`。不安装 CMS 或拖拽编辑器。
 - 摄影集统一使用 magazine，无需样式选择字段；旧版摄影详情模板及 A/C 提案入口已移除。示例 02、03 迁入相同模块，保留原有图片与中性文字。
 - opening 页头沿用原 C 方案的两栏结构：左标题、右简介与元信息、底部横线；手机依次排列。可选的 `opening` 照片在横线下方按单图模块展示，照片与内容顺序保留。
@@ -81,21 +81,21 @@
 - 中文标记：单图、双联、三联、左大右小、左小右大、短图文、长图文、文字、左文、右文、双栏文字。
 - 长短图文可附加左文或右文，始终指文字所在侧；双栏文字用 +++ 分隔。图注紧随照片，组注只用于双联、三联。疏朗/铺展适用于所有模块，手机并排/手机堆叠只用于双联。
 - 普通图片不会按数量自动合组，横竖方仍按真实尺寸适配。新语法的任何后续变更必须同步指南、范本、解析和验证，禁止仅改名称导致旧文件失效。
-- `tools/album-markup` 只写 `_album_build` 临时副本，原始文章、摄影集和元信息不会被转换程序覆盖。新格式错误会终止构建；旧 YAML 既有错误只提示并保留原文件，不能猜测缺失照片。
+- `tools/content-build` 只写 `_content_build` 临时副本，原始文章、摄影集和元信息不会被转换程序覆盖。新格式错误会终止构建；旧 YAML 既有错误只提示并保留原文件，不能猜测缺失照片。
 - GitHub Pages 已启用 GitHub Actions，手动工作流 34176334532 的构建与部署均成功。`Build and deploy OPTICS` 负责构建和发布；指南保留新仓库的一次性启用步骤。
 
 ### 摄影集阅读间距（2026-09-08）
 
 - 图注和组注不再显示照片编号或编号范围；页头的照片总数继续保留。图注文字、字号、颜色及原有位置不变。
 - 不同模块的纵向间距：桌面疏朗 224px、铺展 144px；手机疏朗 112px、铺展 80px。只调整模块间距，双联/三联/大小图内部间隔、照片宽度和比例、页头到首图间距、文末留白均保持原值。
-- 桌面通过 `--album-block-space` 控制，手机在 `@container photo-album (max-width: 720px)` 中覆盖。单模块留白覆盖继续有效。
+- 桌面通过 `--photography-block-space` 控制，手机在 `@container photography (max-width: 720px)` 中覆盖。单模块留白覆盖继续有效。
 
 ### 摄影列表封面（2026-09-08 原确认版本）
 
 以下为旧版记录；本次封面设计以其后的「居中刊头更新」为准。旧版可从提交 `7cb2099ec8536f3a948c62c0647fb33f252b0781` 原样取回。
 
 - 用户确认「01 留白刊物＋三列」。准确母版为独立提案项目 `optics-photo-layouts` 的提交 `7a81c6c70f20b9e4ca54a4cea3b5816c6f95895e`，仅采用其 publication 方向，不混入其他封面方案。
-- 正式实现位于 `_includes/photo-cover-card.html` 和 `assets/css/photo-covers.css`；`photography/index.html` 继续按日期倒序展示。保留现有「影像」抬头及简介。
+- 正式实现位于 `_includes/photography-card.html` 和 `assets/css/photography-cards.css`；`photography/index.html` 继续按日期倒序展示。保留现有「影像」抬头及简介。
 - 每张封面比例 3:4，标题在上，照片完整居中，日期在左下。照片按真实比例放入预留区域，不裁切、不拉伸、不改色；方图和竖图也适用。
 - 用户明确要求删除封面下方的地点文字；封面右下角原「OPTICS / VIO」改读本篇 `location`。地点为空时不显示，不填入示例地点作为兜底。
 - `cover_theme: light` 为浅色（默认）；`cover_theme: dark` 为深色。其他值按浅色处理，颜色不依赖排列位置。示例 02 为深色，真实摄影集不代填配色。
@@ -105,8 +105,8 @@
 ### 摄影封面居中刊头更新（2026-09-08，待看效果）
 
 - 用户提供 Cereal 杂志封面参考，要求顺序为：居中 OPTICS → 中文标题 → 细分割线 → 日期、地点 → 底部照片。取消原来的角落编号，整个信息区居中。
-- 首页与摄影列表继续共用 `_includes/photo-cover-card.html` 和 `assets/css/photo-covers.css`，三列及原有响应式断点、深浅主题字段不变。
-- OPTICS 通过 `assets/css/title-font.css` 与 `.home-hero-wordmark`、`.brand-name` 共用 Freeman 字体和 `0.8em` 字距；中文标题沿用 LXGW WenKai TC 700。保留用户最新的 `.album-title > .album-kicker` 选择器及摄影页/内页小字修改。
+- 该历史阶段首页与摄影列表共用摄影卡片；当前首页已独立，摄影列表使用 `_includes/photography-card.html` 和 `assets/css/photography-cards.css`，三列及原有响应式断点、深浅主题字段不变。
+- OPTICS 通过 `assets/css/title-font.css` 与 `.home-hero-wordmark`、`.brand-name` 共用 Freeman 字体和 `0.8em` 字距；中文标题沿用 LXGW WenKai TC 700。保留用户最新的 `.photography-title > .photography-kicker` 选择器及摄影页/内页小字修改。
 - 外框保持 3:4 的刊物比例；文字较长时自然撑高，不截断标题。底部图片固定 3:2，`object-fit: cover`、居中裁切，横竖方均适用。裁切只发生在封面显示区域，照片文件与摄影详情照片不改动。
 - 日期继续显示为 `YYYY.MM`，地点读取 `location`；二者位于分割线下并居中，空值不显示。无需新增 front matter 字段。
 - 界面颜色继续读取主色板，深浅配色不另写色号。这次是封面局部重排，详情模块、首页其他部分和用户内容保持原样。
@@ -127,8 +127,8 @@
 - 摄影屏与文章屏共用纸白背景、章节标题位置和上下留白；左侧淡色装饰「影」，右侧是一张完整的摄影集封面。照片和元信息属于同一张卡片，不拆成屏幕左右的独立图文。
 - 摄影封面以文章主卡片的实际宽高为基准，字体加载和窗口变化后同步尺寸；照片占据上部剩余空间并自动裁切，不受原始横竖方比例影响。图片铺到封面边缘，没有白色相框。只有首页展示裁切，图片文件和摄影详情图像不修改。
 - 封面下部包含文楷 700 标题、原始简介、年月日期 `YYYY.MM` 及「打开摄影集 →」；不显示地点。标题字体在 `assets/css/title-font.css` 中加入精确选择器，正文和品牌字体范围不变。
-- 两屏顶部入口都显示「查看全部」，使用同一个 `.home-chapter-heading`；摄影集入口沿用 `.home-lead-link`，与「阅读全文 →」一致。摄影屏底部保留延伸至页面两侧的 `var(--rule)` 分割线。
-- 按日期倒序，最新一本展示主封面，随后两本展示文字次条。次条复用 `.home-more-articles`，日期为 `YYYY.MM.DD`，整组与右侧封面同宽、右对齐；数量不足时只展示真实已有条目。
+- 两屏顶部入口都显示「查看全部」，使用同一个 `.home-chapter-heading`；摄影集入口沿用 `.home-journal-link`，与「阅读全文 →」一致。摄影屏底部保留延伸至页面两侧的 `var(--rule)` 分割线。
+- 按日期倒序，最新一本展示主封面，随后两本展示文字次条。次条复用 `.home-more-journal`，日期为 `YYYY.MM.DD`，整组与右侧封面同宽、右对齐；数量不足时只展示真实已有条目。
 - 首页封面不使用 `cover_theme`；该字段继续控制摄影列表原有的深浅封面。摄影列表与详情模块不受首页方案影响。
 
 旧刊物封面、拟物书册的样式与资产保留。恢复此版时从对应 Git 提交取回首页目标范围，不根据描述重新设计。
@@ -139,7 +139,7 @@
 
 以下内容默认是用户内容，不得改写、删减或替换：
 
-- `_posts/**` 中的文章正文
+- `_journal/**` 中的文章正文
 - `index.html` 中用户已经修改的首页文字
 - `about.md`
 - `_includes/footer.html`
@@ -201,3 +201,12 @@
 - 用户指出某个历史截图时，先定位截图对应提交或资产；定位失败就明确询问。
 - 每个已确认的视觉阶段都应保留独立提交号。
 - 后续可增加 `docs/reference/`，保存首页、文章列表、文章详情、摄影列表和摄影详情的已确认截图。截图一旦标记为 approved，除非用户要求更新，否则不得替换。
+
+## 8. 代码与图片目录整理（2026-09-09）
+
+- 本文路径和选择器已更新为现用名称；历史提交仍使用旧名称，恢复时参照 `docs/CODE_MAP.md` 的映射，不能直接把旧选择器粘贴进现用模板。
+- 文章由 `_posts` 迁入 `_journal`，成为与 `_photography` 并列的集合。两边使用 `YYYYMMDD_标题.md`，日期以 `date` 为准。文章保留 `/journal/标题/` 链接和 `/feed.xml` 订阅，摄影链接保持不变。
+- 文章的封面和 Markdown 图片新增 `image_base` 支持。`subtitle`、`cover_alt`、`cover_caption` 不再是文章字段；对应副标题和封面说明不再输出。
+- 已有摄影图片目录整体迁入 `assets/images/photography/`，苏州文章图片迁入 `assets/images/journal/`；文件字节不变。两篇旧文章尚缺 18 张原图，见 `docs/MISSING_IMAGES.md`。
+- 摄影详情模板合并为 `_layouts/photography.html`；文章模板为 `_layouts/journal.html`。旧的未使用拟物书册 CSS 已清理，现用样式声明保持原值。
+- `_plugins` 负责文章链接与共用图片解析；`tools/content-build` 负责摄影标记转换和构建检查。发布仍使用 GitHub Actions，无需更改用户设置。

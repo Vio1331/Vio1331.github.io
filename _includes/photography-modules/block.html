@@ -1,0 +1,55 @@
+{%- assign photography_block = include.block -%}
+<section class="photography-block" data-type="{{ photography_block.type | escape }}"{% if photography_block.density == 'airy' or photography_block.density == 'full' %} data-density="{{ photography_block.density }}"{% endif %}{% if photography_block.main == 'right' %} data-main="right"{% endif %}{% if photography_block.mobile == 'pair' or photography_block.mobile == 'stack' %} data-mobile="{{ photography_block.mobile }}"{% endif %}>
+  {% case photography_block.type %}
+  {% when 'image' %}
+    <div class="photography-module photography-single">
+      {% include photography-modules/image.html image=photography_block %}
+    </div>
+  {% when 'diptych', 'triptych' %}
+    <div class="photography-module">
+      <figure class="photography-group">
+        <div class="photography-images">
+          {% for photography_image in photography_block.images %}
+            {% include photography-modules/image.html image=photography_image %}
+          {% endfor %}
+        </div>
+        {% if photography_block.caption and photography_block.caption != empty %}
+        <figcaption><span>{{ photography_block.caption | escape }}</span></figcaption>
+        {% endif %}
+      </figure>
+    </div>
+  {% when 'asymmetric' %}
+    <div class="photography-module photography-asymmetric">
+      {% for photography_image in photography_block.images %}
+        {% include photography-modules/image.html image=photography_image %}
+      {% endfor %}
+    </div>
+  {% when 'image_text' %}
+    <div class="photography-module photography-image-text{% if photography_block.variant == 'long' %} photography-long-copy{% else %} photography-short-copy{% endif %}{% if photography_block.image_side == 'right' %} photography-image-right{% endif %}">
+      {% if photography_block.image_side == 'right' %}
+        {% include photography-modules/text.html text=photography_block.text heading=photography_block.heading %}
+        {% include photography-modules/image.html image=photography_block %}
+      {% else %}
+        {% include photography-modules/image.html image=photography_block %}
+        {% include photography-modules/text.html text=photography_block.text heading=photography_block.heading %}
+      {% endif %}
+    </div>
+  {% when 'text' %}
+    <div class="photography-module photography-text-only{% if photography_block.columns %} photography-text-columns{% elsif photography_block.align == 'left' %} photography-text-left{% elsif photography_block.align == 'right' %} photography-text-right{% else %} photography-text-center{% endif %}">
+      {% if photography_block.columns %}
+        {% for photography_column in photography_block.columns %}
+          {% include photography-modules/text.html text=photography_column.text heading=photography_column.heading %}
+        {% endfor %}
+      {% else %}
+        {% include photography-modules/text.html text=photography_block.text heading=photography_block.heading %}
+      {% endif %}
+    </div>
+  {% else %}
+    {%- comment -%}Keep supplied content visible if a module type was mistyped.{%- endcomment -%}
+    <div class="photography-module">
+      {% if photography_block.src %}{% include photography-modules/image.html image=photography_block %}{% endif %}
+      {% for photography_image in photography_block.images %}{% include photography-modules/image.html image=photography_image %}{% endfor %}
+      {% if photography_block.text %}{% include photography-modules/text.html text=photography_block.text heading=photography_block.heading %}{% endif %}
+    </div>
+  {% endcase %}
+</section>

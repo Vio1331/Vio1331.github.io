@@ -10,10 +10,10 @@ author:
   name: Vio
   bio: 个人网站作者。
 
-permalink: /journal/:title/
-paginate_path: /journal/page:num/
-
 collections:
+  journal:
+    output: true
+    permalink: /journal/:name/
   photography:
     output: true
     permalink: /photography/:name/
@@ -21,33 +21,31 @@ collections:
 defaults:
   - scope:
       path: ""
-      type: posts
+      type: journal
     values:
-      layout: post
+      layout: journal
       section: journal
   - scope:
       path: ""
       type: photography
     values:
-      layout: photo-story
+      layout: photography
       section: photography
 
 plugins:
-  - jekyll-feed
   - jekyll-seo-tag
 
 exclude:
   - README.md
+  - AGENTS.md
+  - docs
   - Gemfile
   - Gemfile.lock
   - vendor
   - .openai
   - tools
   - node_modules
-  - _album_build
+  - _content_build
 
 sass:
   style: compressed
-
-feed:
-  path: feed.xml
