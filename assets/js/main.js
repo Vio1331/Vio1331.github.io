@@ -79,3 +79,48 @@ document.querySelectorAll('.home-journal, .home-photography').forEach((section) 
   section.classList.add('is-outline-ready');
   observer.observe(outline);
 });
+
+// The about page discovers its avatar variants from the image folder at build time.
+const avatar = document.querySelector('[data-avatar-images]');
+const avatarImage = avatar?.querySelector('img');
+
+if (avatarImage) {
+  const originalSource = avatarImage.getAttribute('src');
+  let sources;
+  try {
+    sources = JSON.parse(avatar.dataset.avatarImages);
+  } catch {
+    sources = [];
+  }
+  const variants = (Array.isArray(sources) ? sources : [])
+    .filter((source) => typeof source === 'string' && source.length > 0)
+    .map((source) => {
+      const image = new Image();
+      const ready = new Promise((resolve) => {
+        image.onload = () => resolve(true);
+        image.onerror = () => resolve(false);
+      });
+      image.src = source;
+      return { source, ready };
+    });
+  let hoverVersion = 0;
+
+  if (variants.length > 0) {
+    avatar.addEventListener('pointerenter', (event) => {
+      if (event.pointerType === 'touch') return;
+      const version = ++hoverVersion;
+      const variant = variants[Math.floor(Math.random() * variants.length)];
+      variant.ready.then((loaded) => {
+        // A slow image must not replace the original after the pointer has left.
+        if (loaded && version === hoverVersion) avatarImage.src = variant.source;
+      });
+    });
+    const restoreAvatar = () => {
+      hoverVersion += 1;
+      avatarImage.src = originalSource;
+    };
+    avatar.addEventListener('pointerleave', restoreAvatar);
+    avatar.addEventListener('pointercancel', restoreAvatar);
+    window.addEventListener('blur', restoreAvatar);
+  }
+}

@@ -5,8 +5,22 @@ description: 关于 Vio 与 VIO 光学。
 permalink: /about/
 section: about
 ---
+{%- assign avatar_extensions = '.svg,.png,.jpg,.jpeg,.webp,.avif,.gif' | split: ',' -%}
+{%- assign avatar_files = site.static_files | where_exp: 'file', "file.path contains '/assets/images/avatar/'" | sort: 'path' -%}
+{%- capture avatar_images -%}
+  [
+  {%- assign avatar_separator = '' -%}
+  {%- for file in avatar_files -%}
+    {%- assign extension = file.extname | downcase -%}
+    {%- if avatar_extensions contains extension -%}
+      {{- avatar_separator -}}{{- file.path | relative_url | jsonify -}}
+      {%- assign avatar_separator = ',' -%}
+    {%- endif -%}
+  {%- endfor -%}
+  ]
+{%- endcapture -%}
 <section class="about-grid site-shell">
-  <div class="about-mark" aria-hidden="true">
+  <div class="about-mark" aria-hidden="true" data-avatar-images="{{ avatar_images | escape }}">
     <img class="brand-mark" src="{{ '/assets/images/about-avatar.svg' | relative_url }}" alt="" width="1000" height="1000">
   </div>
   <div class="about-copy">
