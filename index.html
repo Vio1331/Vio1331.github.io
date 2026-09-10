@@ -27,7 +27,7 @@ body_class: home-page
 <section class="home-journal">
   <!-- Dela Gothic One 400 (Google Fonts v19), exact 文 glyph contours.
        1000 UPM; baseline 836 matches the 0.8em text line box. -->
-  <svg class="home-journal-outline" data-glyph="文" viewBox="0 0 1000 800" aria-hidden="true" focusable="false" style="display: none;">
+  <svg class="home-journal-outline" data-glyph="文" viewBox="0 0 1000 800" aria-hidden="true" focusable="false">
     <!-- Each contour uses the full drawing duration. -->
     <g transform="translate(0 836) scale(1 -1)">
       <path pathLength="1" d="M923 -7Q665 23 500 117Q333 23 77 -7Q68 59 51.0 119.5Q34 180 2 234Q102 234 177.5 241.0Q253 248 316 268Q229 368 171 495H37V705H368V766H632V705H963V495H829Q769 365 684 269Q747 248 821.5 241.0Q896 234 998 234Q966 180 949.0 119.5Q932 59 923 -7Z" />
@@ -66,15 +66,16 @@ body_class: home-page
 
 {% if home_photography_items.size > 0 %}
 <section class="home-photography">
-  <!-- Dela Gothic One 400, exact 影 contours; same baseline and timing as 文. -->
-  <svg class="home-photography-outline" data-glyph="影" viewBox="0 0 1000 800" aria-hidden="true" focusable="false" style="display: none;">
-    <g transform="translate(0 836) scale(1 -1)">
-      <path pathLength="1" d="M1016 206Q958 135 878.0 81.5Q798 28 682 -11L655 37Q646 55 624 93Q583 66 536 16Q492 66 431 111V53Q431 26 381.5 14.0Q332 2 212 2Q212 64 205 97Q164 35 112 0Q95 28 7 93Q0 100 -6.5 104.5Q-13 109 -18 113Q26 136 55.5 159.0Q85 182 106 210H29V379H628L611 397H23V488H244V507H29V752H652V641Q712 664 760.5 695.0Q809 726 853 770Q900 723 971 672Q907 603 855.5 557.5Q804 512 740 474Q699 531 652 572V507H439V488H661V421Q732 445 784.0 477.0Q836 509 893 561Q922 520 942.5 494.0Q963 468 990 440Q928 375 855.5 322.5Q783 270 716 240Q688 301 652 349V210H528L589 171Q809 216 922 349Q956 278 1016 206Z" />
-      <path pathLength="1" d="M453 669H229V651H453Z" />
-      <path pathLength="1" d="M453 605H229V587H453Z" />
-      <path pathLength="1" d="M454 310H227V288H454Z" />
-      <path pathLength="1" d="M254 150V210H178Q221 189 247 173Q234 146 223 127Q244 126 249.0 130.0Q254 134 254 150Z" />
-      <path pathLength="1" d="M431 210V178L449 190Q455 194 462.0 199.0Q469 204 478 210Z" />
+  <!-- Noto Sans SC 900: exact simplified 图 outline (Dela lacks U+56FE).
+       Overlapping contours merged; uniform scale matches 文 glyph height. -->
+  <svg class="home-photography-outline" data-glyph="图" viewBox="0 0 1000 800" aria-hidden="true" focusable="false">
+    <g transform="translate(77.213 761.987) scale(0.843886 -0.843886)">
+      <path pathLength="1" d="M65 820V-96H204V-63H791V-96H937V820Z" />
+      <path pathLength="1" d="M348 261Q391 252 438.5 238Q486 224 530 208.5Q574 193 604 178L663 266Q631 280 587.5 294Q544 308 496.5 320.5Q475.743 325.962 455.845 330.565Q480.777 341.516 504.988 353.551Q537.546 337.698 572 324Q655 291 742 272Q755 296 778.5 328Q784.879 336.686 791 344.415V64H688.594L736 140Q696 153 646.5 166Q597 179 542.5 190.5Q488 202 432.5 211Q377 220 326 225L261 132Q331 124 407 109.5Q483 95 553 76.5Q576.542 70.278 597.821 64H204V334.424Q214.713 316.497 224 297.5Q235 275 241 258Q308.481 274.662 375.268 298.612Z" />
+      <path pathLength="1" d="M791 384.558Q722.92 397.626 656.5 418Q642.691 422.236 629.284 426.701Q660.255 448.456 688.5 472.5Q749 524 789 585L708 632L688 627H490.457Q505.814 646.448 519 666L450.512 690H791V384.558Z" />
+      <path pathLength="1" d="M204 530.818V690H389.605Q356.564 646.877 308.5 605.5Q257.62 561.699 204 530.818Z" />
+      <path pathLength="1" d="M327.866 468.31Q350.942 448.281 376.916 429.548Q352.231 420.838 326.5 413Q265.414 394.391 204 381.673V512.31Q212.435 505.502 222 497Q240 481 257 465Q274 449 284 437Q305.654 451.26 327.866 468.31Z" />
+      <path pathLength="1" d="M569.323 522Q536.582 500.238 498.03 480.726Q459.835 500.182 429.906 522H569.323Z" />
     </g>
   </svg>
   <div class="home-photography-inner site-shell">

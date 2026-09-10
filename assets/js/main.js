@@ -37,53 +37,45 @@ if (homeJournalCard && homePhotography) {
   document.fonts?.ready.then(matchHomeCoverSize);
 }
 
-// Trace each decoration once as it enters view, then return to the font rendering.
+// Draw each SVG once, then keep its completed outline. No webfont or filled text is needed.
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 document.querySelectorAll('.home-journal, .home-photography').forEach((section) => {
   const outline = section.querySelector('.home-journal-outline, .home-photography-outline');
-  if (!outline || reducedMotion.matches || !('IntersectionObserver' in window) || !document.fonts) return;
-  let observer;
+  const path = outline?.querySelector('path');
+  if (!path || reducedMotion.matches || !('IntersectionObserver' in window)) return;
+  if (getComputedStyle(outline).position !== 'absolute') return;
   let finished = false;
   let finishTimer;
 
   const finishOutline = () => {
+    if (finished) return;
     finished = true;
     clearTimeout(finishTimer);
-    observer?.disconnect();
+    observer.disconnect();
+    // The base SVG style is the finished outline; keep the SVG in the page.
     section.classList.remove('is-outline-ready', 'is-outline-playing');
     outline.removeEventListener('animationend', onOutlineEnd);
-    outline.remove();
     reducedMotion.removeEventListener('change', onMotionChange);
   };
   const onMotionChange = () => {
     if (reducedMotion.matches) finishOutline();
   };
   const onOutlineEnd = (event) => {
-    // A child's drawing animation ends first; only clean up after the SVG has faded.
-    if (event.target === outline && event.animationName === 'home-journal-outline-fade') finishOutline();
+    // Every contour uses the same duration and delay; there is no fade-out stage.
+    if (event.animationName === 'home-journal-trace') finishOutline();
   };
   const milliseconds = (value) => parseFloat(value) * (value.trim().endsWith('ms') ? 1 : 1000);
+  const observer = new IntersectionObserver((entries) => {
+    if (finished || !entries.some((entry) => entry.isIntersecting)) return;
+    observer.disconnect();
+    section.classList.add('is-outline-playing');
+    const animation = getComputedStyle(path);
+    const duration = milliseconds(animation.animationDelay) + milliseconds(animation.animationDuration);
+    finishTimer = setTimeout(finishOutline, duration + 250);
+  }, { rootMargin: '0px 0px -20% 0px', threshold: 0.3 });
 
   reducedMotion.addEventListener('change', onMotionChange);
   outline.addEventListener('animationend', onOutlineEnd);
-
-  // The outline matches Dela Gothic One 400; retain static text if the subset cannot load.
-  document.fonts.load('400 100px "Dela Gothic One"', outline.dataset.glyph).then((faces) => {
-    if (finished) return;
-    if (!faces.length || reducedMotion.matches || getComputedStyle(outline).position !== 'absolute') {
-      finishOutline();
-      return;
-    }
-    outline.style.display = 'block';
-    section.classList.add('is-outline-ready');
-    observer = new IntersectionObserver((entries) => {
-      if (!entries.some((entry) => entry.isIntersecting)) return;
-      observer.disconnect();
-      section.classList.add('is-outline-playing');
-      const animation = getComputedStyle(outline);
-      const duration = milliseconds(animation.animationDelay) + milliseconds(animation.animationDuration);
-      finishTimer = setTimeout(finishOutline, duration + 250);
-    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.15 });
-    observer.observe(outline);
-  }).catch(finishOutline);
+  section.classList.add('is-outline-ready');
+  observer.observe(outline);
 });

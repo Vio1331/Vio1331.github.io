@@ -4,7 +4,6 @@
   --font-title: "LXGW WenKai TC", var(--font-sans);
   --font-brand: "Freeman", var(--font-sans);
   --font-en: "Andika", var(--font-sans);
-  --font-decoration: "Dela Gothic One", var(--font-sans);
 }
 
 .home-hero h1,
@@ -33,12 +32,4 @@
 .photography-cover-wordmark {
    font-family: var(--font-brand);
    letter-spacing: 0.8em;
-}
-
-/* Only the two home decorations use this heavy face. */
-.home-journal::after,
-.home-photography::after {
-  font-family: var(--font-decoration);
-  font-weight: 400;
-  font-synthesis: none;
 }
