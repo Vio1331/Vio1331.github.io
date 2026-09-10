@@ -62,7 +62,7 @@
   grid-template-columns: minmax(0, var(--photography-image-track)) minmax(0, var(--photography-text-track));
   align-items: center;
   gap: var(--photography-column-gap);
-  width: 90%;
+  width: var(--photography-measure);
 }
 /* Square and portrait layouts use equal columns; moving the text mirrors the same tracks. */
 .photography [data-shape="v"] > .photography-image-text,
@@ -80,7 +80,7 @@
 .photography[data-density="full"] .photography-text-only,
 .photography .photography-block[data-density="full"] .photography-image-text,
 .photography .photography-block[data-density="full"] .photography-text-only { width: 100%; }
-.photography .photography-block[data-density="airy"] .photography-image-text,
+.photography .photography-block[data-density="airy"] .photography-image-text { width: var(--photography-measure); }
 .photography .photography-block[data-density="airy"] .photography-text-only { width: 90%; }
 .photography .photography-block .photography-text-center { width: min(100%, 580px); }
 .photography .photography-copy { min-width: 0; width: 100%; max-width: 34em; margin: 0; overflow-wrap: anywhere; }

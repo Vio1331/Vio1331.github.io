@@ -1,67 +1,90 @@
-/* Shared detail-page controls. The toolbar lives outside photography's container. */
-:root { --reading-toc-width: clamp(13rem, 20vw, 17rem); }
-.reading-tools {
-  position: fixed; z-index: 19; right: max(1.5rem, env(safe-area-inset-right)); bottom: calc(1.5rem + env(safe-area-inset-bottom));
-  display: flex; align-items: center; gap: 2px; padding: 5px;
-  background: var(--card); border: 1px solid var(--rule); border-radius: 8px;
-  box-shadow: 0 5px 22px color-mix(in srgb, var(--ink) 9%, transparent);
+/* Detail controls stay inside the reading region, above the site footer. */
+.reading-region {
+  position: relative;
+  display: flow-root;
+  --reading-footer-offset: 0px;
+  --reading-end-y: 100dvh;
+  --reading-tool-gap: calc(1.5rem + env(safe-area-inset-bottom));
+  --reading-toc-top: max(calc(var(--header-height) + 4rem), 26dvh);
 }
+.reading-tools {
+  position: absolute; z-index: 19;
+  right: max(1.5rem, env(safe-area-inset-right)); bottom: var(--reading-tool-gap);
+  display: flex; align-items: center; gap: 4px; padding: 5px;
+  background: var(--card); border: 1px solid var(--rule); border-radius: 9px;
+  box-shadow: 0 4px 18px color-mix(in srgb, var(--ink) 7%, transparent);
+}
+.reading-tools.is-floating { position: fixed; bottom: calc(var(--reading-tool-gap) + var(--reading-footer-offset)); }
 .reading-tools [hidden], .reading-toc[hidden], .reading-toc-backdrop[hidden] { display: none !important; }
 .reading-action {
-  display: grid; place-items: center; width: 38px; height: 38px; padding: 9px;
-  border: 0; border-radius: 4px; color: var(--body); background: transparent; cursor: pointer;
+  display: grid; place-items: center; flex: none; width: 38px; height: 38px; padding: 8px;
+  border: 0; border-radius: 5px; color: var(--body); background: transparent; cursor: pointer;
   touch-action: manipulation; transition: color 160ms ease, background-color 160ms ease;
 }
 .reading-action:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 6%, transparent); }
-.reading-action[aria-pressed="true"], .reading-action[aria-expanded="true"] { color: var(--paper); background: var(--ink); }
-.reading-action:focus-visible, .reading-toc a:focus-visible, .reading-neighbor:focus-visible { outline: 2px solid var(--coral); outline-offset: 4px; }
-.reading-action svg, .reading-neighbor svg { display: block; width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-.reading-tool-divider { width: 1px; height: 19px; margin-inline: 6px; background: var(--rule); }
+.reading-action[aria-expanded="true"] { color: var(--ink); background: color-mix(in srgb, var(--ink) 9%, transparent); }
+.reading-action[aria-pressed="true"] { color: var(--card); background: var(--ink); }
+.reading-action:focus-visible, .reading-toc a:focus-visible, .reading-neighbor:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
+.reading-action svg, .reading-neighbor svg { display: block; width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.reading-icon-secondary { opacity: .45; }
+.reading-icon-tint { fill: currentColor; fill-opacity: .14; }
+.reading-tool-divider { width: 1px; height: 20px; margin-inline: 4px; background: var(--rule); }
+.reading-layout { display: flex; gap: 2px; padding: 2px; border-radius: 7px; background: color-mix(in srgb, var(--ink) 5%, transparent); }
 
-/* Only the outline's links are visible: no panel title or vertical border. */
+/* Use the existing outer margin; opening the outline never moves the article. */
 .reading-toc {
-  position: fixed; z-index: 17; top: calc(var(--header-height) + 2.5rem); left: 0;
-  bottom: calc(6rem + env(safe-area-inset-bottom)); width: var(--reading-toc-width);
-  padding: 0 1.25rem 0 1.5rem; overflow-y: auto; overscroll-behavior: contain;
-  background: var(--paper); scrollbar-width: thin; scrollbar-color: var(--rule) transparent;
+  position: fixed; z-index: 17; top: var(--reading-toc-top); left: 1.5rem;
+  width: clamp(8rem, calc((100vw - 62rem) / 2 - 2.5rem), 15rem);
+  max-height: max(0px, min(calc(100dvh - var(--reading-toc-top) - 6rem), calc(var(--reading-end-y) - var(--reading-toc-top) - 2rem)));
+  padding: 0; overflow-y: auto; overscroll-behavior: contain;
+  background: transparent; scrollbar-width: thin; scrollbar-color: var(--rule) transparent;
 }
 .reading-toc a {
-  display: block; margin: 0 0 .5rem; padding: .5rem .25rem; color: var(--muted);
-  font-size: .8125rem; line-height: 1.8; overflow-wrap: anywhere;
+  display: block; margin: 0; padding: .15rem .25rem; color: var(--muted);
+  font-size: .8125rem; line-height: 1.65; overflow-wrap: anywhere;
 }
-.reading-toc a[data-level="3"] { padding-left: 1.25rem; font-size: .75rem; }
+.reading-toc a[data-level="3"] { padding-left: 1rem; }
 .reading-toc a:hover { color: var(--ink); }
 .reading-toc a[aria-current="location"] { color: var(--coral); font-weight: 500; }
-body[data-reading-toc="open"] #main { padding-left: var(--reading-toc-width); }
 .reading-toc-backdrop { display: none; }
 
-/* Plain text links after the ending, with no card or button treatment. */
+/* Previous/next titles use the same typography as body paragraphs. */
 .reading-neighbors { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem 4rem; width: min(100%, 62rem); margin: 3rem auto 0; }
-.reading-neighbor { display: flex; align-items: flex-start; gap: .85rem; min-width: 0; color: var(--ink); }
-.reading-neighbor span { min-width: 0; font-family: var(--font-title); font-size: 1.25rem; font-weight: 700; font-synthesis: none; line-height: 1.65; overflow-wrap: anywhere; }
-.reading-neighbor svg { flex: none; margin-top: .42rem; }
+.reading-neighbor { display: flex; align-items: flex-start; gap: .75rem; min-width: 0; color: var(--body); }
+.reading-neighbor span { min-width: 0; font-family: inherit; font-size: 1rem; font-weight: 300; line-height: 2rem; overflow-wrap: anywhere; }
+.reading-neighbor svg { flex: none; width: 18px; height: 18px; margin-top: 7px; }
 .reading-neighbor--previous { grid-column: 1; text-align: left; }
 .reading-neighbor--next { grid-column: 2; justify-content: flex-end; text-align: right; }
 .reading-neighbor:hover { color: var(--coral); }
 .photography .reading-neighbors { width: 100%; }
+/* Leave a clear docking area below the last link, including on touch screens. */
+.reading-region .photography[data-layout-switchable] .photography-sheet { padding-bottom: calc(6rem + env(safe-area-inset-bottom)); }
 
-@media (max-width: 1000px) {
-  body[data-reading-toc="open"] #main { padding-left: 0; }
-  .reading-toc { top: var(--header-height); bottom: 0; width: min(19rem, calc(100% - 5rem)); padding: 2rem 1.5rem 7rem; }
-  .reading-toc-backdrop { display: block; position: fixed; z-index: 16; inset: var(--header-height) 0 0; padding: 0; border: 0; background: color-mix(in srgb, var(--ink) 12%, transparent); }
+@media (max-width: 1320px) {
+  .reading-toc {
+    left: 1rem; width: min(20rem, calc(100% - 2rem)); padding: .875rem;
+    background: var(--card); border-radius: 8px;
+    box-shadow: 0 6px 24px color-mix(in srgb, var(--ink) 10%, transparent);
+  }
+  .reading-toc-backdrop {
+    display: block; position: fixed; z-index: 16; inset: var(--header-height) 0 var(--reading-footer-offset);
+    padding: 0; border: 0; background: color-mix(in srgb, var(--ink) 10%, transparent);
+  }
 }
 @media (max-width: 720px) {
-  .reading-tools { right: max(1rem, env(safe-area-inset-right)); bottom: calc(1rem + env(safe-area-inset-bottom)); }
+  .reading-region { --reading-tool-gap: calc(1rem + env(safe-area-inset-bottom)); }
+  .reading-tools { right: max(1rem, env(safe-area-inset-right)); }
   .reading-neighbors { column-gap: 1.5rem; margin-top: 2.5rem; }
-  .reading-neighbor { gap: .55rem; }
-  .reading-neighbor span { font-size: 1.05rem; }
-  .reading-neighbor svg { width: 17px; height: 17px; margin-top: .35rem; }
+  .reading-neighbor { gap: .5rem; }
 }
 @media (pointer: coarse) {
   .reading-action { width: 44px; height: 44px; }
-  .reading-toc a, .reading-neighbor { min-height: 44px; }
+  .reading-neighbor { min-height: 44px; }
+}
+@media (max-height: 500px) {
+  .reading-region { --reading-toc-top: calc(var(--header-height) + 1rem); }
+  .reading-toc { max-height: max(0px, min(calc(100dvh - var(--reading-toc-top) - 5rem), calc(var(--reading-end-y) - var(--reading-toc-top) - 1rem))); }
 }
 @media print {
   .reading-tools, .reading-toc, .reading-toc-backdrop { display: none !important; }
-  body[data-reading-toc="open"] #main { padding-left: 0; }
 }

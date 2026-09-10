@@ -2,25 +2,45 @@
   {%- assign reading_kind = 'journal' -%}
   {%- assign reading_parent = '/journal/' -%}
   {%- assign reading_back_label = '返回文章列表' -%}
+  {%- assign reading_layout_label = '文章阅读宽度' -%}
+  {%- assign reading_compact = 'narrow' -%}
+  {%- assign reading_expanded = 'wide' -%}
+  {%- assign reading_compact_label = '窄栏阅读' -%}
+  {%- assign reading_expanded_label = '宽栏阅读' -%}
 {%- else -%}
   {%- assign reading_kind = 'photography' -%}
   {%- assign reading_parent = '/photography/' -%}
   {%- assign reading_back_label = '返回摄影集列表' -%}
+  {%- assign reading_layout_label = '摄影集排版' -%}
+  {%- assign reading_compact = 'airy' -%}
+  {%- assign reading_expanded = 'full' -%}
+  {%- assign reading_compact_label = '疏朗排版 · Airy' -%}
+  {%- assign reading_expanded_label = '铺展排版 · Full' -%}
 {%- endif -%}
 <nav class="reading-tools" data-reading-tools="{{ reading_kind }}" aria-label="阅读工具">
   <a class="reading-action" href="{{ reading_parent | relative_url }}" aria-label="{{ reading_back_label }}" title="{{ reading_back_label }}">
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 14-5-5 5-5M4 9h10a6 6 0 0 1 6 6v5" /></svg>
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 12H4m6-6-6 6 6 6" /></svg>
   </a>
   <span class="reading-tool-divider" data-reading-divider aria-hidden="true" hidden></span>
   {% if reading_kind == 'journal' %}
   <button class="reading-action" type="button" data-reading-toc-button aria-controls="reading-toc" aria-expanded="false" aria-label="展开文章目录" title="展开文章目录" hidden>
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" /></svg>
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4.5h16M8 9.5h12M8 14.5h9M8 19.5h12" /><path class="reading-icon-secondary" d="M4 9.5h.01M4 14.5h.01M4 19.5h.01" /></svg>
   </button>
   {% endif %}
-  <button class="reading-action" type="button" data-reading-width-button aria-controls="{{ reading_kind }}-reading" aria-pressed="{% if reading_kind == 'photography' %}true{% else %}false{% endif %}" aria-label="切换排版" title="切换排版" hidden>
-    <svg data-reading-expand viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" /></svg>
-    <svg data-reading-collapse viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden><path d="M4 14h6v6M20 10h-6V4M14 10l7-7M3 21l7-7" /></svg>
-  </button>
+  <div class="reading-layout" data-reading-layout role="group" aria-label="{{ reading_layout_label }}" hidden>
+    <button class="reading-action" type="button" data-reading-value="{{ reading_compact }}" aria-controls="{{ reading_kind }}-reading" aria-pressed="{% if reading_kind == 'journal' %}true{% else %}false{% endif %}" aria-label="{{ reading_compact_label }}" title="{{ reading_compact_label }}">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <rect class="reading-icon-secondary" x="2.5" y="3" width="19" height="18" rx="2" />
+        {% if reading_kind == 'journal' %}<path d="M8.5 7h7M8.5 10.5h7M8.5 14h7M8.5 17.5h5" />{% else %}<rect class="reading-icon-tint" x="7" y="7" width="10" height="10" rx="1" /><path d="m7 14 3-3 5 6" /><path d="m13 15 2-2 2 2" />{% endif %}
+      </svg>
+    </button>
+    <button class="reading-action" type="button" data-reading-value="{{ reading_expanded }}" aria-controls="{{ reading_kind }}-reading" aria-pressed="{% if reading_kind == 'photography' %}true{% else %}false{% endif %}" aria-label="{{ reading_expanded_label }}" title="{{ reading_expanded_label }}">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <rect class="reading-icon-secondary" x="2.5" y="3" width="19" height="18" rx="2" />
+        {% if reading_kind == 'journal' %}<path d="M5.5 7h13M5.5 10.5h13M5.5 14h13M5.5 17.5h10" />{% else %}<rect class="reading-icon-tint" x="4.5" y="5" width="15" height="14" rx="1" /><path d="m4.5 14 4-4 9 9M13.5 15l3-3 3 3" />{% endif %}
+      </svg>
+    </button>
+  </div>
 </nav>
 {% if reading_kind == 'journal' %}
 <button class="reading-toc-backdrop" data-reading-toc-close type="button" aria-label="收起文章目录" hidden></button>

@@ -926,10 +926,8 @@ button { font: inherit; }
 
 .home-journal,
 .home-photography {
-  /* Shared outline size, drawing duration and delay after entering view. */
+  /* Shared size for the static character and picture symbol. */
   --home-decoration-size: clamp(23rem, 52vw, 49rem);
-  --words-draw-duration: 5s;
-  --words-start-delay: 0.4s;
 }
 .home-journal {
   position: relative;
@@ -955,29 +953,10 @@ button { font: inherit; }
 }
 .home-journal-outline path,
 .home-photography-outline path {
-  fill: none;
+  fill: var(--card);
   stroke: color-mix(in srgb, var(--ink) 22%, transparent);
   stroke-width: 1;
   vector-effect: non-scaling-stroke;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
-}
-.home-journal.is-outline-ready .home-journal-outline path,
-.home-photography.is-outline-ready .home-photography-outline path { stroke-dashoffset: 1; }
-.home-journal.is-outline-playing .home-journal-outline path,
-.home-photography.is-outline-playing .home-photography-outline path {
-  animation: home-journal-trace var(--words-draw-duration) linear var(--words-start-delay) both;
-}
-@keyframes home-journal-trace {
-  from { stroke-dashoffset: 1; }
-  to { stroke-dashoffset: 0; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .home-journal.is-outline-ready .home-journal-outline path,
-  .home-photography.is-outline-ready .home-photography-outline path {
-    stroke-dashoffset: 0;
-    animation: none;
-  }
 }
 .home-journal-inner { position: relative; z-index: 1; padding-block: clamp(6rem, 12vh, 10rem); }
 .home-chapter-heading {

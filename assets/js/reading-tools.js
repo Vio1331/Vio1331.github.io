@@ -3,17 +3,19 @@
   'use strict';
   const toolbar = document.querySelector('[data-reading-tools]');
   if (!toolbar) return;
+  const region = toolbar.closest('.reading-region');
   const isJournal = toolbar.dataset.readingTools === 'journal';
   const target = document.getElementById(isJournal ? 'journal-reading' : 'photography-reading');
-  if (!target) return;
+  if (!target || !region) return;
   const content = target.querySelector(isJournal ? ':scope > .journal-content' : '.photography-sheet');
-  const widthButton = toolbar.querySelector('[data-reading-width-button]');
+  const layoutGroup = toolbar.querySelector('[data-reading-layout]');
+  const layoutButtons = [...layoutGroup.querySelectorAll('[data-reading-value]')];
   const divider = toolbar.querySelector('[data-reading-divider]');
   const tocButton = toolbar.querySelector('[data-reading-toc-button]');
   const toc = document.getElementById('reading-toc');
   const backdrop = document.querySelector('[data-reading-toc-close]');
   const smallScreen = matchMedia('(max-width: 720px)');
-  const drawerScreen = matchMedia('(max-width: 1000px)');
+  const drawerScreen = matchMedia('(max-width: 1320px)');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const header = document.querySelector('.site-header');
   const headingElements = isJournal && content ? [...content.querySelectorAll('h2, h3')].filter(h => h.textContent.trim()) : [];
@@ -38,7 +40,6 @@
   };
 
   function updateActiveHeading() {
-    pendingFrame = 0;
     if (!tocOpen || !entries.length) return;
     let active = entries[0];
     const edge = headerBottom() + 64;
@@ -57,34 +58,34 @@
     if (link.top < panel.top) toc.scrollTop += link.top - panel.top;
     else if (link.bottom > panel.bottom) toc.scrollTop += link.bottom - panel.bottom;
   }
-  function scheduleHeadingUpdate() {
-    if (!pendingFrame && tocOpen) pendingFrame = requestAnimationFrame(updateActiveHeading);
+  function updateReadingFrame() {
+    pendingFrame = 0;
+    const end = region.getBoundingClientRect().bottom;
+    // Once the reading region ends, fixed controls move with its bottom edge.
+    region.style.setProperty('--reading-footer-offset', Math.max(0, innerHeight - end) + 'px');
+    region.style.setProperty('--reading-end-y', Math.max(0, end) + 'px');
+    updateActiveHeading();
+  }
+  function scheduleReadingFrame() {
+    if (!pendingFrame) pendingFrame = requestAnimationFrame(updateReadingFrame);
   }
   function setToc(open) {
     if (!entries.length) return;
-    keepReadingPosition(() => {
-      tocOpen = open;
-      document.body.dataset.readingToc = open ? 'open' : 'closed';
-      toc.hidden = !open;
-      backdrop.hidden = !(open && drawerScreen.matches);
-      tocButton.setAttribute('aria-expanded', String(open));
-      const label = open ? '收起文章目录' : '展开文章目录';
-      tocButton.setAttribute('aria-label', label);
-      tocButton.title = label;
-    });
+    tocOpen = open;
+    toc.hidden = !open;
+    backdrop.hidden = !(open && drawerScreen.matches);
+    tocButton.setAttribute('aria-expanded', String(open));
+    const label = open ? '收起文章目录' : '展开文章目录';
+    tocButton.setAttribute('aria-label', label);
+    tocButton.title = label;
     activeHeading = null;
-    scheduleHeadingUpdate();
+    updateReadingFrame();
   }
   function syncControls() {
-    const expanded = target.getAttribute(isJournal ? 'data-reading' : 'data-density') === (isJournal ? 'wide' : 'full');
-    const label = isJournal ? (expanded ? '切换到窄版' : '切换到宽版') : (expanded ? '切换到 Airy · 疏朗' : '切换到 Full · 铺展');
-    widthButton.setAttribute('aria-label', label);
-    widthButton.title = label;
-    widthButton.setAttribute('aria-pressed', String(expanded));
-    widthButton.querySelector('[data-reading-expand]').toggleAttribute('hidden', expanded);
-    widthButton.querySelector('[data-reading-collapse]').toggleAttribute('hidden', !expanded);
-    widthButton.hidden = isJournal && smallScreen.matches;
-    divider.hidden = widthButton.hidden && (!tocButton || tocButton.hidden);
+    const selected = target.getAttribute(isJournal ? 'data-reading' : 'data-density');
+    layoutButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.readingValue === selected)));
+    layoutGroup.hidden = isJournal && smallScreen.matches;
+    divider.hidden = layoutGroup.hidden && (!tocButton || tocButton.hidden);
     if (backdrop) backdrop.hidden = !(tocOpen && drawerScreen.matches);
   }
 
@@ -124,19 +125,20 @@
     document.addEventListener('keydown', event => {
       if (event.key === 'Escape' && tocOpen) { setToc(false); tocButton.focus(); }
     });
-    window.addEventListener('scroll', scheduleHeadingUpdate, {passive: true});
-    if (content && typeof ResizeObserver !== 'undefined') new ResizeObserver(scheduleHeadingUpdate).observe(content);
   }
-  widthButton.addEventListener('click', () => {
-    keepReadingPosition(() => {
-      const attribute = isJournal ? 'data-reading' : 'data-density';
-      const larger = isJournal ? 'wide' : 'full';
-      const smaller = isJournal ? 'narrow' : 'airy';
-      target.setAttribute(attribute, target.getAttribute(attribute) === larger ? smaller : larger);
-    });
+  layoutButtons.forEach(button => button.addEventListener('click', () => {
+    const attribute = isJournal ? 'data-reading' : 'data-density';
+    const value = button.dataset.readingValue;
+    if (target.getAttribute(attribute) === value) return;
+    keepReadingPosition(() => target.setAttribute(attribute, value));
     syncControls();
-    scheduleHeadingUpdate();
-  });
-  window.addEventListener('resize', () => { syncControls(); scheduleHeadingUpdate(); });
+    updateReadingFrame();
+  }));
+  window.addEventListener('scroll', scheduleReadingFrame, {passive: true});
+  window.addEventListener('resize', () => { syncControls(); scheduleReadingFrame(); });
+  if (typeof ResizeObserver !== 'undefined') new ResizeObserver(scheduleReadingFrame).observe(region);
+  document.fonts?.ready.then(scheduleReadingFrame);
+  toolbar.classList.add('is-floating');
   syncControls();
+  updateReadingFrame();
 })();
