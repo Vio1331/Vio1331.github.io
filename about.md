@@ -26,7 +26,7 @@ section: about
   <div class="about-copy">
     <p class="kicker">ABOUT / VIO</p>
     <h1>您就是<br>大名鼎鼎的V吧</h1>
-    <p class="about-lead">夜之城没有活着的传奇，但有永不消逝的爱。</p>
+    <p class="about-lead">关于 Vio 和 OPTICS</p>
     <hr>
     <p>网站的名称「OPTICS」并没有什么特殊的含义。</p>
     <p>纯粹是因为用了很多年，不是很想改，以后应该也不会改了。</p>
