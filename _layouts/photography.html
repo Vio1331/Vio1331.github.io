@@ -24,7 +24,6 @@ layout: default
         </div>
       </div>
     </header>
-    {% include layout-switch.html kind='density' target='photography-reading' %}
     {% if page.opening %}
     <section class="photography-block" data-type="image">
       <div class="photography-module photography-single">
@@ -42,5 +41,6 @@ layout: default
     </section>
     {% endif %}
     <footer class="photography-end"><span aria-hidden="true"></span><p>完</p></footer>
+    {% include reading-neighbors.html items=site.photography %}
   </div>
 </article>

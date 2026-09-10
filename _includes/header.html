@@ -4,11 +4,6 @@
       {% include brand-mark.html %}
       <span class="brand-name">OPTICS</span>
     </a>
-    {% if page.collection == 'journal' or page.layout == 'journal' %}
-    <a class="header-back" href="{{ '/journal/' | relative_url }}" aria-label="返回文章列表"><span aria-hidden="true">←</span><span>返回</span></a>
-    {% elsif page.collection == 'photography' or page.layout == 'photography' %}
-    <a class="header-back" href="{{ '/photography/' | relative_url }}" aria-label="返回摄影集列表"><span aria-hidden="true">←</span><span>返回</span></a>
-    {% endif %}
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
       <span class="sr-only">打开导航</span>
       <span></span><span></span>

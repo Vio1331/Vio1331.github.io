@@ -12,7 +12,6 @@ layout: default
       {% if page.reading_time %}<span>{{ page.reading_time }} 分钟阅读</span>{% endif %}
     </div>
   </header>
-  {% include layout-switch.html kind='reading' target='journal-reading' %}
   {% if page.cover %}
     <figure class="journal-cover">
       <img src="{{ page.cover | content_image_url: page.image_base | escape }}" alt="{{ page.title | escape }}">
@@ -23,4 +22,5 @@ layout: default
     <span>完</span>
     <p>WORDS / IMAGES / EDITOR — VIO</p>
   </footer>
+  {% include reading-neighbors.html items=site.journal %}
 </article>

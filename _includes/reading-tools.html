@@ -1,0 +1,28 @@
+{%- if page.collection == 'journal' or page.layout == 'journal' -%}
+  {%- assign reading_kind = 'journal' -%}
+  {%- assign reading_parent = '/journal/' -%}
+  {%- assign reading_back_label = '返回文章列表' -%}
+{%- else -%}
+  {%- assign reading_kind = 'photography' -%}
+  {%- assign reading_parent = '/photography/' -%}
+  {%- assign reading_back_label = '返回摄影集列表' -%}
+{%- endif -%}
+<nav class="reading-tools" data-reading-tools="{{ reading_kind }}" aria-label="阅读工具">
+  <a class="reading-action" href="{{ reading_parent | relative_url }}" aria-label="{{ reading_back_label }}" title="{{ reading_back_label }}">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 14-5-5 5-5M4 9h10a6 6 0 0 1 6 6v5" /></svg>
+  </a>
+  <span class="reading-tool-divider" data-reading-divider aria-hidden="true" hidden></span>
+  {% if reading_kind == 'journal' %}
+  <button class="reading-action" type="button" data-reading-toc-button aria-controls="reading-toc" aria-expanded="false" aria-label="展开文章目录" title="展开文章目录" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" /></svg>
+  </button>
+  {% endif %}
+  <button class="reading-action" type="button" data-reading-width-button aria-controls="{{ reading_kind }}-reading" aria-pressed="{% if reading_kind == 'photography' %}true{% else %}false{% endif %}" aria-label="切换排版" title="切换排版" hidden>
+    <svg data-reading-expand viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" /></svg>
+    <svg data-reading-collapse viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden><path d="M4 14h6v6M20 10h-6V4M14 10l7-7M3 21l7-7" /></svg>
+  </button>
+</nav>
+{% if reading_kind == 'journal' %}
+<button class="reading-toc-backdrop" data-reading-toc-close type="button" aria-label="收起文章目录" hidden></button>
+<nav class="reading-toc" id="reading-toc" aria-label="文章目录" hidden></nav>
+{% endif %}

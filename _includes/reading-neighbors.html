@@ -1,0 +1,34 @@
+{%- assign reading_items = include.items | sort: 'date' | reverse -%}
+{%- assign reading_index = nil -%}
+{%- assign reading_previous = nil -%}
+{%- assign reading_next = nil -%}
+{%- for reading_item in reading_items -%}
+  {%- if reading_item.url == page.url -%}
+    {%- assign reading_index = forloop.index0 -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if reading_index != nil -%}
+  {%- if reading_index > 0 -%}
+    {%- assign reading_previous_index = reading_index | minus: 1 -%}
+    {%- assign reading_previous = reading_items[reading_previous_index] -%}
+  {%- endif -%}
+  {%- assign reading_next_index = reading_index | plus: 1 -%}
+  {%- assign reading_next = reading_items[reading_next_index] -%}
+{%- endif -%}
+{% if reading_previous or reading_next %}
+<nav class="reading-neighbors" aria-label="前后篇导航">
+  {% if reading_previous %}
+  <a class="reading-neighbor reading-neighbor--previous" href="{{ reading_previous.url | relative_url }}" rel="prev" aria-label="上一篇：{{ reading_previous.title | escape }}" title="上一篇：{{ reading_previous.title | escape }}">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 12H4m6-6-6 6 6 6" /></svg>
+    <span>{{ reading_previous.title | escape }}</span>
+  </a>
+  {% endif %}
+  {% if reading_next %}
+  <a class="reading-neighbor reading-neighbor--next" href="{{ reading_next.url | relative_url }}" rel="next" aria-label="下一篇：{{ reading_next.title | escape }}" title="下一篇：{{ reading_next.title | escape }}">
+    <span>{{ reading_next.title | escape }}</span>
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12h16m-6-6 6 6-6 6" /></svg>
+  </a>
+  {% endif %}
+</nav>
+{% endif %}
