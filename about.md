@@ -1,7 +1,7 @@
 ---
 layout: default
 title: 关于 Vio
-description: 关于 Vio 与 OPTICS。
+description: 关于 Vio 和 OPTICS
 permalink: /about/
 section: about
 ---
