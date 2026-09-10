@@ -1,0 +1,93 @@
+/* Additive presentation controls. Existing card, type and color rules remain authoritative. */
+.layout-toolbar { display: flex; justify-content: flex-end; }
+.layout-toolbar[hidden] { display: none !important; }
+.layout-switch { display: inline-flex; gap: 2px; padding: 3px; border: 1px solid var(--rule); border-radius: 7px; background: var(--card); }
+.layout-switch button {
+  display: grid; place-items: center; width: 38px; height: 36px; padding: 8px;
+  border: 0; border-radius: 4px; background: transparent; color: var(--muted);
+  cursor: pointer; touch-action: manipulation; transition: color 160ms ease, background-color 160ms ease;
+}
+.layout-switch button:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 5%, transparent); }
+.layout-switch button[aria-pressed="true"] { color: var(--paper); background: var(--ink); }
+.layout-switch button:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
+.layout-switch svg { display: block; width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.archive > .layout-toolbar { margin-top: -1.75rem; margin-bottom: 1.5rem; }
+.photography-archive > .layout-toolbar { margin-block: 1.25rem -1.5rem; }
+.journal > .layout-toolbar { width: min(100%, 62rem); margin: -2.75rem auto 2.5rem; }
+.photography .layout-toolbar { margin-top: 1rem; }
+.photography .layout-toolbar:not([hidden]) + .photography-block { margin-top: 1.5rem; }
+
+/* Journal index: date/category at left, title/excerpt at center, one quiet row rule. */
+.archive[data-view="list"] .journal-card-grid--archive { display: block; }
+.archive[data-view="list"] .journal-card-link {
+  display: grid; grid-template-columns: 7rem minmax(0, 1fr) 1.5rem; gap: .75rem 2rem;
+  min-height: 0; padding: 1.875rem 0; border: 0; border-bottom: 1px solid var(--rule);
+  border-radius: 0; background: transparent; box-shadow: none; transform: none;
+}
+.archive[data-view="list"] .journal-card:first-child .journal-card-link { padding-top: .75rem; }
+.archive[data-view="list"] .journal-card h2 {
+  grid-column: 2; grid-row: 1; max-width: none; padding: 0; color: var(--ink);
+  font-size: 1.75rem; line-height: 1.4; overflow-wrap: anywhere;
+}
+.archive[data-view="list"] .journal-card-foot { display: contents; }
+.archive[data-view="list"] .journal-card-rule { display: none; }
+.archive[data-view="list"] .journal-card-meta {
+  grid-column: 1; grid-row: 1 / span 2; align-self: start;
+  flex-direction: column; gap: .2rem; font-weight: 400; line-height: 1.7;
+}
+.archive[data-view="list"] .journal-card-meta time { order: -1; color: var(--muted); font-family: var(--font-en); font-size: .875rem; }
+.archive[data-view="list"] .journal-card-meta span + time::before { display: none; }
+.archive[data-view="list"] .journal-card-excerpt { grid-column: 2; grid-row: 2; max-width: none; margin: 0; color: var(--muted); -webkit-line-clamp: 2; }
+.archive[data-view="list"] .journal-card-link::after { top: 50%; right: 0; opacity: 1; transform: translateY(-50%); color: var(--muted); }
+.archive[data-view="list"] .journal-card:hover h2,
+.archive[data-view="list"] .journal-card:focus-within h2 { color: var(--coral); }
+
+/* Photography index: pure 3:2 thumbnail, title, date and location. No colored image frame. */
+.photography-archive[data-view="list"] .photography-cover-grid { display: block; }
+.photography-archive[data-view="list"] .photography-cover {
+  position: relative; display: grid; grid-template-columns: 12rem minmax(0, 1fr) 1.5rem;
+  align-items: center; gap: 2rem; aspect-ratio: auto; padding: 1.625rem 0;
+  border: 0; border-bottom: 1px solid var(--rule); background: transparent;
+  color: var(--ink); box-shadow: none; transform: none;
+}
+.photography-archive[data-view="list"] .photography-card:first-child .photography-cover { padding-top: .75rem; }
+.photography-archive[data-view="list"] .photography-cover-image { grid-column: 1; grid-row: 1; width: 100%; padding: 0; border: 0; background: transparent; }
+.photography-archive[data-view="list"] .photography-cover-heading { grid-column: 2; grid-row: 1; align-items: flex-start; padding: 0; text-align: left; }
+.photography-archive[data-view="list"] .photography-cover-wordmark { display: none; }
+.photography-archive[data-view="list"] .photography-cover h2 { color: var(--ink); font-size: 1.875rem; letter-spacing: 0; }
+.photography-archive[data-view="list"] .photography-cover-meta {
+  justify-content: flex-start; width: 100%; margin-top: .875rem; padding: 0;
+  border: 0; color: var(--muted); font-size: .8125rem;
+}
+.photography-archive[data-view="list"] .photography-cover::after { content: "↗"; grid-column: 3; grid-row: 1; justify-self: end; color: var(--muted); font-size: .95rem; }
+.photography-archive[data-view="list"] .photography-card:hover h2,
+.photography-archive[data-view="list"] .photography-card:focus-within h2 { color: var(--coral); }
+
+/* Article reading changes only the body measure; the narrow mode uses the original CSS. */
+.journal[data-reading="wide"] > .journal-content { width: min(100%, 50rem); }
+
+/* Keep the photography opening and controls still. Airy retains the original content measure. */
+.photography[data-layout-switchable] .photography-sheet { width: min(calc(100% - 64px), 1320px); padding-block: 48px 64px; }
+.photography[data-layout-switchable] .photography-opening { width: 100%; }
+.photography[data-layout-switchable][data-density="airy"] .photography-block { width: min(calc(100% - 32px), 1200px); margin-inline: auto; }
+@container photography (max-width: 720px) {
+  .photography[data-layout-switchable] .photography-sheet { width: calc(100% - 40px); padding-block: 36px 48px; }
+  .photography[data-layout-switchable][data-density="airy"] .photography-block { width: 100%; }
+}
+@media (max-width: 720px) {
+  .layout-toolbar--reading { display: none; }
+  .journal[data-reading="wide"] > .journal-content { width: min(100%, var(--text-width)); }
+}
+@media (max-width: 600px) {
+  .photography-archive > .layout-toolbar { margin-bottom: -.5rem; }
+  .archive[data-view="list"] .journal-card-link { grid-template-columns: minmax(0, 1fr) 1.5rem; gap: .6rem 1rem; padding-block: 1.5rem; }
+  .archive[data-view="list"] .journal-card h2 { grid-column: 1; grid-row: 1; font-size: 1.55rem; }
+  .archive[data-view="list"] .journal-card-meta { grid-column: 1; grid-row: 2; flex-direction: row; gap: 1rem; }
+  .archive[data-view="list"] .journal-card-excerpt { grid-column: 1; grid-row: 3; }
+  .photography-archive[data-view="list"] .photography-cover { grid-template-columns: 6.25rem minmax(0, 1fr) 1rem; gap: 1rem; padding-block: 1.5rem; }
+  .photography-archive[data-view="list"] .photography-cover h2 { font-size: 1.4rem; line-height: 1.35; }
+  .photography-archive[data-view="list"] .photography-cover-meta { gap: .25rem .75rem; margin-top: .5rem; font-size: .75rem; }
+}
+@media (pointer: coarse) {
+  .layout-switch button { width: 44px; height: 44px; }
+}

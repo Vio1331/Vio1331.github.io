@@ -4,9 +4,9 @@ description: 这是一段摄影集的示例文字。
 date: 2026-09-07
 image_base: /assets/images/
 cover: window-light.webp
-density: airy
 # 每组 ::: 可以单独复制到自己的摄影集中。
 # 同一种模块的横竖方变体只需要换图片。
+# 留白由网页按钮控制，默认 Full，无需填写 density。
 ---
 
 ::: 单图
@@ -123,12 +123,12 @@ density: airy
 这是一段摄影集正文的示例文字。
 :::
 
-::: 单图 铺展
+::: 单图
 ![眼镜放在桌面上的示例图片](window-light.webp)
 图注：这是一段图片说明示例文字。
 :::
 
-::: 双联 疏朗 手机并排
+::: 双联 手机并排
 ![眼镜放在桌面上的示例图片](window-light.webp)
 图注：这是一段图片说明示例文字。
 

@@ -28,7 +28,6 @@ image_base: /assets/images/my-album/
 cover: cover.jpg
 cover_alt: 这是一段图片说明示例文字。
 cover_theme: light
-density: airy
 
 opening:
   src: 01.jpg
@@ -45,7 +44,7 @@ blocks:
 - `cover_theme: light` 是浅色封面（默认），`cover_theme: dark` 是深色封面；控制影像列表与首页，每篇单独指定。封面依次为居中 OPTICS、中文标题、细线、日期地点、底部照片。`location` 与日期一起居中显示在细线下，不填地点时留空。
 - 封面照片固定显示为 3:2 横幅，其他比例居中裁切；原图和摄影集内页照片保持完整比例。
 - `location`、`camera`、图片的 `caption`、文字模块的 `heading` 都可以不写。
-- `density: airy` 是疏朗；`density: full` 是铺展。
+- 留白由详情页的按钮切换，默认 Full（铺展）；无需再填写 `density`。
 - 下面的模块全部放进同一个 `blocks:`，按顺序出现。不要给每个模块另写一个 `blocks:`。
 
 **横图、竖图和方图会按图片的真实尺寸自动识别，不需要你填写 M01-A、M01-B 等编号。** 编号用于看方案和讨论，发布文件写下面的模块类型即可。网站不会把真实横图裁成竖图或方图。
@@ -209,24 +208,11 @@ blocks:
           这是一段右栏示例文字。
 ```
 
-## 同一篇里混用两档留白
+## 页面按钮控制留白
 
-文件开头的 `density` 决定整篇的默认值；在单个模块里再写一次即可覆盖：
+详情页默认 Full（铺展），读者可用右上角按钮切换为 Airy（疏朗）。切换作用于整篇摄影集，模块类型、照片顺序、文字位置和图注保持原有逻辑。
 
-```yaml
-density: airy
-blocks:
-  - type: image
-    density: full
-    src: 01.jpg
-
-  - type: text
-    align: right
-    text: |
-      这是一段摄影集正文的示例文字。
-```
-
-这里单张照片采用铺展，其余模块继续疏朗。单个模块在当前页面容器内增加占比；整篇都希望更宽时，把文件开头也改成 `full`。
+文件开头和单个模块中的 `density` 都不必再写。旧文件保留这些字段也能正常发布；模板不再输出局部留白覆盖，因此不会出现部分模块切换失败。
 
 ## 照片说明与比例提示
 

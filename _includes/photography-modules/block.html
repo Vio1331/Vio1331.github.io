@@ -1,5 +1,5 @@
 {%- assign photography_block = include.block -%}
-<section class="photography-block" data-type="{{ photography_block.type | escape }}"{% if photography_block.density == 'airy' or photography_block.density == 'full' %} data-density="{{ photography_block.density }}"{% endif %}{% if photography_block.main == 'right' %} data-main="right"{% endif %}{% if photography_block.mobile == 'pair' or photography_block.mobile == 'stack' %} data-mobile="{{ photography_block.mobile }}"{% endif %}>
+<section class="photography-block" data-type="{{ photography_block.type | escape }}"{% if photography_block.main == 'right' %} data-main="right"{% endif %}{% if photography_block.mobile == 'pair' or photography_block.mobile == 'stack' %} data-mobile="{{ photography_block.mobile }}"{% endif %}>
   {% case photography_block.type %}
   {% when 'image' %}
     <div class="photography-module photography-single">

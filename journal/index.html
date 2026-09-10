@@ -11,11 +11,12 @@ section: journal
       <p class="kicker">JOURNAL</p>
       <h1>文字</h1>
     </div>
-    <p class="listing-intro-description">点击卡片进入文章页面。</p>
+    <p class="listing-intro-description">点击条目进入文章页面。</p>
   </div>
 </header>
 
-<section class="archive site-shell">
+<section class="archive site-shell" id="journal-archive" data-view="cards">
+  {% include layout-switch.html kind='archive' target='journal-archive' %}
   <div class="journal-card-grid journal-card-grid--archive">
     {% assign journal_items = site.journal | sort: 'date' | reverse %}
     {% for entry in journal_items %}

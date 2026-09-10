@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-<article class="journal site-shell">
+<article class="journal site-shell" id="journal-reading" data-reading="narrow">
   <header class="journal-header">
     <a class="eyebrow" href="{{ '/journal/' | relative_url }}">文字 / {{ page.category | default: '随笔' }}</a>
     <h1>{{ page.title }}</h1>
@@ -12,6 +12,7 @@ layout: default
       {% if page.reading_time %}<span>{{ page.reading_time }} 分钟阅读</span>{% endif %}
     </div>
   </header>
+  {% include layout-switch.html kind='reading' target='journal-reading' %}
   {% if page.cover %}
     <figure class="journal-cover">
       <img src="{{ page.cover | content_image_url: page.image_base | escape }}" alt="{{ page.title | escape }}">

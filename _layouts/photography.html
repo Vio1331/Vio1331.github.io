@@ -7,7 +7,7 @@ layout: default
   {% if count_block.src %}{% assign photography_image_count = photography_image_count | plus: 1 %}{% endif %}
   {% if count_block.images %}{% assign photography_image_count = photography_image_count | plus: count_block.images.size %}{% endif %}
 {% endfor %}
-<article class="photography" data-density="{% if page.density == 'full' %}full{% else %}airy{% endif %}">
+<article class="photography" id="photography-reading" data-density="full" data-layout-switchable>
   <div class="photography-sheet">
     <header class="photography-opening">
       <div class="photography-title">
@@ -24,6 +24,7 @@ layout: default
         </div>
       </div>
     </header>
+    {% include layout-switch.html kind='density' target='photography-reading' %}
     {% if page.opening %}
     <section class="photography-block" data-type="image">
       <div class="photography-module photography-single">

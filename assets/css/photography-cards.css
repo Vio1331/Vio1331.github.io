@@ -29,6 +29,23 @@
   border: 1px solid var(--cover-rule);
   background: var(--cover-surface);
   color: var(--cover-text);
+  box-shadow: 0 0 0 color-mix(in srgb, var(--ink) 0%, transparent);
+  transition: transform 240ms cubic-bezier(.2,.75,.25,1), border-color 240ms ease, box-shadow 240ms ease;
+}
+.photography-card:hover .photography-cover,
+.photography-card:focus-within .photography-cover {
+  border-color: color-mix(in srgb, var(--ink) 35%, transparent);
+  box-shadow: 0 1.1rem 2.4rem color-mix(in srgb, var(--ink) 8%, transparent);
+  transform: translateY(-0.35rem);
+}
+.photography-card[data-theme="dark"]:hover .photography-cover,
+.photography-card[data-theme="dark"]:focus-within .photography-cover {
+  border-color: var(--ink);
+  box-shadow: 0 1.1rem 2.5rem color-mix(in srgb, var(--ink) 20%, transparent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .photography-card:hover .photography-cover,
+  .photography-card:focus-within .photography-cover { transform: none; }
 }
 .photography-cover:focus-visible { outline: 2px solid var(--coral); outline-offset: 5px; }
 .photography-cover-heading {
