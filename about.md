@@ -1,7 +1,7 @@
 ---
 layout: default
 title: 关于 Vio
-description: 关于 Vio 与 VIO 光学。
+description: 关于 Vio 与 OPTICS。
 permalink: /about/
 section: about
 ---
@@ -25,11 +25,11 @@ section: about
   </div>
   <div class="about-copy">
     <p class="kicker">ABOUT / VIO</p>
-    <h1>您就是<br>大名鼎鼎的 V 吧。</h1>
+    <h1>您就是<br>大名鼎鼎的V吧</h1>
     <p class="about-lead">夜之城没有活着的传奇，但有永不消逝的爱。</p>
     <hr>
-    <p>Vio 版权所有</p>
-    <p>2026 Vio All rights reserved.</p>
-    <p>Copyright© Vio</p>
+    <p>网站的名称「OPTICS」并没有什么特殊的含义。</p>
+    <p>纯粹是因为用了很多年，不是很想改，以后应该也不会改了。</p>
+    <p>鼠标移动到头像上会触发小彩蛋～可以多试几次，会有不一样的结果。</p>
   </div>
 </section>
