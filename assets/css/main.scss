@@ -939,8 +939,8 @@ button { font: inherit; }
   overflow: hidden;
   border-top: 1px solid var(--rule);
 }
-.home-journal-outline { right: -0.11em; }
-.home-photography-outline { left: -0.11em; }
+.home-journal-outline { right: -0.19em; }
+.home-photography-outline { left: -0.19em; }
 .home-journal-outline,
 .home-photography-outline {
   position: absolute;
@@ -1097,14 +1097,14 @@ button { font: inherit; }
   .home-journal,
   .home-photography { --home-decoration-size: 21.5rem; }
   .home-journal { min-height: auto; }
-  .home-journal-outline { right: -0.15em; top: 10rem; font-size: var(--home-decoration-size); transform: none; }
+  .home-journal-outline { right: -0.23em; top: 10rem; font-size: var(--home-decoration-size); transform: none; }
   .home-journal-inner { padding-block: 5rem 6rem; }
   .home-journal-card { min-height: 27rem; padding: 2rem; border-radius: 1.25rem; }
   .home-journal-card h2 { margin-top: 3rem; font-size: clamp(2.25rem, 10vw, 3.35rem); }
   .home-more-journal a { align-items: baseline; }
 
   .home-photography { min-height: auto; }
-  .home-photography-outline { left: -0.15em; top: 10rem; font-size: var(--home-decoration-size); transform: none; }
+  .home-photography-outline { left: -0.23em; top: 10rem; font-size: var(--home-decoration-size); transform: none; }
   .home-photography-inner { padding-block: 5rem 6rem; }
   .home-photography-card { height: var(--home-journal-height, 27rem); border-radius: 1.25rem; }
   .home-photography-caption { gap: 1rem 1.1rem; padding: 1.5rem; border-radius: 0 0 1.25rem 1.25rem; }
