@@ -8,9 +8,11 @@
 | 写摄影集 | `_photography/年月日_标题.md` · [摄影指南](docs/PHOTOGRAPHY_GUIDE.md) |
 | 上传文章图片 | `assets/images/journal/年月日_标题/` |
 | 上传摄影图片 | `assets/images/photography/年月日_标题/` |
-| 看代码分工和脑图 | [代码地图](docs/CODE_MAP.md) |
+| 看代码分工与目录 | [代码地图](docs/CODE_MAP.md) |
 | 查看尚未上传的旧文章图片 | [待补图片清单](docs/MISSING_IMAGES.md) |
 | 让 AI 修改代码 | 先读 `AGENTS.md` 和 `docs/PROJECT_BASELINE.md` |
+
+文章详情固定宽版。摄影详情默认 Full；需要整篇 Airy 时，在文件开头添加 `density: airy`。两类详情都没有版式切换按钮，列表页仍可切换卡片／列表。
 
 两类文件都可以叫 `20260909_示例标题.md`；显示日期填写 `date: 2026-09-09`。文章正文仍是 Markdown，摄影集正文仍是 Markdown 加 `::: 双联` 等中文模块标记。摄影集的旧 YAML blocks 保持兼容。
 

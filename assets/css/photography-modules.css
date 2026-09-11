@@ -12,8 +12,7 @@
   --photography-square-gap: clamp(36px, 5cqw, 64px);
   color: var(--body);
 }
-.photography[data-density="full"],
-.photography .photography-block[data-density="full"] {
+.photography[data-density="full"] {
   --photography-measure: 100%;
   --photography-group-gap: 18px;
   --photography-column-gap: 48px;
@@ -22,17 +21,8 @@
   --photography-portrait: min(500px, 59svh);
   --photography-square-gap: clamp(28px, 4cqw, 48px);
 }
-.photography .photography-block[data-density="airy"] {
-  --photography-measure: 80%;
-  --photography-group-gap: 28px;
-  --photography-column-gap: 80px;
-  --photography-space: 160px;
-  --photography-block-space: 224px;
-  --photography-portrait: min(420px, 52svh);
-  --photography-square-gap: clamp(36px, 5cqw, 64px);
-}
-.photography .photography-sheet { width: min(calc(100% - 96px), 1200px); margin-inline: auto; padding-block: 88px; }
-.photography[data-density="full"] .photography-sheet { width: min(calc(100% - 64px), 1320px); padding-block: 48px 64px; }
+.photography .photography-sheet { width: min(calc(100% - 64px), 1320px); margin-inline: auto; padding-block: 48px 64px; }
+.photography[data-density="airy"] .photography-block { width: min(calc(100% - 32px), 1200px); margin-inline: auto; }
 /* Square singles and diptychs use the same outer edges as other photo modules. */
 .photography .photography-module { width: var(--photography-measure); margin-inline: auto; }
 .photography .photography-block { margin-top: var(--photography-block-space); }
@@ -68,20 +58,14 @@
 .photography [data-shape="v"] > .photography-image-text,
 .photography [data-shape="s"] > .photography-image-text { --photography-image-track: 1fr; }
 .photography [data-shape="v"] > .photography-image-text > .photography-image { width: min(100%, 420px); justify-self: center; }
-.photography[data-density="full"] [data-shape="v"] > .photography-image-text > .photography-image,
-.photography [data-density="full"][data-shape="v"] > .photography-image-text > .photography-image { width: min(100%, 480px); }
-.photography [data-density="airy"][data-shape="v"] > .photography-image-text > .photography-image { width: min(100%, 420px); }
+.photography[data-density="full"] [data-shape="v"] > .photography-image-text > .photography-image { width: min(100%, 480px); }
 .photography .photography-image-text.photography-image-right { grid-template-columns: minmax(0, var(--photography-text-track)) minmax(0, var(--photography-image-track)); }
 .photography .photography-long-copy { align-items: start; }
 .photography .photography-text-only { display: grid; grid-template-columns: 1fr 1fr; gap: var(--photography-column-gap); width: 90%; }
 .photography .photography-text-center { display: block; width: min(100%, 580px); }
 .photography .photography-text-right > .photography-copy { grid-column: 2; }
 .photography[data-density="full"] .photography-image-text,
-.photography[data-density="full"] .photography-text-only,
-.photography .photography-block[data-density="full"] .photography-image-text,
-.photography .photography-block[data-density="full"] .photography-text-only { width: 100%; }
-.photography .photography-block[data-density="airy"] .photography-image-text { width: var(--photography-measure); }
-.photography .photography-block[data-density="airy"] .photography-text-only { width: 90%; }
+.photography[data-density="full"] .photography-text-only { width: 100%; }
 .photography .photography-block .photography-text-center { width: min(100%, 580px); }
 .photography .photography-copy { min-width: 0; width: 100%; max-width: 34em; margin: 0; overflow-wrap: anywhere; }
 .photography .photography-image-text > .photography-copy { justify-self: center; }
@@ -101,7 +85,7 @@
 .photography .photography-copy th,
 .photography .photography-copy td { overflow-wrap: anywhere; word-break: normal; }
 /* Opening follows the original C heading: title left, information right, rule below. */
-.photography .photography-opening { width: var(--photography-measure); margin-inline: auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px 60px; align-items: end; padding-bottom: 36px; border-bottom: 1px solid var(--rule); }
+.photography .photography-opening { width: 100%; margin-inline: auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px 60px; align-items: end; padding-bottom: 36px; border-bottom: 1px solid var(--rule); }
 .photography .photography-title,
 .photography .photography-opening-note { min-width: 0; overflow-wrap: anywhere; }
 .photography .photography-opening-note { width: 100%; max-width: 26em; justify-self: end; text-align: right; }
@@ -114,20 +98,16 @@
 .photography .photography-end > span { display: block; width: 30px; height: 1px; background: var(--coral); margin-inline: auto; }
 .photography .photography-end p { margin: 20px 0 0; font-size: 13px; color: var(--muted); }
 @container photography (max-width: 720px) {
-  .photography .photography-sheet,
-  .photography[data-density="full"] .photography-sheet { width: calc(100% - 40px); padding-block: 36px 48px; }
+  .photography[data-density="airy"] .photography-block { width: 100%; }
+  .photography .photography-sheet { width: calc(100% - 40px); padding-block: 36px 48px; }
   .photography .photography-block { margin-top: 112px; }
-  .photography[data-density="full"] .photography-block,
-  .photography .photography-block[data-density="full"] { margin-top: 80px; }
-  .photography .photography-block[data-density="airy"] { margin-top: 112px; }
+  .photography[data-density="full"] .photography-block { margin-top: 80px; }
   .photography .photography-module,
   .photography .photography-block .photography-image-text,
   .photography .photography-block .photography-text-only,
   .photography .photography-opening { width: 100%; }
   .photography [data-shape="v"] > .photography-single { width: 80%; max-width: 400px; }
-  .photography[data-density="full"] [data-shape="v"] > .photography-single,
-  .photography [data-density="full"][data-shape="v"] > .photography-single { width: 92%; }
-  .photography [data-density="airy"][data-shape="v"] > .photography-single { width: 80%; }
+  .photography[data-density="full"] [data-shape="v"] > .photography-single { width: 92%; }
   .photography .photography-images { gap: 12px; }
   .photography [data-type="triptych"] .photography-images,
   .photography .photography-landscape-pair:not([data-mobile="pair"]) .photography-images,

@@ -1,19 +1,13 @@
-# 摄影集怎么写、怎么上传
+# 摄影集：旧 YAML blocks 写法
 
-摄影集现在可以用 **Markdown 文件 + 模块** 编辑。你选照片、顺序和模块，网站负责排版。
+旧摄影集继续兼容本页写法；新文件推荐使用 [Markdown 中文模块](PHOTOGRAPHY_GUIDE.md)，范本见 [_examples/photography-template.md](../_examples/photography-template.md)。两种格式不混写在同一份文件中。
 
-先打开 [_examples/photography-template.md](../_examples/photography-template.md)，点击 GitHub 的 **Raw** 查看原文件，再保存或复制到本地。不要把代码块外面的说明一起复制进去。
+## 文件与图片
 
-也可以直接参考已经发布的 [_photography/example-01.md](../_photography/example-01.md)。示例 01、02、03 都使用同一套 magazine 模块版式，不需要另填样式字段。
-
-## 一次发布只需要两类文件
-
-1. 照片：放在 `assets/images/你的摄影集文件夹/`。
-2. 摄影集：在 `_photography/` 中新建 `你的摄影集名字.md`。
-
-例如：照片为 `assets/images/my-album/01.jpg`，在文件开头统一写 `image_base: /assets/images/my-album/`，下面的 `src` 就只需写 `01.jpg`。文件名的大小写和扩展名必须一致；不要写电脑上的 `/Users/...` 路径。文件夹和文件名建议用英文字母、数字和短横线，减少路径错误。
-
-`_photography/my-album.md` 发布后的地址是 `/photography/my-album/`。不用像文章一样把日期放到文件名前面。标题在文件的 `title` 里写，可以用中文。
+- 摄影文档：`_photography/20260907_示例标题.md`。
+- 照片目录：`assets/images/photography/20260907_示例标题/`。
+- 文件开头统一填写 `image_base`，模块内只写文件名。大小写、扩展名应与上传文件一致；不要填写电脑上的绝对路径。
+- 两类内容都支持 `YYYYMMDD_标题.md`，显示日期以 `date` 为准。摄影链接通常包含完整文件名，例如 `/photography/20260907_示例标题/`，已发布文件改名需谨慎。
 
 ## 文件开头
 
@@ -24,7 +18,7 @@ description: 这是一段摄影集的示例文字。
 date: 2026-09-07
 location: 示例地点
 camera: 示例设备
-image_base: /assets/images/my-album/
+image_base: /assets/images/photography/20260907_示例标题/
 cover: cover.jpg
 cover_alt: 这是一段图片说明示例文字。
 cover_theme: light
@@ -41,10 +35,10 @@ blocks:
 
 - `image_base` 是这篇摄影集的统一图片目录，末尾的 `/` 可写可不写。
 - `cover` 是列表和首页使用的封面，`opening` 是详情页分隔线下方的第一张照片，按单图模块的横竖方规则展示。两者可以用同一张，也可以不同；开场图可删除。
-- `cover_theme: light` 是浅色封面（默认），`cover_theme: dark` 是深色封面；控制影像列表与首页，每篇单独指定。封面依次为居中 OPTICS、中文标题、细线、日期地点、底部照片。`location` 与日期一起居中显示在细线下，不填地点时留空。
+- `cover_theme: light` 是浅色封面（默认），`cover_theme: dark` 是深色封面；仅控制影像列表，每篇单独指定；首页是独立浅色封面。封面依次为居中 OPTICS、中文标题、细线、日期地点、底部照片。`location` 与日期一起居中显示在细线下，不填地点时留空。
 - 封面照片固定显示为 3:2 横幅，其他比例居中裁切；原图和摄影集内页照片保持完整比例。
 - `location`、`camera`、图片的 `caption`、文字模块的 `heading` 都可以不写。
-- 留白由详情页的按钮切换，默认 Full（铺展）；无需再填写 `density`。
+- `density: airy` 指定整篇 Airy（疏朗）；省略或写 `density: full` 使用 Full（铺展）。
 - 下面的模块全部放进同一个 `blocks:`，按顺序出现。不要给每个模块另写一个 `blocks:`。
 
 **横图、竖图和方图会按图片的真实尺寸自动识别，不需要你填写 M01-A、M01-B 等编号。** 编号用于看方案和讨论，发布文件写下面的模块类型即可。网站不会把真实横图裁成竖图或方图。
@@ -60,7 +54,7 @@ blocks:
 设置 `image_base` 后，`cover`、`opening.src`、所有模块的 `src`，以及 `images` 中直接填写的文件名，都会自动接上这个目录。子文件夹也可以写成 `details/01.jpg`。
 
 ```yaml
-image_base: /assets/images/my-album/
+image_base: /assets/images/photography/20260907_示例标题/
 cover: cover.jpg
 opening:
   src: 01.jpg
@@ -208,11 +202,11 @@ blocks:
           这是一段右栏示例文字。
 ```
 
-## 页面按钮控制留白
+## 文档控制整篇留白
 
-详情页默认 Full（铺展），读者可用右下角固定工具栏的版式图标切换为 Airy（疏朗），再次点击恢复 Full。切换作用于整篇摄影集，模块类型、照片顺序、文字位置和图注保持原有逻辑。
+摄影详情页没有排版切换按钮。文件开头写 `density: airy` 使用 Airy（疏朗）；省略或写 `density: full` 使用 Full（铺展）。该字段与 `title`、`date` 同级，不能放在 `blocks` 里面。
 
-文件开头和单个模块中的 `density` 都不必再写。旧文件保留这些字段也能正常发布；模板不再输出局部留白覆盖，因此不会出现部分模块切换失败。
+模块级 `density` 保留旧格式解析兼容，但不输出局部覆盖；整篇摄影集统一使用文件开头的设置。
 
 ## 照片说明与比例提示
 

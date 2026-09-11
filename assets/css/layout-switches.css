@@ -1,4 +1,4 @@
-/* Additive presentation controls. Existing card, type and color rules remain authoritative. */
+/* Archive card/list controls and list presentation. */
 .layout-toolbar { display: flex; justify-content: flex-end; }
 .layout-toolbar[hidden] { display: none !important; }
 .layout-switch { display: inline-flex; gap: 2px; padding: 3px; border: 1px solid var(--rule); border-radius: 7px; background: var(--card); }
@@ -48,7 +48,7 @@
   color: var(--ink); box-shadow: none; transform: none;
 }
 .photography-archive[data-view="list"] .photography-card:hover .photography-cover,
-.photography-archive[data-view="list"] .photography-card:focus-within .photography-cover { box-shadow: none; }
+.photography-archive[data-view="list"] .photography-card:focus-within .photography-cover { box-shadow: none; border-bottom-color: var(--rule); }
 .photography-archive[data-view="list"] .photography-card:first-child .photography-cover { padding-top: .75rem; }
 .photography-archive[data-view="list"] .photography-cover-image { grid-column: 1; grid-row: 1; width: 100%; padding: 0; border: 0; background: transparent; }
 .photography-archive[data-view="list"] .photography-cover-heading { grid-column: 2; grid-row: 1; align-items: flex-start; padding: 0; text-align: left; }
@@ -62,21 +62,6 @@
 .photography-archive[data-view="list"] .photography-card:hover h2,
 .photography-archive[data-view="list"] .photography-card:focus-within h2 { color: var(--coral); }
 
-/* Article reading changes only the body measure; the narrow mode uses the original CSS. */
-.journal[data-reading="wide"] > .journal-content { width: min(100%, 50rem); }
-
-/* Keep the photography opening and controls still. Airy retains the original content measure. */
-.photography[data-layout-switchable] .photography-sheet { width: min(calc(100% - 64px), 1320px); padding-block: 48px 64px; }
-.photography[data-layout-switchable] .photography-opening { width: 100%; }
-.photography[data-layout-switchable][data-density="airy"] .photography-block { width: min(calc(100% - 32px), 1200px); margin-inline: auto; }
-@container photography (max-width: 720px) {
-  .photography[data-layout-switchable] .photography-sheet { width: calc(100% - 40px); padding-block: 36px 48px; }
-  .photography[data-layout-switchable][data-density="airy"] .photography-block { width: 100%; }
-}
-@media (max-width: 720px) {
-  .layout-toolbar--reading { display: none; }
-  .journal[data-reading="wide"] > .journal-content { width: min(100%, var(--text-width)); }
-}
 @media (max-width: 600px) {
   .photography-archive > .layout-toolbar { margin-bottom: -.5rem; }
   .archive[data-view="list"] .journal-card-link { grid-template-columns: minmax(0, 1fr) 1.5rem; gap: .6rem 1rem; padding-block: 1.5rem; }

@@ -1,37 +1,10 @@
-{%- case include.kind -%}
-  {%- when 'reading' -%}
-    {%- assign layout_attribute = 'data-reading' -%}
-    {%- assign layout_group = '文章阅读宽度' -%}
-    {%- assign layout_first = 'narrow' -%}
-    {%- assign layout_second = 'wide' -%}
-    {%- assign layout_first_label = '窄版阅读' -%}
-    {%- assign layout_second_label = '宽版阅读' -%}
-  {%- when 'density' -%}
-    {%- assign layout_attribute = 'data-density' -%}
-    {%- assign layout_group = '摄影集排版密度' -%}
-    {%- assign layout_first = 'airy' -%}
-    {%- assign layout_second = 'full' -%}
-    {%- assign layout_first_label = '疏朗排版 · Airy' -%}
-    {%- assign layout_second_label = '铺展排版 · Full' -%}
-  {%- else -%}
-    {%- assign layout_attribute = 'data-view' -%}
-    {%- assign layout_group = '内容显示方式' -%}
-    {%- assign layout_first = 'cards' -%}
-    {%- assign layout_second = 'list' -%}
-    {%- assign layout_first_label = '卡片视图' -%}
-    {%- assign layout_second_label = '列表视图' -%}
-{%- endcase -%}
-<div class="layout-toolbar{% if include.kind == 'reading' %} layout-toolbar--reading{% endif %}" data-layout-switch data-layout-target="{{ include.target | escape }}" data-layout-attribute="{{ layout_attribute }}" hidden>
-  <div class="layout-switch" role="group" aria-label="{{ layout_group }}">
-    <button type="button" data-layout-value="{{ layout_first }}" aria-controls="{{ include.target | escape }}" aria-label="{{ layout_first_label }}" title="{{ layout_first_label }}" aria-pressed="{% if include.kind == 'density' %}false{% else %}true{% endif %}">
-      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        {% if include.kind == 'reading' or include.kind == 'density' %}<path d="M4 14h6v6M20 10h-6V4M14 10l7-7M3 21l7-7" />{% else %}<rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" />{% endif %}
-      </svg>
+<div class="layout-toolbar" data-layout-switch data-layout-target="{{ include.target | escape }}" hidden>
+  <div class="layout-switch" role="group" aria-label="内容显示方式">
+    <button type="button" data-layout-value="cards" aria-controls="{{ include.target | escape }}" aria-label="卡片视图" title="卡片视图" aria-pressed="true">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" /></svg>
     </button>
-    <button type="button" data-layout-value="{{ layout_second }}" aria-controls="{{ include.target | escape }}" aria-label="{{ layout_second_label }}" title="{{ layout_second_label }}" aria-pressed="{% if include.kind == 'density' %}true{% else %}false{% endif %}">
-      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        {% if include.kind == 'reading' or include.kind == 'density' %}<path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />{% else %}<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />{% endif %}
-      </svg>
+    <button type="button" data-layout-value="list" aria-controls="{{ include.target | escape }}" aria-label="列表视图" title="列表视图" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" /></svg>
     </button>
   </div>
 </div>

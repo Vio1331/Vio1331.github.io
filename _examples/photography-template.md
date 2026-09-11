@@ -10,7 +10,7 @@ cover: window-light.webp
 cover_alt: 眼镜放在桌面上的示例图片
 # 列表封面：light 浅色（默认），dark 深色。
 cover_theme: light
-# 留白由网页按钮控制，默认 Full，无需填写 density。
+# 默认 Full；需要整篇 Airy 时，在这里添加 density: airy。
 # 照片和正文写在下面的 --- 之后，不再填写 blocks。
 # 启用要求与全部模块见 docs/PHOTOGRAPHY_GUIDE.md。
 ---

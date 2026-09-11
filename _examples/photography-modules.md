@@ -6,7 +6,7 @@ image_base: /assets/images/
 cover: window-light.webp
 # 每组 ::: 可以单独复制到自己的摄影集中。
 # 同一种模块的横竖方变体只需要换图片。
-# 留白由网页按钮控制，默认 Full，无需填写 density。
+# 默认 Full；需要整篇 Airy 时，在这里添加 density: airy。
 ---
 
 ::: 单图

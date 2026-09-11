@@ -2,7 +2,7 @@
 
 照片用 Markdown 图片语法，文字照常写；特殊排版用 `::: 模块名` 开始、单独一行 `:::` 结束。模块名使用中文，不区分横图、竖图和方图，网站按真实比例自动适配。
 
-**启用条件：仓库 Settings → Pages → Build and deployment → Source 选择 GitHub Actions。** 本次新增的 `Build and deploy OPTICS` 工作流负责自动转换和发布。切换后到 Actions 手动运行一次该工作流；以后照常上传照片和 `.md` 即可。若 Source 仍为 Deploy from a branch，旧 YAML 继续发布，新写法尚未启用。
+本站已启用 GitHub Actions。正常上传照片和 `.md`，提交到 `main` 后由 **Build and deploy OPTICS** 自动转换、检查和发布；不需要重新设置 Pages。新复制的仓库才需要把 Settings → Pages → Source 设为 GitHub Actions。
 
 - [可直接复制的摄影集范本](../_examples/photography-template.md)
 - [全部模块的可复制示例](../_examples/photography-modules.md)
@@ -15,7 +15,7 @@
 title: 摄影集示例
 date: 2026-09-07
 location: 示例地点
-image_base: /assets/images/my-album/
+image_base: /assets/images/photography/20260907_示例标题/
 cover: 01.jpg
 cover_theme: light
 ---
@@ -53,7 +53,7 @@ location: 苏州
 - 封面从上到下依次为：居中 OPTICS、中文标题、细分割线、日期与地点、照片。`location` 与日期一起居中显示在分割线下方，地点为空时不显示。
 - `cover` 继续支持 `image_base` 加文件名。封面照片统一显示为 **3:2 横幅**，其他比例按中心裁切填满；只改变封面显示，不改动原始图片，摄影集内页仍显示完整照片。
 
-旧 YAML 摄影集也能使用相同字段。此设置控制影像列表和首页的摄影集封面，不影响摄影集内页。首页会自动展示日期最新的三个摄影集，无需填写 `featured`。
+旧 YAML 摄影集也能使用相同字段。`cover_theme` 只控制影像列表；首页使用独立的浅色摄影卡片，读取相同封面照片，不影响摄影集内页。首页会自动展示日期最新的三个摄影集，无需填写 `featured`。
 
 ## 全部版式对应表
 
@@ -158,9 +158,15 @@ A/B/C 等编号只用于对应视觉参考，实际写作不需要填写编号�
 
 ## 页面留白与手机排列
 
-留白由摄影详情页右下角固定工具栏的版式图标控制：**Full（铺展）为默认，点击切换 Airy（疏朗），再次点击恢复 Full**。标题区保持固定，图片大小和模块之间的留白一起改变。每次新打开页面恢复 Full，不修改摄影集文件。
+摄影详情页默认 **Full（铺展）**。如果希望整篇采用 **Airy（疏朗）**，在文件开头两行 `---` 之间添加：
 
-写作时无需填写 `density`，也不需要在模块名后添加 `疏朗` 或 `铺展`。旧文件中的这些设置仍能被解析，但不再影响页面排版，也不会阻止按钮切换；不必批量修改旧摄影集。
+```yaml
+density: airy
+```
+
+省略该字段，或写 `density: full`，均使用 Full。页面不再显示排版切换按钮；标题区和外层纸张保持现有尺度，照片宽度与模块间距随文档设置变化。
+
+整篇留白只读取文件开头的 `density`。旧模块名后的 `疏朗`／`铺展` 和旧 YAML 模块级 `density` 仍可解析，但不覆盖整篇设置，不必批量改写旧文件。
 
 ```markdown
 ::: 双联 手机并排
@@ -188,8 +194,8 @@ A/B/C 等编号只用于对应视觉参考，实际写作不需要填写编号�
 
 ## 怎么上传
 
-1. 确认已经完成本页开头的 GitHub Actions 一次性设置。
-2. 照片上传到 `assets/images/你的文件夹/`。
+1. 从范本复制一份摄影集 Markdown 文件。
+2. 照片上传到 `assets/images/photography/年月日_标题/`。
 3. 从范本复制 `.md`，填写整篇信息，按页面顺序选择模块和照片。
 4. 摄影集上传到 `_photography/`。已在本地使用 Git 时，也可以将照片和 `.md` 一起提交。
 5. 等 Actions 中的 **Build and deploy OPTICS** 成功，打开摄影集页面。

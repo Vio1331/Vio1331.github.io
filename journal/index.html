@@ -16,7 +16,7 @@ section: journal
 </header>
 
 <section class="archive site-shell" id="journal-archive" data-view="cards">
-  {% include layout-switch.html kind='archive' target='journal-archive' %}
+  {% include layout-switch.html target='journal-archive' %}
   <div class="journal-card-grid journal-card-grid--archive">
     {% assign journal_items = site.journal | sort: 'date' | reverse %}
     {% for entry in journal_items %}

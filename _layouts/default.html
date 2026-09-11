@@ -11,13 +11,20 @@
     <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@700&amp;family=Andika:wght@400&amp;family=Noto+Sans+SC:wght@{% if page.collection == 'photography' or page.layout == 'photography' %}300;{% endif %}400;500;600;700&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Freeman:wght@400&amp;display=swap&amp;text=OPTICS" rel="stylesheet">
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}?v={{ site.time | date: '%s' }}">
+    {% if page.collection == 'journal' or page.layout == 'journal' or page.collection == 'photography' or page.layout == 'photography' %}
+    <link rel="stylesheet" href="{{ '/assets/css/journal.css' | relative_url }}?v={{ site.time | date: '%s' }}">
+    {% endif %}
     {% if page.body_class == 'photography-index-page' %}
     <link rel="stylesheet" href="{{ '/assets/css/photography-cards.css' | relative_url }}?v={{ site.time | date: '%s' }}">
     {% endif %}
     {% if page.collection == 'photography' or page.layout == 'photography' %}
     <link rel="stylesheet" href="{{ '/assets/css/photography-modules.css' | relative_url }}?v={{ site.time | date: '%s' }}">
     {% endif %}
+    {% if page.section == 'journal' or page.section == 'photography' %}
+    {% unless page.collection or page.layout == 'journal' or page.layout == 'photography' %}
     <link rel="stylesheet" href="{{ '/assets/css/layout-switches.css' | relative_url }}?v={{ site.time | date: '%s' }}">
+    {% endunless %}
+    {% endif %}
     {% if page.collection == 'journal' or page.layout == 'journal' or page.collection == 'photography' or page.layout == 'photography' %}
     <link rel="stylesheet" href="{{ '/assets/css/reading-tools.css' | relative_url }}?v={{ site.time | date: '%s' }}">
     {% endif %}
@@ -32,7 +39,11 @@
     {% if page.collection == 'journal' or page.layout == 'journal' or page.collection == 'photography' or page.layout == 'photography' %}</div>{% endif %}
     {% include footer.html %}
     <script src="{{ '/assets/js/main.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
+    {% if page.section == 'journal' or page.section == 'photography' %}
+    {% unless page.collection or page.layout == 'journal' or page.layout == 'photography' %}
     <script src="{{ '/assets/js/layout-switches.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
+    {% endunless %}
+    {% endif %}
     {% if page.collection == 'journal' or page.layout == 'journal' or page.collection == 'photography' or page.layout == 'photography' %}
     <script src="{{ '/assets/js/reading-tools.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
     {% endif %}

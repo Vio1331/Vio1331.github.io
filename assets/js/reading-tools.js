@@ -8,14 +8,11 @@
   const target = document.getElementById(isJournal ? 'journal-reading' : 'photography-reading');
   if (!target || !region) return;
   const content = target.querySelector(isJournal ? ':scope > .journal-content' : '.photography-sheet');
-  const layoutGroup = toolbar.querySelector('[data-reading-layout]');
-  const layoutButtons = [...layoutGroup.querySelectorAll('[data-reading-value]')];
   const tocControl = toolbar.querySelector('[data-reading-toc-control]');
   const tocButton = toolbar.querySelector('[data-reading-toc-button]');
   const toc = document.getElementById('reading-toc');
   const tocLinks = toc?.querySelector('[data-reading-toc-links]');
   const backdrop = document.querySelector('[data-reading-toc-close]');
-  const smallScreen = matchMedia('(max-width: 720px)');
   const drawerScreen = matchMedia('(max-width: 1320px)');
   const photoInlineScreen = matchMedia('(max-width: 900px)');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
@@ -28,20 +25,6 @@
 
   const headerBottom = () => header ? Math.max(0, header.getBoundingClientRect().bottom) : 0;
   const readingTop = () => headerBottom() + ((isJournal ? drawerScreen.matches : photoInlineScreen.matches) ? toolbar.offsetHeight : 0);
-  const keepReadingPosition = change => {
-    const edge = readingTop() + 16;
-    const anchor = content && [...content.querySelectorAll('h2, h3, p, figure')].find(e => {
-      const r = e.getBoundingClientRect();
-      return r.height > 0 && r.bottom > edge && r.top < innerHeight;
-    });
-    const before = anchor ? anchor.getBoundingClientRect().top : 0;
-    change();
-    if (anchor) {
-      const delta = anchor.getBoundingClientRect().top - before;
-      if (Math.abs(delta) > 1) window.scrollBy({top: delta, left: 0, behavior: 'instant'});
-    }
-  };
-
   function updateActiveHeading() {
     if (!tocOpen || !entries.length) return;
     let active = entries[0];
@@ -87,9 +70,6 @@
     updateReadingFrame();
   }
   function syncControls() {
-    const selected = target.getAttribute(isJournal ? 'data-reading' : 'data-density');
-    layoutButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.readingValue === selected)));
-    layoutGroup.hidden = isJournal && smallScreen.matches;
     if (backdrop) backdrop.classList.toggle('is-open', tocOpen && drawerScreen.matches);
   }
 
@@ -132,14 +112,6 @@
       if (event.key === 'Escape' && tocOpen) { setToc(false); tocButton.focus(); }
     });
   }
-  layoutButtons.forEach(button => button.addEventListener('click', () => {
-    const attribute = isJournal ? 'data-reading' : 'data-density';
-    const value = button.dataset.readingValue;
-    if (target.getAttribute(attribute) === value) return;
-    keepReadingPosition(() => target.setAttribute(attribute, value));
-    syncControls();
-    updateReadingFrame();
-  }));
   window.addEventListener('scroll', scheduleReadingFrame, {passive: true});
   window.addEventListener('resize', () => { syncControls(); scheduleReadingFrame(); });
   if (typeof ResizeObserver !== 'undefined') new ResizeObserver(scheduleReadingFrame).observe(region);

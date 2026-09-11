@@ -17,7 +17,7 @@ body_class: photography-index-page
 </header>
 
 <section class="photography-archive site-shell" id="photography-archive" data-view="cards" aria-label="摄影集列表">
-  {% include layout-switch.html kind='archive' target='photography-archive' %}
+  {% include layout-switch.html target='photography-archive' %}
   <div class="photography-cover-grid">
   {% assign photo_items = site.photography | sort: 'date' | reverse %}
   {% for item in photo_items %}
