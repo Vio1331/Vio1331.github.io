@@ -6,8 +6,9 @@
   --reading-rail-left: clamp(2rem, 3.5vw, 4rem);
   --reading-rail-top: max(calc(var(--header-height) + 2rem), 20dvh);
   --reading-tools-height: 96px;
+  --reading-toc-gap: 2rem;
   --reading-tools-top: min(var(--reading-rail-top), calc(var(--reading-end-y) - var(--reading-tools-height) - 1.5rem));
-  --reading-toc-top: calc(var(--reading-tools-top) + var(--reading-tools-height) + 1rem);
+  --reading-toc-top: calc(var(--reading-tools-top) + var(--reading-tools-height) + var(--reading-toc-gap));
 }
 .reading-tools {
   position: absolute; z-index: 19; left: var(--reading-rail-left); top: var(--reading-tools-top);
@@ -26,7 +27,7 @@
 .reading-action[aria-expanded="true"], .reading-action[aria-pressed="true"] { color: var(--paper); background: var(--ink); }
 .reading-action:focus-visible, .reading-toc a:focus-visible, .reading-neighbor:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
 .reading-action svg, .reading-neighbor svg { display: block; width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
-.reading-icon-dots, .reading-icon-solid { fill: currentColor; stroke: none; }
+.reading-icon-dots { fill: currentColor; stroke: none; }
 .reading-layout { grid-column: 1 / -1; }
 .reading-tools--journal .reading-layout .reading-action { flex: 1; }
 .reading-tools--photography { display: flex; flex-direction: column; }
@@ -69,7 +70,7 @@
 
 /* Without a safe side gutter, keep the controls in their own sticky row. */
 @media (max-width: 1320px) {
-  .reading-region { --reading-toc-top: calc(var(--header-height) + var(--reading-tools-height) + 1rem); }
+  .reading-region { --reading-toc-top: calc(var(--header-height) + var(--reading-tools-height) + var(--reading-toc-gap)); }
   .reading-tools--journal, .reading-tools--journal.is-floating {
     position: sticky; top: var(--header-height); left: auto; display: flex; align-items: center;
     width: 100%; padding: .75rem var(--reading-rail-left); background: var(--paper); border-bottom: 1px solid var(--rule);

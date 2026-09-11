@@ -47,6 +47,8 @@
   border: 0; border-bottom: 1px solid var(--rule); background: transparent;
   color: var(--ink); box-shadow: none; transform: none;
 }
+.photography-archive[data-view="list"] .photography-card:hover .photography-cover,
+.photography-archive[data-view="list"] .photography-card:focus-within .photography-cover { box-shadow: none; }
 .photography-archive[data-view="list"] .photography-card:first-child .photography-cover { padding-top: .75rem; }
 .photography-archive[data-view="list"] .photography-cover-image { grid-column: 1; grid-row: 1; width: 100%; padding: 0; border: 0; background: transparent; }
 .photography-archive[data-view="list"] .photography-cover-heading { grid-column: 2; grid-row: 1; align-items: flex-start; padding: 0; text-align: left; }

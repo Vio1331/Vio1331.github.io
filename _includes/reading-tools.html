@@ -33,12 +33,12 @@
   <div class="reading-layout layout-switch" data-reading-layout role="group" aria-label="{{ reading_layout_label }}" hidden>
     <button class="reading-action" type="button" data-reading-value="{{ reading_compact }}" aria-controls="{{ reading_kind }}-reading" aria-pressed="{% if reading_kind == 'journal' %}true{% else %}false{% endif %}" aria-label="{{ reading_compact_label }}" title="{{ reading_compact_label }}">
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        {% if reading_kind == 'journal' %}<path d="M7 4.5h10M7 9.5h10M7 14.5h10M7 19.5h10" />{% else %}<path class="reading-icon-solid" d="M6 3h12v5H6zM6 16h12v5H6z" />{% endif %}
+        {% if reading_kind == 'journal' %}<path d="M7 4.5h10M7 9.5h10M7 14.5h10M7 19.5h10" />{% else %}<path d="M6 3h12v5H6zM6 16h12v5H6z" />{% endif %}
       </svg>
     </button>
     <button class="reading-action" type="button" data-reading-value="{{ reading_expanded }}" aria-controls="{{ reading_kind }}-reading" aria-pressed="{% if reading_kind == 'photography' %}true{% else %}false{% endif %}" aria-label="{{ reading_expanded_label }}" title="{{ reading_expanded_label }}">
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        {% if reading_kind == 'journal' %}<path d="M2 4.5h20M2 9.5h20M2 14.5h20M2 19.5h20" />{% else %}<path class="reading-icon-solid" d="M2 3h20v8H2zM2 13h20v8H2z" />{% endif %}
+        {% if reading_kind == 'journal' %}<path d="M2 4.5h20M2 9.5h20M2 14.5h20M2 19.5h20" />{% else %}<path d="M2 3h20v8H2zM2 13h20v8H2z" />{% endif %}
       </svg>
     </button>
   </div>
