@@ -27,9 +27,9 @@
   <body class="{{ page.body_class }}">
     <a class="skip-link" href="#main">跳到正文</a>
     {% include header.html %}
-    {% if page.collection == 'journal' or page.layout == 'journal' or page.collection == 'photography' or page.layout == 'photography' %}<div class="reading-region">{% endif %}
+    {% if page.collection == 'journal' or page.layout == 'journal' or page.collection == 'photography' or page.layout == 'photography' %}<div class="reading-region{% if page.collection == 'photography' or page.layout == 'photography' %} reading-region--photography{% endif %}">{% include reading-tools.html %}{% endif %}
     <main id="main">{{ content }}</main>
-    {% if page.collection == 'journal' or page.layout == 'journal' or page.collection == 'photography' or page.layout == 'photography' %}{% include reading-tools.html %}</div>{% endif %}
+    {% if page.collection == 'journal' or page.layout == 'journal' or page.collection == 'photography' or page.layout == 'photography' %}</div>{% endif %}
     {% include footer.html %}
     <script src="{{ '/assets/js/main.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
     <script src="{{ '/assets/js/layout-switches.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>

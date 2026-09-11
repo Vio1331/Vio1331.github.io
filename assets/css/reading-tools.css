@@ -1,44 +1,51 @@
-/* Detail controls stay inside the reading region, above the site footer. */
+/* Reading controls share the archive switch's borders, padding and selected state. */
 .reading-region {
   position: relative;
   display: flow-root;
-  --reading-footer-offset: 0px;
   --reading-end-y: 100dvh;
-  --reading-tool-gap: calc(1.5rem + env(safe-area-inset-bottom));
-  --reading-toc-top: max(calc(var(--header-height) + 4rem), 26dvh);
+  --reading-rail-left: clamp(2rem, 3.5vw, 4rem);
+  --reading-rail-top: max(calc(var(--header-height) + 2rem), 20dvh);
+  --reading-tools-height: 96px;
+  --reading-tools-top: min(var(--reading-rail-top), calc(var(--reading-end-y) - var(--reading-tools-height) - 1.5rem));
+  --reading-toc-top: calc(var(--reading-tools-top) + var(--reading-tools-height) + 1rem);
 }
 .reading-tools {
-  position: absolute; z-index: 19;
-  right: max(1.5rem, env(safe-area-inset-right)); bottom: var(--reading-tool-gap);
-  display: flex; align-items: center; gap: 4px; padding: 5px;
-  background: var(--card); border: 1px solid var(--rule); border-radius: 9px;
-  box-shadow: 0 4px 18px color-mix(in srgb, var(--ink) 7%, transparent);
+  position: absolute; z-index: 19; left: var(--reading-rail-left); top: var(--reading-tools-top);
+  display: grid; grid-template-columns: repeat(2, max-content); align-items: start; gap: 8px;
+  width: max-content;
 }
-.reading-tools.is-floating { position: fixed; bottom: calc(var(--reading-tool-gap) + var(--reading-footer-offset)); }
+.reading-tools.is-floating { position: fixed; }
 .reading-tools [hidden], .reading-toc[hidden], .reading-toc-backdrop[hidden] { display: none !important; }
+.reading-control { display: flex; padding: 3px; border: 1px solid var(--rule); border-radius: 7px; background: var(--card); }
 .reading-action {
-  display: grid; place-items: center; flex: none; width: 38px; height: 38px; padding: 8px;
-  border: 0; border-radius: 5px; color: var(--body); background: transparent; cursor: pointer;
+  display: grid; place-items: center; flex: none; width: 38px; height: 36px; padding: 8px;
+  border: 0; border-radius: 4px; color: var(--muted); background: transparent; cursor: pointer;
   touch-action: manipulation; transition: color 160ms ease, background-color 160ms ease;
 }
-.reading-action:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 6%, transparent); }
-.reading-action[aria-expanded="true"] { color: var(--ink); background: color-mix(in srgb, var(--ink) 9%, transparent); }
-.reading-action[aria-pressed="true"] { color: var(--card); background: var(--ink); }
+.reading-action:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 5%, transparent); }
+.reading-action[aria-expanded="true"], .reading-action[aria-pressed="true"] { color: var(--paper); background: var(--ink); }
 .reading-action:focus-visible, .reading-toc a:focus-visible, .reading-neighbor:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
-.reading-action svg, .reading-neighbor svg { display: block; width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-.reading-icon-secondary { opacity: .45; }
-.reading-icon-tint { fill: currentColor; fill-opacity: .14; }
-.reading-tool-divider { width: 1px; height: 20px; margin-inline: 4px; background: var(--rule); }
-.reading-layout { display: flex; gap: 2px; padding: 2px; border-radius: 7px; background: color-mix(in srgb, var(--ink) 5%, transparent); }
+.reading-action svg, .reading-neighbor svg { display: block; width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.reading-icon-dots, .reading-icon-solid { fill: currentColor; stroke: none; }
+.reading-layout { grid-column: 1 / -1; }
+.reading-tools--journal .reading-layout .reading-action { flex: 1; }
+.reading-tools--photography { display: flex; flex-direction: column; }
+.reading-tools--photography .reading-layout { flex-direction: column; }
+.reading-region--photography { --reading-rail-left: 2rem; }
+/* Reserve a real gutter: even Full photographs stay clear of the left controls. */
+.reading-region--photography > #main { padding-inline: 4rem; }
 
-/* Use the existing outer margin; opening the outline never moves the article. */
+/* The outline slides out beyond the left edge; its position never changes the article. */
 .reading-toc {
-  position: fixed; z-index: 17; top: var(--reading-toc-top); left: 1.5rem;
-  width: clamp(8rem, calc((100vw - 62rem) / 2 - 2.5rem), 15rem);
-  max-height: max(0px, min(calc(100dvh - var(--reading-toc-top) - 6rem), calc(var(--reading-end-y) - var(--reading-toc-top) - 2rem)));
-  padding: 0; overflow-y: auto; overscroll-behavior: contain;
-  background: transparent; scrollbar-width: thin; scrollbar-color: var(--rule) transparent;
+  position: fixed; z-index: 17; top: var(--reading-toc-top); left: var(--reading-rail-left);
+  width: clamp(7rem, calc((100vw - 62rem) / 2 - var(--reading-rail-left) - 1.5rem), 14rem);
+  max-height: max(0px, min(calc(100dvh - var(--reading-toc-top) - 2rem), calc(var(--reading-end-y) - var(--reading-toc-top) - 1.5rem)));
+  overflow-y: auto; overscroll-behavior: contain; background: transparent;
+  scrollbar-width: thin; scrollbar-color: var(--rule) transparent;
+  transform: translateX(calc(-100% - var(--reading-rail-left) - 2rem)); opacity: 0; visibility: hidden; pointer-events: none;
+  transition: transform 320ms cubic-bezier(.22, 1, .36, 1), opacity 180ms ease, visibility 0s 320ms;
 }
+.reading-toc.is-open { transform: translateX(0); opacity: 1; visibility: visible; pointer-events: auto; transition-delay: 0s; }
 .reading-toc a {
   display: block; margin: 0; padding: .15rem .25rem; color: var(--muted);
   font-size: .8125rem; line-height: 1.65; overflow-wrap: anywhere;
@@ -60,20 +67,37 @@
 /* Leave a clear docking area below the last link, including on touch screens. */
 .reading-region .photography[data-layout-switchable] .photography-sheet { padding-bottom: calc(6rem + env(safe-area-inset-bottom)); }
 
+/* Without a safe side gutter, keep the controls in their own sticky row. */
 @media (max-width: 1320px) {
+  .reading-region { --reading-toc-top: calc(var(--header-height) + var(--reading-tools-height) + 1rem); }
+  .reading-tools--journal, .reading-tools--journal.is-floating {
+    position: sticky; top: var(--header-height); left: auto; display: flex; align-items: center;
+    width: 100%; padding: .75rem var(--reading-rail-left); background: var(--paper); border-bottom: 1px solid var(--rule);
+  }
+  .reading-tools--journal .reading-layout .reading-action { flex: none; }
   .reading-toc {
-    left: 1rem; width: min(20rem, calc(100% - 2rem)); padding: .875rem;
-    background: var(--card); border-radius: 8px;
+    width: min(20rem, calc(100% - 2 * var(--reading-rail-left)));
+    background: var(--card); border-radius: 7px;
     box-shadow: 0 6px 24px color-mix(in srgb, var(--ink) 10%, transparent);
   }
+  .reading-toc-links { padding: .875rem; }
   .reading-toc-backdrop {
-    display: block; position: fixed; z-index: 16; inset: var(--header-height) 0 var(--reading-footer-offset);
+    display: block; position: fixed; z-index: 16; inset: calc(var(--header-height) + var(--reading-tools-height)) 0 max(0px, calc(100dvh - var(--reading-end-y)));
     padding: 0; border: 0; background: color-mix(in srgb, var(--ink) 10%, transparent);
+    opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 180ms ease, visibility 0s 320ms;
   }
+  .reading-toc-backdrop.is-open { opacity: 1; visibility: visible; pointer-events: auto; transition-delay: 0s; }
+}
+@media (max-width: 900px) {
+  .reading-region { --reading-rail-left: 2rem; }
+  .reading-region--photography > #main { padding-inline: 0; }
+  .reading-tools--photography, .reading-tools--photography.is-floating {
+    position: sticky; top: var(--header-height); left: auto; flex-direction: row; align-items: center;
+    width: 100%; padding: .75rem var(--reading-rail-left); background: var(--paper); border-bottom: 1px solid var(--rule);
+  }
+  .reading-tools--photography .reading-layout { flex-direction: row; }
 }
 @media (max-width: 720px) {
-  .reading-region { --reading-tool-gap: calc(1rem + env(safe-area-inset-bottom)); }
-  .reading-tools { right: max(1rem, env(safe-area-inset-right)); }
   .reading-neighbors { column-gap: 1.5rem; margin-top: 2.5rem; }
   .reading-neighbor { gap: .5rem; }
 }
@@ -81,10 +105,10 @@
   .reading-action { width: 44px; height: 44px; }
   .reading-neighbor { min-height: 44px; }
 }
-@media (max-height: 500px) {
-  .reading-region { --reading-toc-top: calc(var(--header-height) + 1rem); }
-  .reading-toc { max-height: max(0px, min(calc(100dvh - var(--reading-toc-top) - 5rem), calc(var(--reading-end-y) - var(--reading-toc-top) - 1rem))); }
+@media (prefers-reduced-motion: reduce) {
+  .reading-toc, .reading-toc-backdrop { transition: none; }
 }
 @media print {
   .reading-tools, .reading-toc, .reading-toc-backdrop { display: none !important; }
+  .reading-region--photography > #main { padding-inline: 0; }
 }

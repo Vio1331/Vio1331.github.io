@@ -958,6 +958,7 @@ button { font: inherit; }
   stroke-width: 1;
   vector-effect: non-scaling-stroke;
 }
+.home-photography-outline path { stroke-linejoin: miter; }
 .home-journal-inner { position: relative; z-index: 1; padding-block: clamp(6rem, 12vh, 10rem); }
 .home-chapter-heading {
   display: flex;

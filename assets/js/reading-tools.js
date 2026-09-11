@@ -10,12 +10,14 @@
   const content = target.querySelector(isJournal ? ':scope > .journal-content' : '.photography-sheet');
   const layoutGroup = toolbar.querySelector('[data-reading-layout]');
   const layoutButtons = [...layoutGroup.querySelectorAll('[data-reading-value]')];
-  const divider = toolbar.querySelector('[data-reading-divider]');
+  const tocControl = toolbar.querySelector('[data-reading-toc-control]');
   const tocButton = toolbar.querySelector('[data-reading-toc-button]');
   const toc = document.getElementById('reading-toc');
+  const tocLinks = toc?.querySelector('[data-reading-toc-links]');
   const backdrop = document.querySelector('[data-reading-toc-close]');
   const smallScreen = matchMedia('(max-width: 720px)');
   const drawerScreen = matchMedia('(max-width: 1320px)');
+  const photoInlineScreen = matchMedia('(max-width: 900px)');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const header = document.querySelector('.site-header');
   const headingElements = isJournal && content ? [...content.querySelectorAll('h2, h3')].filter(h => h.textContent.trim()) : [];
@@ -25,8 +27,9 @@
   let pendingFrame = 0;
 
   const headerBottom = () => header ? Math.max(0, header.getBoundingClientRect().bottom) : 0;
+  const readingTop = () => headerBottom() + ((isJournal ? drawerScreen.matches : photoInlineScreen.matches) ? toolbar.offsetHeight : 0);
   const keepReadingPosition = change => {
-    const edge = headerBottom() + 16;
+    const edge = readingTop() + 16;
     const anchor = content && [...content.querySelectorAll('h2, h3, p, figure')].find(e => {
       const r = e.getBoundingClientRect();
       return r.height > 0 && r.bottom > edge && r.top < innerHeight;
@@ -42,7 +45,7 @@
   function updateActiveHeading() {
     if (!tocOpen || !entries.length) return;
     let active = entries[0];
-    const edge = headerBottom() + 64;
+    const edge = readingTop() + 64;
     for (const entry of entries) {
       if (entry.heading.getBoundingClientRect().top <= edge) active = entry;
     }
@@ -62,7 +65,7 @@
     pendingFrame = 0;
     const end = region.getBoundingClientRect().bottom;
     // Once the reading region ends, fixed controls move with its bottom edge.
-    region.style.setProperty('--reading-footer-offset', Math.max(0, innerHeight - end) + 'px');
+    region.style.setProperty('--reading-tools-height', toolbar.offsetHeight + 'px');
     region.style.setProperty('--reading-end-y', Math.max(0, end) + 'px');
     updateActiveHeading();
   }
@@ -72,8 +75,10 @@
   function setToc(open) {
     if (!entries.length) return;
     tocOpen = open;
-    toc.hidden = !open;
-    backdrop.hidden = !(open && drawerScreen.matches);
+    toc.classList.toggle('is-open', open);
+    toc.inert = !open;
+    toc.setAttribute('aria-hidden', String(!open));
+    backdrop.classList.toggle('is-open', open && drawerScreen.matches);
     tocButton.setAttribute('aria-expanded', String(open));
     const label = open ? '收起文章目录' : '展开文章目录';
     tocButton.setAttribute('aria-label', label);
@@ -85,8 +90,7 @@
     const selected = target.getAttribute(isJournal ? 'data-reading' : 'data-density');
     layoutButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.readingValue === selected)));
     layoutGroup.hidden = isJournal && smallScreen.matches;
-    divider.hidden = layoutGroup.hidden && (!tocButton || tocButton.hidden);
-    if (backdrop) backdrop.hidden = !(tocOpen && drawerScreen.matches);
+    if (backdrop) backdrop.classList.toggle('is-open', tocOpen && drawerScreen.matches);
   }
 
   if (toc && tocButton) {
@@ -106,7 +110,7 @@
         event.preventDefault();
         if (drawerScreen.matches) setToc(false);
         history.replaceState(history.state, '', link.hash);
-        window.scrollTo({top: Math.max(0, scrollY + heading.getBoundingClientRect().top - headerBottom() - 24), behavior: reducedMotion.matches ? 'instant' : 'smooth'});
+        window.scrollTo({top: Math.max(0, scrollY + heading.getBoundingClientRect().top - readingTop() - 24), behavior: reducedMotion.matches ? 'instant' : 'smooth'});
         if (event.detail === 0) {
           heading.setAttribute('tabindex', '-1');
           heading.focus({preventScroll: true});
@@ -114,9 +118,11 @@
         }
       });
       entries.push({heading, link});
-      toc.append(link);
+      tocLinks.append(link);
     });
-    tocButton.hidden = entries.length === 0;
+    tocControl.hidden = entries.length === 0;
+    toc.hidden = false;
+    backdrop.hidden = false;
     tocButton.addEventListener('click', event => {
       setToc(!tocOpen);
       if (tocOpen && event.detail === 0) (activeHeading || entries[0]).link.focus();
@@ -141,4 +147,6 @@
   toolbar.classList.add('is-floating');
   syncControls();
   updateReadingFrame();
+  // Every article starts with its outline open; a fresh page does not inherit a closed state.
+  if (entries.length) requestAnimationFrame(() => setToc(true));
 })();
