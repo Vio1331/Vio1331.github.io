@@ -4,6 +4,9 @@
       {% include brand-mark.html %}
       <span class="brand-name">OPTICS</span>
     </a>
+    {% if page.collection == 'journal' or page.layout == 'journal' %}
+    <button class="reading-toc-trigger reading-toc-trigger--header" type="button" data-reading-toc-button aria-controls="reading-toc" aria-expanded="false" hidden>目录</button>
+    {% endif %}
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
       <span class="sr-only">打开导航</span>
       <span></span><span></span>

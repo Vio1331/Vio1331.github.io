@@ -64,13 +64,14 @@ mindmap
 | `_layouts/journal.html` | 单篇文章的抬头、日期地点、封面、正文、文末 |
 | `_layouts/photography.html` | 单个摄影集的 opening、信息栏、模块循环和文末；已合并旧的两层模板 |
 | `_includes/journal-card.html` | 文章列表卡片：标题、摘要、年月、按分类选深浅色 |
+| `_includes/cover-image.html` | 首页与影像列表共用的响应式封面图片，缺少衍生图时回退原地址 |
 | `_includes/photography-card.html` | 摄影列表卡片：居中 OPTICS、标题、日期地点、裁切封面、深浅主题 |
 | `_includes/photography-modules/block.html` | 根据模块类型安排单图、双联、三联、大小图、图文、纯文字 |
 | `_includes/photography-modules/image.html` | 单张照片、比例提示、替代文字、图注、加载属性 |
 | `_includes/photography-modules/text.html` | 图文模块中的文字，复用 `.journal-content` 正文规则 |
 | `_includes/image-url.html` | 模板共用的图片地址入口，调用统一解析函数 |
 | `_includes/layout-switch.html` | 只供列表页使用的卡片／列表双按钮 |
-| `_includes/reading-tools.html` | 详情返回按钮、文章目录入口与面板 |
+| `_includes/reading-tools.html` | 文章侧栏“目录”文字开关与面板；小屏入口在 header 中 |
 | `_includes/reading-neighbors.html` | 两类详情的篇末前后导航 |
 | `_includes/header.html`、`footer.html` | 页眉导航和页脚 |
 | `_includes/brand-mark.html` | 品牌标志 |
@@ -97,12 +98,12 @@ mindmap
 
 ## 构建过程
 
-1. `tools/content-build/cli.mjs prepare` 复制源文件到 `_content_build`，由 `parser.mjs` 把摄影中文标记转换成 blocks。源文件不回写。
+1. `tools/content-build/cli.mjs prepare` 复制源文件到 `_content_build`，由 `parser.mjs` 把摄影中文标记转换成 blocks。源文件不回写；`cover-images.mjs` 自动生成封面 WebP 缩略图及 `_data/cover_images.json`，仅写入构建副本。
 2. Jekyll 读取 `_config.yml`、两个内容集合、模板与 `_plugins`。
 3. `_plugins/journal.rb` 根据文章文件名生成稳定链接，处理订阅 ID、SEO 类型和重复链接检查。
 4. `_plugins/image_paths.rb` 拼接图片地址；正文先由原来的 Kramdown 渲染，再只处理 HTML 图片元素。文章、摄影和订阅共用解析规则。
 5. Jekyll 输出 `_site`。`feed.xml` 生成文章 Atom 订阅，地址仍是 `/feed.xml`。
-6. `tools/content-build/verify_site.rb` 核对文章/摄影数量、站内链接、图片、样式脚本和订阅。当前缺失的 12 张原图在 `known-missing-images.json` 中逐张记录；其他新错误会阻止发布。
+6. `tools/content-build/verify_site.rb` 核对文章/摄影数量、站内链接、图片（包括 `srcset` 变体）、样式脚本和订阅。当前缺失的 12 张原图在 `known-missing-images.json` 中逐张记录；其他新错误会阻止发布。
 7. `.github/workflows/pages.yml` 把通过检查的 `_site` 发布到 GitHub Pages。
 
 `_content_build`、`_site`、`node_modules`、`vendor` 是生成内容或依赖，不是写作入口，不提交。
@@ -116,7 +117,8 @@ mindmap
 | `post-card` | `journal-card` |
 | `.article`、`.article-*` | `.journal`、`.journal-*` |
 | `_layouts/photo-story.html` + `_includes/photo-modules/album.html` | 合并为 `_layouts/photography.html` |
-| `_includes/photo-cover-card.html` | `_includes/photography-card.html` |
+| `_includes/photo-cover-card.html` | `_includes/cover-image.html` | 首页与影像列表共用的响应式封面图片，缺少衍生图时回退原地址 |
+| `_includes/photography-card.html` |
 | `photo-modules`、`.album-*` | `photography-modules`、`.photography-*` |
 | `tools/album-markup`、`_album_build` | `tools/content-build`、`_content_build` |
 

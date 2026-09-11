@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { compileFile, PhotographyError } from './parser.mjs';
+import { generateCoverImages } from './cover-images.mjs';
 
 const defaultRoot = fileURLToPath(new URL('../../', import.meta.url));
 const args = process.argv.slice(2);
@@ -79,6 +80,8 @@ async function main() {
     for (const result of results.filter(item => item.changed && item.relative.startsWith('_photography' + path.sep))) {
       await fs.writeFile(path.join(output, result.relative), result.output);
     }
+    const covers = await generateCoverImages(output);
+    console.log(`已为 ${Object.keys(covers).length} 张封面生成响应式缩略图。`);
     console.log(`构建副本已生成：${output}`);
   }
   console.log(`已检查 ${results.length} 份文件；${results.filter(item => item.changed).length} 份使用摄影集标记，${results.filter(item => item.legacy).length} 份旧 YAML 原样保留。`);

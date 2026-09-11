@@ -3,7 +3,10 @@ layout: default
 ---
 <article class="journal site-shell" id="journal-reading">
   <header class="journal-header">
-    <a class="eyebrow" href="{{ '/journal/' | relative_url }}">文字 / {{ page.category | default: '随笔' }}</a>
+    <div class="eyebrow journal-kicker">
+      <a class="reading-back" href="{{ '/journal/' | relative_url }}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 12H4m6-6-6 6 6 6" /></svg>文字</a>
+      <span>{{ page.category | default: '随笔' }}</span>
+    </div>
     <h1>{{ page.title }}</h1>
     <div class="journal-byline">
       <span>VIO</span>

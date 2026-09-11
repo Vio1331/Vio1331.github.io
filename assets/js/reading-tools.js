@@ -1,30 +1,28 @@
-/* Detail-page controls; index-page layout switches remain independent. */
+/* Article outline: text disclosure, heading navigation and footer boundary. */
 (() => {
   'use strict';
   const toolbar = document.querySelector('[data-reading-tools]');
   if (!toolbar) return;
   const region = toolbar.closest('.reading-region');
-  const isJournal = toolbar.dataset.readingTools === 'journal';
-  const target = document.getElementById(isJournal ? 'journal-reading' : 'photography-reading');
+  const target = document.getElementById('journal-reading');
   if (!target || !region) return;
-  const content = target.querySelector(isJournal ? ':scope > .journal-content' : '.photography-sheet');
-  const tocControl = toolbar.querySelector('[data-reading-toc-control]');
-  const tocButton = toolbar.querySelector('[data-reading-toc-button]');
+  const content = target.querySelector(':scope > .journal-content');
+  const tocButtons = [...document.querySelectorAll('[data-reading-toc-button]')];
   const toc = document.getElementById('reading-toc');
   const tocLinks = toc?.querySelector('[data-reading-toc-links]');
   const backdrop = document.querySelector('[data-reading-toc-close]');
   const drawerScreen = matchMedia('(max-width: 1320px)');
-  const photoInlineScreen = matchMedia('(max-width: 900px)');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const header = document.querySelector('.site-header');
-  const headingElements = isJournal && content ? [...content.querySelectorAll('h2, h3')].filter(h => h.textContent.trim()) : [];
+  const headingElements = content ? [...content.querySelectorAll('h2, h3')].filter(h => h.textContent.trim()) : [];
   const entries = [];
   let tocOpen = false;
   let activeHeading = null;
   let pendingFrame = 0;
 
   const headerBottom = () => header ? Math.max(0, header.getBoundingClientRect().bottom) : 0;
-  const readingTop = () => headerBottom() + ((isJournal ? drawerScreen.matches : photoInlineScreen.matches) ? toolbar.offsetHeight : 0);
+  const readingTop = headerBottom;
+  const visibleButton = () => tocButtons.find(button => button.getClientRects().length);
   function updateActiveHeading() {
     if (!tocOpen || !entries.length) return;
     let active = entries[0];
@@ -62,10 +60,7 @@
     toc.inert = !open;
     toc.setAttribute('aria-hidden', String(!open));
     backdrop.classList.toggle('is-open', open && drawerScreen.matches);
-    tocButton.setAttribute('aria-expanded', String(open));
-    const label = open ? '收起文章目录' : '展开文章目录';
-    tocButton.setAttribute('aria-label', label);
-    tocButton.title = label;
+    tocButtons.forEach(button => button.setAttribute('aria-expanded', String(open)));
     activeHeading = null;
     updateReadingFrame();
   }
@@ -73,7 +68,7 @@
     if (backdrop) backdrop.classList.toggle('is-open', tocOpen && drawerScreen.matches);
   }
 
-  if (toc && tocButton) {
+  if (toc && tocButtons.length) {
     const usedIds = new Set([...document.querySelectorAll('[id]')].map(e => e.id));
     headingElements.forEach((heading, index) => {
       if (!heading.id) {
@@ -100,23 +95,26 @@
       entries.push({heading, link});
       tocLinks.append(link);
     });
-    tocControl.hidden = entries.length === 0;
+    tocButtons.forEach(button => { button.hidden = entries.length === 0; });
+    if (!entries.length) return;
     toc.hidden = false;
     backdrop.hidden = false;
-    tocButton.addEventListener('click', event => {
+    tocButtons.forEach(button => button.addEventListener('click', event => {
+      const navigation = document.querySelector('.nav-toggle[aria-expanded="true"]');
+      navigation?.click();
       setToc(!tocOpen);
       if (tocOpen && event.detail === 0) (activeHeading || entries[0]).link.focus();
-    });
-    backdrop.addEventListener('click', () => { setToc(false); tocButton.focus(); });
+    }));
+    backdrop.addEventListener('click', () => { setToc(false); visibleButton()?.focus(); });
     document.addEventListener('keydown', event => {
-      if (event.key === 'Escape' && tocOpen) { setToc(false); tocButton.focus(); }
+      if (event.key === 'Escape' && tocOpen) { setToc(false); visibleButton()?.focus(); }
     });
   }
+  document.querySelector('.nav-toggle')?.addEventListener('click', () => { if (tocOpen) setToc(false); });
   window.addEventListener('scroll', scheduleReadingFrame, {passive: true});
   window.addEventListener('resize', () => { syncControls(); scheduleReadingFrame(); });
   if (typeof ResizeObserver !== 'undefined') new ResizeObserver(scheduleReadingFrame).observe(region);
   document.fonts?.ready.then(scheduleReadingFrame);
-  toolbar.classList.add('is-floating');
   syncControls();
   updateReadingFrame();
   // Every article starts with its outline open; a fresh page does not inherit a closed state.

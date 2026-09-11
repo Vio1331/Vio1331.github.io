@@ -1,27 +1,5 @@
-{%- if page.collection == 'journal' or page.layout == 'journal' -%}
-  {%- assign reading_kind = 'journal' -%}
-  {%- assign reading_parent = '/journal/' -%}
-  {%- assign reading_back_label = '返回文章列表' -%}
-{%- else -%}
-  {%- assign reading_kind = 'photography' -%}
-  {%- assign reading_parent = '/photography/' -%}
-  {%- assign reading_back_label = '返回摄影集列表' -%}
-{%- endif -%}
-<nav class="reading-tools reading-tools--{{ reading_kind }}" data-reading-tools="{{ reading_kind }}" aria-label="阅读工具">
-  <div class="reading-control">
-    <a class="reading-action" href="{{ reading_parent | relative_url }}" aria-label="{{ reading_back_label }}" title="{{ reading_back_label }}">
-      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 12H4m6-6-6 6 6 6" /></svg>
-    </a>
-  </div>
-  {% if reading_kind == 'journal' %}
-  <div class="reading-control" data-reading-toc-control hidden>
-    <button class="reading-action" type="button" data-reading-toc-button aria-controls="reading-toc" aria-expanded="false" aria-label="展开文章目录" title="展开文章目录">
-      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 4.5h15M9 9.5h12M9 14.5h12M9 19.5h12" /><g class="reading-icon-dots"><circle cx="2.5" cy="4.5" r="1" /><circle cx="5.5" cy="9.5" r="1" /><circle cx="5.5" cy="14.5" r="1" /><circle cx="5.5" cy="19.5" r="1" /></g></svg>
-    </button>
-  </div>
-  {% endif %}
-</nav>
-{% if reading_kind == 'journal' %}
+<div class="reading-tools" data-reading-tools>
+  <button class="reading-toc-trigger" type="button" data-reading-toc-button aria-controls="reading-toc" aria-expanded="false" hidden>目录</button>
+</div>
 <button class="reading-toc-backdrop" data-reading-toc-close type="button" aria-label="收起文章目录" hidden></button>
 <nav class="reading-toc" id="reading-toc" aria-label="文章目录" hidden><div class="reading-toc-links" data-reading-toc-links></div></nav>
-{% endif %}

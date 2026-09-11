@@ -63,9 +63,9 @@ body_class: home-page
 
 {% if home_photography_items.size > 0 %}
 <section class="home-photography">
-  <!-- Open landscape glyph: one continuous angular silhouette and a round sun. -->
+  <!-- Open landscape glyph: one continuous, gently curved silhouette and a round sun. -->
   <svg class="home-photography-outline" data-glyph="image" viewBox="0 0 1000 800" aria-hidden="true" focusable="false">
-    <path d="M72 592 337 226 556 484 697 335 974 618 888 699 698 505 560 652 348 410 161 659Z" />
+    <path d="M72 592 309 264Q335 228 363 261L527 454Q554 486 582 455L670 364Q697 336 725 364L974 618 888 699 725 532Q698 505 672 533L588 622Q560 652 532 621L376 442Q348 410 322 445L161 659Z" />
     <path d="M693.5 136.5a75 75 0 1 1-150 0a75 75 0 1 1 150 0Z" />
   </svg>
   <div class="home-photography-inner site-shell">
@@ -74,11 +74,9 @@ body_class: home-page
       <a href="{{ '/photography/' | relative_url }}" aria-label="查看全部摄影集">查看全部</a>
     </header>
 
-    {% capture home_photography_image %}{% include image-url.html src=lead_photography.cover base=lead_photography.image_base %}{% endcapture %}
-    {% assign home_photography_image = home_photography_image | strip %}
     <a class="home-photography-card" href="{{ lead_photography.url | relative_url }}" aria-labelledby="home-photography-title">
       <div class="home-photography-image">
-        {% if home_photography_image != empty %}<img src="{{ home_photography_image | escape }}" alt="{{ lead_photography.cover_alt | default: lead_photography.title | escape }}" loading="lazy" decoding="async">{% endif %}
+        {% include cover-image.html photography=lead_photography sizes='(max-width: 800px) calc(100vw - 2.2rem), 55vw' %}
       </div>
       <div class="home-photography-caption">
         <h2 id="home-photography-title">{{ lead_photography.title | escape }}</h2>

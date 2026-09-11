@@ -383,7 +383,7 @@ button { font: inherit; }
 .home-journal,
 .home-photography {
   /* Shared size for the static character and picture symbol. */
-  --home-decoration-size: clamp(23rem, 52vw, 49rem);
+  --home-decoration-size: clamp(20rem, 44vw, 42rem);
 }
 .home-journal {
   position: relative;
@@ -414,7 +414,7 @@ button { font: inherit; }
   stroke-width: 1;
   vector-effect: non-scaling-stroke;
 }
-.home-photography-outline path { stroke-linejoin: miter; }
+.home-photography-outline path { stroke-linejoin: round; }
 .home-journal-inner { position: relative; z-index: 1; padding-block: clamp(6rem, 12vh, 10rem); }
 .home-chapter-heading {
   display: flex;
@@ -517,7 +517,7 @@ button { font: inherit; }
   .home-hero-notes { width: min(100%, 21rem); justify-self: end; }
 
   .home-journal,
-  .home-photography { --home-decoration-size: 21.5rem; }
+  .home-photography { --home-decoration-size: 18.5rem; }
   .home-journal { min-height: auto; }
   .home-journal-outline { right: -0.23em; top: 10rem; font-size: var(--home-decoration-size); transform: none; }
   .home-journal-inner { padding-block: 5rem 6rem; }

@@ -18,16 +18,19 @@ Dir.glob("#{site}/**/*.html").each do |file|
   counts['journal'] += 1 if document.at_css('article.journal')
   counts['photography'] += 1 if document.at_css('article.photography')
   document.css('img[src],script[src],link[href],a[href]').each do |node|
-    url = node['src'] || node['href']
-    next if url.to_s.empty? || url.start_with?('#','//') || url.match?(/\A[a-z][a-z\d+.-]*:/i)
-    pathname = URI::DEFAULT_PARSER.unescape(url.split(/[?#]/,2).first)
-    target = pathname.start_with?('/') ? File.join(site, pathname.delete_prefix('/')) : File.expand_path(pathname, File.dirname(file))
-    exists = File.file?(target) || File.file?(File.join(target, 'index.html'))
-    next if exists
-    if node.name == 'img' && known_missing.include?(pathname)
-      missing << pathname
-    else
-      errors << "#{file.delete_prefix(site)} → #{url}"
+    urls = [node['src'] || node['href']]
+    urls.concat(node['srcset'].split(',').map { |candidate| candidate.strip.split(/\s+/).first }) if node.name == 'img' && node['srcset']
+    urls.each do |url|
+      next if url.to_s.empty? || url.start_with?('#','//') || url.match?(/\A[a-z][a-z\d+.-]*:/i)
+      pathname = URI::DEFAULT_PARSER.unescape(url.split(/[?#]/,2).first)
+      target = pathname.start_with?('/') ? File.join(site, pathname.delete_prefix('/')) : File.expand_path(pathname, File.dirname(file))
+      exists = File.file?(target) || File.file?(File.join(target, 'index.html'))
+      next if exists
+      if node.name == 'img' && known_missing.include?(pathname)
+        missing << pathname
+      else
+        errors << "#{file.delete_prefix(site)} → #{url}"
+      end
     end
   end
 end

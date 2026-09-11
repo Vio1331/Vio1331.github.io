@@ -34,9 +34,9 @@
   <body class="{{ page.body_class }}">
     <a class="skip-link" href="#main">跳到正文</a>
     {% include header.html %}
-    {% if page.collection == 'journal' or page.layout == 'journal' or page.collection == 'photography' or page.layout == 'photography' %}<div class="reading-region{% if page.collection == 'photography' or page.layout == 'photography' %} reading-region--photography{% endif %}">{% include reading-tools.html %}{% endif %}
+    {% if page.collection == 'journal' or page.layout == 'journal' %}<div class="reading-region">{% include reading-tools.html %}{% endif %}
     <main id="main">{{ content }}</main>
-    {% if page.collection == 'journal' or page.layout == 'journal' or page.collection == 'photography' or page.layout == 'photography' %}</div>{% endif %}
+    {% if page.collection == 'journal' or page.layout == 'journal' %}</div>{% endif %}
     {% include footer.html %}
     <script src="{{ '/assets/js/main.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
     {% if page.section == 'journal' or page.section == 'photography' %}
@@ -44,7 +44,7 @@
     <script src="{{ '/assets/js/layout-switches.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
     {% endunless %}
     {% endif %}
-    {% if page.collection == 'journal' or page.layout == 'journal' or page.collection == 'photography' or page.layout == 'photography' %}
+    {% if page.collection == 'journal' or page.layout == 'journal' %}
     <script src="{{ '/assets/js/reading-tools.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
     {% endif %}
     {% if page.collection == 'photography' or page.layout == 'photography' %}

@@ -2,7 +2,6 @@
 {%- assign cover_theme = 'light' -%}
 {%- if cover_photography.cover_theme == 'dark' -%}{%- assign cover_theme = 'dark' -%}{%- endif -%}
 {%- assign cover_location = cover_photography.location | default: '' | strip -%}
-{%- capture cover_image_url -%}{% include image-url.html src=cover_photography.cover base=cover_photography.image_base %}{%- endcapture -%}
 <article class="photography-card" data-theme="{{ cover_theme }}">
   <a class="photography-cover" href="{{ cover_photography.url | relative_url }}" aria-label="打开摄影集：{{ cover_photography.title | escape }}">
     <div class="photography-cover-heading">
@@ -14,7 +13,7 @@
       </div>
     </div>
     <div class="photography-cover-image">
-      {% if cover_image_url != empty %}<img src="{{ cover_image_url | escape }}" alt="{{ cover_photography.cover_alt | default: cover_photography.title | escape }}" loading="lazy" decoding="async">{% endif %}
+      {% include cover-image.html photography=cover_photography sizes='(max-width: 600px) calc(100vw - 4.2rem), (max-width: 800px) calc(50vw - 3.1rem), 30vw' %}
     </div>
   </a>
 </article>

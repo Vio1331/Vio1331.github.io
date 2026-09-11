@@ -1,39 +1,28 @@
-/* Reading controls share the archive switch's borders, padding and selected state. */
+/* Return links belong to each title; the article outline occupies its own rail. */
+.reading-back { display: inline-flex; align-items: center; gap: .5rem; width: fit-content; color: var(--muted); font-size: .8125rem; letter-spacing: .04em; }
+.reading-back svg, .reading-neighbor svg { display: block; width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.reading-back:hover { color: var(--ink); }
+.journal-kicker { display: flex; align-items: center; gap: 1rem; }
+.journal-kicker > span { color: var(--muted); font-size: .75rem; letter-spacing: .04em; padding-left: 1rem; border-left: 1px solid var(--rule); }
+.photography .photography-kicker.reading-back { color: var(--muted); letter-spacing: .04em; }
+.photography .photography-kicker.reading-back:hover { color: var(--ink); }
 .reading-region {
-  position: relative;
-  display: flow-root;
+  position: relative; display: flow-root;
   --reading-end-y: 100dvh;
   --reading-rail-left: clamp(2rem, 3.5vw, 4rem);
   --reading-rail-top: max(calc(var(--header-height) + 2rem), 20dvh);
-  --reading-tools-height: 44px;
-  --reading-toc-gap: 2rem;
+  --reading-tools-height: 32px;
   --reading-tools-top: min(var(--reading-rail-top), calc(var(--reading-end-y) - var(--reading-tools-height) - 1.5rem));
-  --reading-toc-top: calc(var(--reading-tools-top) + var(--reading-tools-height) + var(--reading-toc-gap));
+  --reading-toc-top: calc(var(--reading-tools-top) + var(--reading-tools-height) + .875rem);
 }
-.reading-tools {
-  position: absolute; z-index: 19; left: var(--reading-rail-left); top: var(--reading-tools-top);
-  display: grid; grid-template-columns: repeat(2, max-content); align-items: start; gap: 8px;
-  width: max-content;
-}
-.reading-tools.is-floating { position: fixed; }
-.reading-tools [hidden], .reading-toc[hidden], .reading-toc-backdrop[hidden] { display: none !important; }
-.reading-control { display: flex; padding: 3px; border: 1px solid var(--rule); border-radius: 7px; background: var(--card); }
-.reading-action {
-  display: grid; place-items: center; flex: none; width: 38px; height: 36px; padding: 8px;
-  border: 0; border-radius: 4px; color: var(--muted); background: transparent; cursor: pointer;
-  touch-action: manipulation; transition: color 160ms ease, background-color 160ms ease;
-}
-.reading-action:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 5%, transparent); }
-.reading-action[aria-expanded="true"] { color: var(--paper); background: var(--ink); }
-.reading-action:focus-visible, .reading-toc a:focus-visible, .reading-neighbor:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
-.reading-action svg, .reading-neighbor svg { display: block; width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
-.reading-icon-dots { fill: currentColor; stroke: none; }
-.reading-tools--photography { display: flex; flex-direction: column; }
-.reading-region--photography { --reading-rail-left: 2rem; }
-/* Reserve a real gutter: even Full photographs stay clear of the left controls. */
-.reading-region--photography > #main { padding-inline: 4rem; }
-
-/* The outline slides out beyond the left edge; its position never changes the article. */
+.reading-tools { position: fixed; z-index: 19; left: var(--reading-rail-left); top: var(--reading-tools-top); width: max-content; }
+.reading-toc-trigger { display: block; padding: .25rem 0; border: 0; border-radius: 0; background: none; color: var(--muted); font: inherit; font-size: .875rem; line-height: 1.5rem; letter-spacing: .08em; cursor: pointer; touch-action: manipulation; }
+.reading-toc-trigger[aria-expanded="true"] { color: var(--ink); font-weight: 500; }
+.reading-toc-trigger:hover { color: var(--ink); text-decoration: underline; text-underline-offset: .3em; text-decoration-thickness: 1px; }
+.reading-toc-trigger--header { display: none; }
+.reading-toc-trigger[hidden], .reading-toc[hidden], .reading-toc-backdrop[hidden] { display: none !important; }
+.reading-toc-trigger:focus-visible, .reading-back:focus-visible, .reading-toc a:focus-visible, .reading-neighbor:focus-visible { outline: 2px solid var(--coral); outline-offset: 4px; }
+/* Sliding the outline never changes the article's width or horizontal position. */
 .reading-toc {
   position: fixed; z-index: 17; top: var(--reading-toc-top); left: var(--reading-rail-left);
   width: clamp(7rem, calc((100vw - 62rem) / 2 - var(--reading-rail-left) - 1.5rem), 14rem);
@@ -44,10 +33,7 @@
   transition: transform 320ms cubic-bezier(.22, 1, .36, 1), opacity 180ms ease, visibility 0s 320ms;
 }
 .reading-toc.is-open { transform: translateX(0); opacity: 1; visibility: visible; pointer-events: auto; transition-delay: 0s; }
-.reading-toc a {
-  display: block; margin: 0; padding: .15rem .25rem; color: var(--muted);
-  font-size: .8125rem; line-height: 1.65; overflow-wrap: anywhere;
-}
+.reading-toc a { display: block; margin: 0; padding: .15rem .25rem .15rem 0; color: var(--muted); font-size: .8125rem; line-height: 1.65; overflow-wrap: anywhere; }
 .reading-toc a[data-level="3"] { padding-left: 1rem; }
 .reading-toc a:hover { color: var(--ink); }
 .reading-toc a[aria-current="location"] { color: var(--coral); font-weight: 500; }
@@ -62,49 +48,20 @@
 .reading-neighbor--next { grid-column: 2; justify-content: flex-end; text-align: right; }
 .reading-neighbor:hover { color: var(--coral); }
 .photography .reading-neighbors { width: 100%; }
-/* Leave a clear docking area below the last link, including on touch screens. */
-.reading-region .photography .photography-sheet { padding-bottom: calc(6rem + env(safe-area-inset-bottom)); }
 
-/* Without a safe side gutter, keep the controls in their own sticky row. */
+/* Narrow screens use a text entry in the existing header, without an extra toolbar. */
 @media (max-width: 1320px) {
-  .reading-region { --reading-toc-top: calc(var(--header-height) + var(--reading-tools-height) + var(--reading-toc-gap)); }
-  .reading-tools--journal, .reading-tools--journal.is-floating {
-    position: sticky; top: var(--header-height); left: auto; display: flex; align-items: center;
-    width: 100%; padding: .75rem var(--reading-rail-left); background: var(--paper); border-bottom: 1px solid var(--rule);
-  }
-  .reading-toc {
-    width: min(20rem, calc(100% - 2 * var(--reading-rail-left)));
-    background: var(--card); border-radius: 7px;
-    box-shadow: 0 6px 24px color-mix(in srgb, var(--ink) 10%, transparent);
-  }
-  .reading-toc-links { padding: .875rem; }
-  .reading-toc-backdrop {
-    display: block; position: fixed; z-index: 16; inset: calc(var(--header-height) + var(--reading-tools-height)) 0 max(0px, calc(100dvh - var(--reading-end-y)));
-    padding: 0; border: 0; background: color-mix(in srgb, var(--ink) 10%, transparent);
-    opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 180ms ease, visibility 0s 320ms;
-  }
+  .reading-region { --reading-toc-top: calc(var(--header-height) + 1rem); }
+  .reading-tools { display: none; }
+  .reading-toc-trigger--header { display: block; margin-left: auto; }
+  .reading-toc-trigger--header ~ .site-nav { margin-left: 0; }
+  .reading-toc { width: min(20rem, calc(100% - 2 * var(--reading-rail-left))); background: var(--card); border-radius: 4px; box-shadow: 0 6px 24px color-mix(in srgb, var(--ink) 10%, transparent); }
+  .reading-toc-links { padding: .875rem 1rem; }
+  .reading-toc-backdrop { display: block; position: fixed; z-index: 16; inset: var(--header-height) 0 max(0px, calc(100dvh - var(--reading-end-y))); padding: 0; border: 0; background: color-mix(in srgb, var(--ink) 10%, transparent); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 180ms ease, visibility 0s 320ms; }
   .reading-toc-backdrop.is-open { opacity: 1; visibility: visible; pointer-events: auto; transition-delay: 0s; }
 }
-@media (max-width: 900px) {
-  .reading-region { --reading-rail-left: 2rem; }
-  .reading-region--photography > #main { padding-inline: 0; }
-  .reading-tools--photography, .reading-tools--photography.is-floating {
-    position: sticky; top: var(--header-height); left: auto; flex-direction: row; align-items: center;
-    width: 100%; padding: .75rem var(--reading-rail-left); background: var(--paper); border-bottom: 1px solid var(--rule);
-  }
-}
-@media (max-width: 720px) {
-  .reading-neighbors { column-gap: 1.5rem; margin-top: 2.5rem; }
-  .reading-neighbor { gap: .5rem; }
-}
-@media (pointer: coarse) {
-  .reading-action { width: 44px; height: 44px; }
-  .reading-neighbor { min-height: 44px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .reading-toc, .reading-toc-backdrop { transition: none; }
-}
-@media print {
-  .reading-tools, .reading-toc, .reading-toc-backdrop { display: none !important; }
-  .reading-region--photography > #main { padding-inline: 0; }
-}
+@media (max-width: 800px) { .reading-region { --reading-rail-left: 1.1rem; } .reading-toc-trigger--header { margin-right: .75rem; } }
+@media (max-width: 720px) { .reading-neighbors { column-gap: 1.5rem; margin-top: 2.5rem; } .reading-neighbor { gap: .5rem; } }
+@media (pointer: coarse) { .reading-toc-trigger, .reading-back, .reading-neighbor { min-height: 44px; } }
+@media (prefers-reduced-motion: reduce) { .reading-toc, .reading-toc-backdrop { transition: none; } }
+@media print { .reading-tools, .reading-toc-trigger, .reading-toc, .reading-toc-backdrop { display: none !important; } }

@@ -32,6 +32,6 @@ cd _content_build
 BUNDLE_GEMFILE=../Gemfile bundle exec jekyll serve --destination ../_site
 ```
 
-打开 `http://127.0.0.1:4000`。修改源文件后回到仓库根目录重新运行 `prepare`，不编辑 `_content_build` 临时副本。直接在项目根目录运行 Jekyll 不会转换摄影集中文标记，请保留 `prepare` 这一步。
+打开 `http://127.0.0.1:4000`。修改源文件后回到仓库根目录重新运行 `prepare`，不编辑 `_content_build` 临时副本。直接在项目根目录运行 Jekyll 不会转换摄影集中文标记或生成封面缩略图，请保留 `prepare` 这一步。
 
 发布入口是 `.github/workflows/pages.yml`。Pages 的 Source 继续保持 **GitHub Actions**，无需更改仓库设置。
