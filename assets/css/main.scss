@@ -253,6 +253,7 @@ button { font: inherit; }
 .listing-intro-description { width: 100%; max-width: 31rem; justify-self: end; margin: 0; color: var(--muted); text-align: right; }
 @media (max-width: 800px) {
   .listing-intro-inner { grid-template-columns: 1fr; gap: 1.75rem; padding-block: 3.5rem 2.5rem; }
+  .listing-intro-description { max-width: none; text-align: left; }
 }
 .archive { padding-block: 3rem 7rem; }
 
@@ -291,7 +292,7 @@ button { font: inherit; }
   .header-inner { gap: 0.5rem; }
 
   .nav-toggle { flex: 0 0 auto; }
-  .nav-toggle { display: grid; width: 2.5rem; height: 2.5rem; padding: 0; place-content: center; gap: 0.38rem; border: 0; color: var(--ink); background: transparent; }
+  .nav-toggle { display: grid; width: 2.75rem; height: 2.75rem; padding: 0; place-content: center; gap: 0.38rem; border: 0; color: var(--ink); background: transparent; }
   .nav-toggle span:not(.sr-only) { display: block; width: 1.3rem; border-top: 1.5px solid currentColor; transition: transform 180ms ease; }
   .nav-toggle[aria-expanded="true"] span:nth-last-child(2) { transform: translateY(0.22rem) rotate(45deg); }
   .nav-toggle[aria-expanded="true"] span:last-child { transform: translateY(-0.22rem) rotate(-45deg); }
@@ -512,7 +513,7 @@ button { font: inherit; }
   .home-hero-inner { min-height: calc(100svh - 4.6rem); }
   .home-hero { background-size: 3rem 3rem; }
   .home-hero-inner { grid-template-columns: 1fr; gap: 4rem; align-content: center; padding-block: 4.5rem; }
-  .home-hero-heading h1 { font-size: clamp(3.15rem, 15vw, 5rem); }
+  .home-hero-heading h1 { font-size: clamp(2.5rem, 14.5vw, 5rem); }
 
   .home-hero-notes { width: min(100%, 21rem); justify-self: end; }
 
@@ -534,4 +535,10 @@ button { font: inherit; }
   .home-photography-description { grid-column: 1 / -1; }
   .home-photography-caption .home-journal-link { grid-column: 1 / -1; justify-self: start; margin-top: 0.4rem; }
 
+}
+
+@media (max-width: 380px) {
+  .home-photography-caption { grid-template-columns: minmax(0, 1fr); }
+  .home-photography-meta { margin-top: 0; }
+  .home-more-journal a { flex-wrap: wrap; gap: .3rem 1rem; }
 }

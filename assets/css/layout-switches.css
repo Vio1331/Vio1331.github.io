@@ -63,6 +63,7 @@
 .photography-archive[data-view="list"] .photography-card:focus-within h2 { color: var(--coral); }
 
 @media (max-width: 600px) {
+  .layout-switch button { width: 44px; height: 44px; }
   .photography-archive > .layout-toolbar { margin-bottom: -.5rem; }
   .archive[data-view="list"] .journal-card-link { grid-template-columns: minmax(0, 1fr) 1.5rem; gap: .6rem 1rem; padding-block: 1.5rem; }
   .archive[data-view="list"] .journal-card h2 { grid-column: 1; grid-row: 1; font-size: 1.55rem; }

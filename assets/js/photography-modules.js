@@ -33,6 +33,7 @@
         block.style.setProperty('--photography-tracks', ratios.map(ratio => `${ratio}fr`).join(' '));
         block.classList.toggle('photography-square-pair', type === 'diptych' && ratios.length === 2 && shapes.every(s => s === 's'));
         block.classList.toggle('photography-landscape-pair', type === 'diptych' && shapes.every(s => s === 'h'));
+        block.classList.toggle('photography-mixed-pair', type === 'diptych' && new Set(shapes).size > 1);
       } else if (type === 'asymmetric') {
         const mainIndex = block.dataset.main === 'right' ? 1 : 0;
         block.style.setProperty('--photography-tracks', ratios.map((ratio, index) => `${ratio * (index === mainIndex ? 1.55 : 1)}fr`).join(' '));

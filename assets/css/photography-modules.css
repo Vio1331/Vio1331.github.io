@@ -97,7 +97,7 @@
 .photography .photography-end { padding-top: var(--photography-space); text-align: center; }
 .photography .photography-end > span { display: block; width: 30px; height: 1px; background: var(--coral); margin-inline: auto; }
 .photography .photography-end p { margin: 20px 0 0; font-size: 13px; color: var(--muted); }
-@container photography (max-width: 720px) {
+@container photography (max-width: 800px) {
   .photography[data-density="airy"] .photography-block { width: 100%; }
   .photography .photography-sheet { width: calc(100% - 40px); padding-block: 36px 48px; }
   .photography .photography-block { margin-top: 112px; }
@@ -111,25 +111,29 @@
   .photography .photography-images { gap: 12px; }
   .photography [data-type="triptych"] .photography-images,
   .photography .photography-landscape-pair:not([data-mobile="pair"]) .photography-images,
+  .photography .photography-mixed-pair:not([data-mobile="pair"]) .photography-images,
   .photography [data-mobile="stack"] .photography-images { grid-template-columns: 1fr; gap: 24px; }
   .photography [data-type="triptych"] .photography-image[data-shape="v"] { width: 88%; margin-inline: auto; }
-  .photography .photography-square-pair .photography-images { gap: 24px; }
+  .photography .photography-square-pair:not([data-mobile="stack"]) .photography-images { gap: 16px; }
   .photography .photography-asymmetric { grid-template-columns: 1fr; gap: 28px; }
-  .photography .photography-asymmetric > .photography-image { display: block; }
-  .photography .photography-asymmetric > .photography-image:nth-child(2) { width: 76%; justify-self: end; }
-  .photography [data-main="right"] .photography-asymmetric > .photography-image:first-child { width: 76%; }
+  .photography .photography-asymmetric > .photography-image { display: block; width: 100%; justify-self: center; }
+  .photography .photography-asymmetric > .photography-image:nth-child(2) { width: 80%; }
+  .photography [data-main="right"] .photography-asymmetric > .photography-image:first-child { width: 80%; }
   .photography [data-main="right"] .photography-asymmetric > .photography-image:nth-child(2) { width: 100%; }
   .photography .photography-block .photography-image-text { grid-template-columns: 1fr; gap: 32px; }
   .photography .photography-block[data-shape="v"] > .photography-image-text > .photography-image,
   .photography[data-density="full"] .photography-block[data-shape="v"] > .photography-image-text > .photography-image { width: 85%; justify-self: center; }
   .photography .photography-copy,
   .photography .photography-short-copy .photography-copy { max-width: none; }
+  .photography .photography-copy blockquote { padding: 3.5rem 1.25rem 1.5rem; }
+  .photography .photography-copy blockquote::before { top: 1rem; left: 1rem; }
   .photography .photography-text-only { display: block; }
   .photography .photography-text-only > .photography-copy + .photography-copy { margin-top: 40px; }
   .photography .photography-image > figcaption,
-  .photography .photography-group > figcaption { gap: 10px; margin-top: 10px; }
+  .photography .photography-group > figcaption { gap: 10px; margin-top: 10px; overflow-wrap: anywhere; }
   .photography .photography-opening { grid-template-columns: 1fr; gap: 24px; padding-bottom: 28px; }
-  .photography .photography-opening-note { justify-self: end; }
+  .photography .photography-opening-note { max-width: none; text-align: left; }
+  .photography .photography-meta { justify-content: flex-start; margin-top: 16px; }
   .photography .photography-sheet > .photography-block:first-of-type { margin-top: 36px; }
   .photography .photography-opening h1 { font-size: 34px; max-width: none; }
   .photography .photography-end { padding-top: 70px; }

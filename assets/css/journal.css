@@ -412,5 +412,18 @@
 @media (max-width: 800px) {
   .journal { padding-block: 4rem 6rem; }
   .journal-header { grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 3rem; padding-bottom: 2rem; }
+  .journal-byline { justify-content: flex-start; }
   .journal-cover { margin-bottom: 3rem; }
+  .journal > .journal-content { overflow-wrap: anywhere; }
+  .journal > .journal-content > ul,
+  .journal > .journal-content > ol,
+  .journal > .journal-content li > ul,
+  .journal > .journal-content li > ol { padding-inline-start: 1.4rem; }
+  .journal > .journal-content blockquote { padding: 3.5rem 1.25rem 1.5rem; }
+  .journal > .journal-content blockquote::before { top: 1rem; left: 1rem; }
+}
+
+/* Include phone landscape and tablet widths when containing wide data. */
+@media (max-width: 1040px) {
+  .journal > .journal-content table { display: block; max-width: 100%; overflow-x: auto; overflow-wrap: normal; overscroll-behavior-x: contain; }
 }

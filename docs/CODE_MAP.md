@@ -98,7 +98,7 @@ mindmap
 
 ## 构建过程
 
-1. `tools/content-build/cli.mjs prepare` 复制源文件到 `_content_build`，由 `parser.mjs` 把摄影中文标记转换成 blocks。源文件不回写；`cover-images.mjs` 自动生成封面 WebP 缩略图及 `_data/cover_images.json`，仅写入构建副本。
+1. `tools/content-build/cli.mjs prepare` 复制源文件到 `_content_build`，由 `parser.mjs` 把摄影中文标记转换成 blocks。源文件不回写；`cover-images.mjs` 自动生成 `assets/images/generated/covers/` 内的封面 WebP 缩略图及 `_data/cover_images.json`，仅写入构建副本，Jekyll 随后将图片复制到 `_site` 同名目录；这些文件不提交回源码仓库。
 2. Jekyll 读取 `_config.yml`、两个内容集合、模板与 `_plugins`。
 3. `_plugins/journal.rb` 根据文章文件名生成稳定链接，处理订阅 ID、SEO 类型和重复链接检查。
 4. `_plugins/image_paths.rb` 拼接图片地址；正文先由原来的 Kramdown 渲染，再只处理 HTML 图片元素。文章、摄影和订阅共用解析规则。
