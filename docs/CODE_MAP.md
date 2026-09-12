@@ -94,7 +94,7 @@ mindmap
 | `assets/js/reading-tools.js` | 目录生成、锚点、开关与滚动边界，无版式切换 |
 | `assets/js/photography-modules.js` | 读取照片自然比例，识别横竖方，调整组合图片的栏宽 |
 
-首页「文」和开放式图片符号是静态 SVG；没有描边动画或动画时长变量。文章正文固定宽版；摄影整篇的 `density: airy` 生效，未填写默认 Full。
+首页「文」和用户上传的叠放相片轮廓是静态 SVG；没有描边动画或动画时长变量。文章正文固定宽版；摄影整篇的 `density: airy` 生效，未填写默认 Full。
 
 ## 构建过程
 
